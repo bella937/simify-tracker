@@ -1,0 +1,6454 @@
+{
+  "updated": "2026-07-18 16:31 UTC",
+  "count": 403,
+  "creators": [
+    {
+      "name": "Joshua Paine",
+      "handle": "@joshuapaine",
+      "market": "AU",
+      "subs": "72K",
+      "niche": "Road trips, lifestyle vlogs",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Sydney Food Boy (Kev)",
+      "handle": "@SydneyFoodBoy",
+      "market": "AU",
+      "subs": "36.7K",
+      "niche": "Food, culture, city (travel-adjacent)",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Brieana Young",
+      "handle": "@BrieanaYoung",
+      "market": "AU",
+      "subs": "17.2K",
+      "niche": "Flight attendant, airline & economy reviews",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Tiffany Lawrence",
+      "handle": "@TiffanyLawrence",
+      "market": "AU",
+      "subs": "15.5K",
+      "niche": "Outdoor adventure, hiking",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "CabinCrewChat (Kaito)",
+      "handle": "@CabinCrewChat",
+      "market": "AU",
+      "subs": "12.4K",
+      "niche": "Cabin crew / aviation careers",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Girl About Melbourne (Steph)",
+      "handle": "@girlaboutmelb",
+      "market": "AU",
+      "subs": "10.9K",
+      "niche": "Food, lifestyle, city (travel-adjacent)",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Jana Vanana",
+      "handle": "@jana.vanana",
+      "market": "AU",
+      "subs": "9K",
+      "niche": "Solo female van life, vegan, sustainable",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Roaming With Racheal",
+      "handle": "@roamingwithracheal",
+      "market": "AU",
+      "subs": "3.2K",
+      "niche": "Flight attendant (ex-Emirates), living abroad",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Hey Kiera – She Will Explore",
+      "handle": "@she.will.explore",
+      "market": "AU",
+      "subs": "2.2K",
+      "niche": "Women's hiking & adventure trips",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Trippin with Josie",
+      "handle": "@trippinwithjosie",
+      "market": "AU",
+      "subs": "1.9K",
+      "niche": "Campervan lap of Australia (25yo + partner)",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Finding Reanna",
+      "handle": "@findingReanna",
+      "market": "AU",
+      "subs": "1.6K",
+      "niche": "Solo female backpacking",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Abbey Francis",
+      "handle": "@abbeyfrancis",
+      "market": "AU",
+      "subs": "1.4K",
+      "niche": "Van life, seasonal work (mid-20s)",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Just Vanning It",
+      "handle": "@justvanningit",
+      "market": "AU",
+      "subs": "31.3K",
+      "niche": "Caravanning Australia (couple)",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Now or Never",
+      "handle": "@nowornever_aus",
+      "market": "AU",
+      "subs": "28.1K",
+      "niche": "Family caravan, off-grid touring",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Australie Guide Backpackers",
+      "handle": "@AustralieGuideBackpackers",
+      "market": "AU",
+      "subs": "8.7K",
+      "niche": "Backpacker guide to AU",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Living Off The Van",
+      "handle": "@LivingOffTheVan",
+      "market": "AU",
+      "subs": "7.7K",
+      "niche": "Family caravanning Australia",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "What Phill's Doin'",
+      "handle": "@whatphillsdoin",
+      "market": "AU",
+      "subs": "7.2K",
+      "niche": "Travel adventure, expat life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Working Holiday Club (Giulia)",
+      "handle": "@GiuliaSampogna",
+      "market": "AU",
+      "subs": "5.5K",
+      "niche": "Working Holiday Visa guide",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Aussie Van Adventures",
+      "handle": "@AussieVanAdventures",
+      "market": "AU",
+      "subs": "4.9K",
+      "niche": "Family van/caravan Australia",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Aussie Travel Couple",
+      "handle": "@AussieTravelCouple",
+      "market": "AU",
+      "subs": "4.3K",
+      "niche": "Couple travel — AU, India, world",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "janie kings",
+      "handle": "@janiekings",
+      "market": "AU",
+      "subs": "4.2K",
+      "niche": "Travel vlogs (early-stage, 16 videos)",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "EV Adventures Down Under (Josh)",
+      "handle": "@EVAdventuresDownUnder",
+      "market": "AU",
+      "subs": "3.1K",
+      "niche": "EV road trips (travel-adjacent)",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "International Hostess (Maria Belen)",
+      "handle": "@InternationalHostess",
+      "market": "AU",
+      "subs": "2.5K",
+      "niche": "Flight attendant, work & travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "WildKiwiAdventurer (Chris)",
+      "handle": "@wildkiwiadventurer",
+      "market": "NZ",
+      "subs": "17.8K",
+      "niche": "Adventure travel, outdoors",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "that american in new zealand (Morgan)",
+      "handle": "@MorganMarieWolff",
+      "market": "NZ",
+      "subs": "4.6K",
+      "niche": "Moving to / living in NZ",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Nicola Telfer",
+      "handle": "@NicolaTelferr",
+      "market": "NZ → Europe",
+      "subs": "1.8K",
+      "niche": "Solo travel (young Kiwi)",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Wayfaring Kiwi",
+      "handle": "@WayfaringKiwi",
+      "market": "NZ → Scotland",
+      "subs": "1.3K",
+      "niche": "NZ travel blogger abroad",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Real New Zealand Adventures",
+      "handle": "@RealNewZealandAdventures",
+      "market": "NZ",
+      "subs": "15.5K",
+      "niche": "NZ travel, farm/rural, family",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Nomad Life Kiwi",
+      "handle": "@NomadLifeKiwi",
+      "market": "NZ",
+      "subs": "3.4K",
+      "niche": "World travel, van life (couple)",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Kiwi Travel Vlogs",
+      "handle": "@kiwitravelvlogs",
+      "market": "NZ",
+      "subs": "1.9K",
+      "niche": "NZ travel (family)",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Backpacking Bananas",
+      "handle": "@backpackingbananas",
+      "market": "US",
+      "subs": "214K",
+      "niche": "Solo backpacking, budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Wild Touring",
+      "handle": "@wildtouring",
+      "market": "AU",
+      "subs": "161K",
+      "niche": "Family caravan, road trips",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Samuel and Audrey",
+      "handle": "@samuelandaudrey",
+      "market": "CA",
+      "subs": "431K",
+      "niche": "Travel guides, food tours",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Jumping Places",
+      "handle": "@jumpingplaces",
+      "market": "UK/Brazil",
+      "subs": "460K",
+      "niche": "Couple travel, full-time nomads",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "CupofTJ",
+      "handle": "@cupoftj",
+      "market": "US",
+      "subs": "415K",
+      "niche": "Travel and food",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Gabriel Traveler",
+      "handle": "@gabrieltraveler",
+      "market": "US",
+      "subs": "450K+",
+      "niche": "Budget solo travel, hostels",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Endless Adventure",
+      "handle": "@theendlessadventure",
+      "market": "US",
+      "subs": "635K",
+      "niche": "Couple travel, digital nomad",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Wolters World",
+      "handle": "@woltersworld",
+      "market": "US",
+      "subs": "1M",
+      "niche": "Travel tips, destination guides",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Sorelle Amore",
+      "handle": "@sorelleamore",
+      "market": "AU",
+      "subs": "1M",
+      "niche": "Travel, photography, lifestyle",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Hey Nadine",
+      "handle": "@heynadine",
+      "market": "CA",
+      "subs": "925K",
+      "niche": "Solo female travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Vagabrothers",
+      "handle": "@vagabrothers",
+      "market": "US",
+      "subs": "1M",
+      "niche": "Travel culture, cinematic",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Fearless and Far",
+      "handle": "@fearlessandfar",
+      "market": "CA",
+      "subs": "3M",
+      "niche": "Adventure travel, extreme",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Indigo Traveller",
+      "handle": "@indigotraveller",
+      "market": "NZ",
+      "subs": "4.5M",
+      "niche": "Off-beaten-path documentaries",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Drew Binsky",
+      "handle": "@drewbinsky",
+      "market": "US",
+      "subs": "5M+",
+      "niche": "Every country travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Lost LeBlanc",
+      "handle": "@lostleblanc",
+      "market": "CA",
+      "subs": "2.3M",
+      "niche": "Cinematic travel, luxury",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Kara and Nate",
+      "handle": "@karaandnate",
+      "market": "US",
+      "subs": "4.4M",
+      "niche": "Couple travel, points/miles",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Kurt Caz",
+      "handle": "@kurtcaz",
+      "market": "ZA",
+      "subs": "4M+",
+      "niche": "Adventure, off-beaten-path",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Sailing La Vagabonde",
+      "handle": "@sailinglavagabonde",
+      "market": "AU",
+      "subs": "2M",
+      "niche": "Sailing, ocean travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Jorden Tually",
+      "handle": "@jordentually",
+      "market": "AU",
+      "subs": "2.6M",
+      "niche": "Cinematic travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Brooke Saward",
+      "handle": "@brookesaward",
+      "market": "AU",
+      "subs": "725K",
+      "niche": "Solo female travel, luxury",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel as a lifestyle ",
+      "handle": "@ela-travel",
+      "market": "RO",
+      "subs": "1.9K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel to Travel Sri Lanka",
+      "handle": "@traveltotravelsrilanka1767",
+      "market": "LK",
+      "subs": "4.6K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Sketch",
+      "handle": "@travelsketch",
+      "market": "AU",
+      "subs": "15.9K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "INTRO Travel",
+      "handle": "@introtravel",
+      "market": "UK",
+      "subs": "2.9K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "DustBugs Travel",
+      "handle": "@dustbugstravel",
+      "market": "ZA",
+      "subs": "62.7K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Melbourne",
+      "handle": "@travelmelbourne",
+      "market": "AU",
+      "subs": "37.5K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Guides Australia",
+      "handle": "@travelguidesau",
+      "market": "AU",
+      "subs": "10.2K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Kids",
+      "handle": "@travelkidstvshow",
+      "market": "US",
+      "subs": "48K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel To Travel",
+      "handle": "@traveltotravel",
+      "market": "US",
+      "subs": "6K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Santai",
+      "handle": "@travelsantai25",
+      "market": "AU",
+      "subs": "3.3K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Helio Travel",
+      "handle": "@heliotravel",
+      "market": "TR",
+      "subs": "3K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Wyld Family Travel",
+      "handle": "@wyldfamilytravel",
+      "market": "AU",
+      "subs": "4K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "i travel.",
+      "handle": "@itravelshiju",
+      "market": "AU",
+      "subs": "22.5K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Jon & Jess Travel",
+      "handle": "@jonjesstravel",
+      "market": "AU",
+      "subs": "2K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel DayTrip Ideas",
+      "handle": "@traveldaytripideas",
+      "market": "AU",
+      "subs": "9.4K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "NowGetThere Travel",
+      "handle": "@nowgettheretravel",
+      "market": "AU",
+      "subs": "3.9K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Takyo Travel",
+      "handle": "@takyotravel",
+      "market": "CA",
+      "subs": "26.3K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel with Ali ",
+      "handle": "@travelwithali-b8v",
+      "market": "PK",
+      "subs": "44.8K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "FoodieThai",
+      "handle": "@foodiethai",
+      "market": "UK",
+      "subs": "24.3K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Yaariyan",
+      "handle": "@travelyaariyan",
+      "market": "IN",
+      "subs": "1.2K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "travel the country - AussieAdventure",
+      "handle": "@travelthecountry-aussieadv1730",
+      "market": "AU",
+      "subs": "2.2K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "BEC & NATH TRAVEL LIFE",
+      "handle": "@islandbound_ontour",
+      "market": "—",
+      "subs": "8.6K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Intrepid Travel",
+      "handle": "@intrepidtravel",
+      "market": "AU",
+      "subs": "12.2K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Motivated Travel | Family Reviews, Guides and Tips",
+      "handle": "@motivated_travel",
+      "market": "AU",
+      "subs": "1.3K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "James and Josie Travel",
+      "handle": "@jamesandjosietravel",
+      "market": "CA",
+      "subs": "33.8K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Next Chapter Travel ",
+      "handle": "@nextchaptertravelling",
+      "market": "—",
+      "subs": "1.2K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Music Travel Love - Topic",
+      "handle": "@UCuF_wNnVsaqGUWAh3IZQLeA",
+      "market": "—",
+      "subs": "48K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel With Love & Humanity",
+      "handle": "@travel_with_love_2024",
+      "market": "LK",
+      "subs": "1.6K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Michie Travel",
+      "handle": "@michie_travel",
+      "market": "AU",
+      "subs": "41.1K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Two Guys Travel",
+      "handle": "@twoguystravel",
+      "market": "AU",
+      "subs": "1.6K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "4K WalkTours ",
+      "handle": "@walkingtours-travel",
+      "market": "NO",
+      "subs": "1.4K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel with Tanya and Simon",
+      "handle": "@travelwithtanyaandsimon",
+      "market": "AU",
+      "subs": "3.2K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Adrian The Cruise and Travel Guy",
+      "handle": "@thecruiseandtravelguy",
+      "market": "AU",
+      "subs": "31K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "In and out Travel",
+      "handle": "@inandouttravel26",
+      "market": "AU",
+      "subs": "1.7K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Welcome to Travel",
+      "handle": "@welcometotravel",
+      "market": "AU",
+      "subs": "6.9K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "APT Luxury Travel",
+      "handle": "@aptouring",
+      "market": "—",
+      "subs": "10.3K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "junlive rayos travel vlog",
+      "handle": "@junliverayostravelvlog",
+      "market": "AU",
+      "subs": "1.8K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Trudy & Edd Travel",
+      "handle": "@trudyandeddtravel",
+      "market": "UK",
+      "subs": "1.4K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Never Too Old To Travel Australia",
+      "handle": "@nevertoooldtotravelaustralia",
+      "market": "AU",
+      "subs": "5.8K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Karan's Travel Diaries",
+      "handle": "@karanstravelvlogs",
+      "market": "AU",
+      "subs": "5.8K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Our Travel SA",
+      "handle": "@ourtravelsa",
+      "market": "AU",
+      "subs": "5K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "T's Cruise and Travel Muse",
+      "handle": "@tscruiseandtravelmuse",
+      "market": "US",
+      "subs": "1.1K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "arrival.travel",
+      "handle": "@arrival.travel",
+      "market": "AU",
+      "subs": "1.7K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Fine Arts And Travel",
+      "handle": "@fineartsandtravel833",
+      "market": "IN",
+      "subs": "1.5K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Dave Do Travel",
+      "handle": "@davedotravel",
+      "market": "AU",
+      "subs": "7.2K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Arigato Solo Travel ",
+      "handle": "@arigatosolotravel",
+      "market": "JP",
+      "subs": "3.7K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Himalayan Solo traveler",
+      "handle": "@himalayansolotraveler",
+      "market": "IN",
+      "subs": "9.6K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel POV",
+      "handle": "@solotravelpov",
+      "market": "US",
+      "subs": "13.8K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Japan Carefree Solo Travel",
+      "handle": "@japancarefreesolotravel",
+      "market": "JP",
+      "subs": "14K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel Experience",
+      "handle": "@solotravelexperience",
+      "market": "JP",
+      "subs": "1.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel Japan / Food Tour",
+      "handle": "@stjfoodtour",
+      "market": "JP",
+      "subs": "57.5K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "JourneyWoman Solo Travel For Women Over 50",
+      "handle": "@journeywoman_solowomen50travel",
+      "market": "CA",
+      "subs": "2.4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Traveler Tony",
+      "handle": "@solotravelertony",
+      "market": "US",
+      "subs": "3.1K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Will Solo Travels",
+      "handle": "@willgowkelowna",
+      "market": "CA",
+      "subs": "2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel ",
+      "handle": "@solotravel020",
+      "market": "IN",
+      "subs": "71.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Girls Travel Guide",
+      "handle": "@sologirlstravelguide",
+      "market": "US",
+      "subs": "9.5K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travels With Syl | Solo Travel Diary",
+      "handle": "@travelswithsyl",
+      "market": "US",
+      "subs": "86.1K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel Journal",
+      "handle": "@solotraveljournal",
+      "market": "JP",
+      "subs": "59.1K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Solo Traveler ORD",
+      "handle": "@thesolotravelerord",
+      "market": "US",
+      "subs": "31.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Nomad Solo Travel",
+      "handle": "@nomadsolotravel",
+      "market": "US",
+      "subs": "59.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Solo Travel Bae",
+      "handle": "@thesolotravelbae_",
+      "market": "US",
+      "subs": "3K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Nancy's Solo Trips and Tips",
+      "handle": "@nancyssolotripsandtips",
+      "market": "CA",
+      "subs": "1.1K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Palnadu Solo Traveller ",
+      "handle": "@palnadusolotraveller",
+      "market": "IO",
+      "subs": "24.3K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Bo's solo traveling",
+      "handle": "@bossolotravelling",
+      "market": "US",
+      "subs": "2.4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Angelo from the 416 - The Gay Solo Traveller",
+      "handle": "@angelofromthe416",
+      "market": "CA",
+      "subs": "4.4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel Diaries",
+      "handle": "@solotraveldiaries95",
+      "market": "—",
+      "subs": "4.5K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "SeniorSoloTravel",
+      "handle": "@seniorsolotravel",
+      "market": "US",
+      "subs": "13.7K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo travel after 60 – Gathering no moss",
+      "handle": "@gatheringnomoss",
+      "market": "CA",
+      "subs": "4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel 360 🧿",
+      "handle": "@solotravel360",
+      "market": "IN",
+      "subs": "12.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "KELLA",
+      "handle": "@kellatravel",
+      "market": "LK",
+      "subs": "61.4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel 1974",
+      "handle": "@solotravel1974",
+      "market": "UK",
+      "subs": "14.9K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "SAN Solo Travel | Slow Journeys",
+      "handle": "@sansolotravel",
+      "market": "JP",
+      "subs": "2.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "solo travel 63",
+      "handle": "@solotravel63",
+      "market": "JP",
+      "subs": "2.4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Chinese Travel",
+      "handle": "@solochinesetravel",
+      "market": "US",
+      "subs": "17.7K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Cruise & Travel",
+      "handle": "@solocruisetravel",
+      "market": "US",
+      "subs": "27K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Mer Cruises Solo",
+      "handle": "@mercruisessolo",
+      "market": "US",
+      "subs": "19.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Solo Adventures",
+      "handle": "@travelsoloadv",
+      "market": "US",
+      "subs": "49.5K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "solo traveler uae",
+      "handle": "@solotraveleruae5027",
+      "market": "AE",
+      "subs": "20.6K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Sue Travels",
+      "handle": "@solosuetravels",
+      "market": "US",
+      "subs": "2.3K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "SoloTravelBlog",
+      "handle": "@solotravelblog",
+      "market": "JP",
+      "subs": "72.1K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Sindhu Solo Traveller-kashmir",
+      "handle": "@sindhusolotraveller",
+      "market": "IN",
+      "subs": "75.7K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel Tour",
+      "handle": "@solotraveltour3808",
+      "market": "JP",
+      "subs": "1.5K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Sakura's Solo Travel",
+      "handle": "@sakurassolotravel-iq2sr",
+      "market": "JP",
+      "subs": "1.5K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Sue Where Why What | Solo Travel Over 40",
+      "handle": "@suewherewhywhat",
+      "market": "UK",
+      "subs": "2.7K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Rajesh solo Travel",
+      "handle": "@rajeshsolotravel",
+      "market": "US",
+      "subs": "2.1K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Mr Solo Traveller",
+      "handle": "@mrsolotravelling26",
+      "market": "—",
+      "subs": "1.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel",
+      "handle": "@solotravel1257",
+      "market": "IN",
+      "subs": "1.4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Bong Solo Traveller",
+      "handle": "@bongsolotraveller",
+      "market": "IN",
+      "subs": "4.4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel Diary",
+      "handle": "@solotraveldiary",
+      "market": "JP",
+      "subs": "4.1K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Soul Compass - Cruise Reviews and Solo Travel",
+      "handle": "@soulcompass-777",
+      "market": "AU",
+      "subs": "1.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Traveling Official",
+      "handle": "@solotravelingofficial",
+      "market": "GR",
+      "subs": "1.3K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Hakan | Solo Traveler 🌍",
+      "handle": "@hakonomad",
+      "market": "TR",
+      "subs": "1K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Deepakyogi solo travel",
+      "handle": "@deepakyogisolotravel",
+      "market": "IN",
+      "subs": "1.4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Momo  Travel",
+      "handle": "@momo-travel2022",
+      "market": "US",
+      "subs": "100K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Koala Travel Solo",
+      "handle": "@koalatravelsolo",
+      "market": "—",
+      "subs": "3.7K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel Adventures with Amie",
+      "handle": "@thesolotraveladventures",
+      "market": "US",
+      "subs": "2.5K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Chef Traveler",
+      "handle": "@solocheftraveler",
+      "market": "MA",
+      "subs": "15.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "solo travel camping KL14",
+      "handle": "@solotravelcampingkl14",
+      "market": "IN",
+      "subs": "2.4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Traveller Suhel",
+      "handle": "@solotravellersuhel",
+      "market": "IN",
+      "subs": "5.6K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Traveling Solo",
+      "handle": "@travelingsolo",
+      "market": "US",
+      "subs": "1.8K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel Track 獨遊軌跡",
+      "handle": "@solotraveltrack",
+      "market": "UK",
+      "subs": "1.1K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel",
+      "handle": "@solotravel21",
+      "market": "IN",
+      "subs": "2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo traveller Jeet",
+      "handle": "@solotravellerjeet",
+      "market": "IN",
+      "subs": "1.3K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "SOLO TRIP",
+      "handle": "@solotrip",
+      "market": "JP",
+      "subs": "3.7K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Solo Travel",
+      "handle": "@chinesefood.",
+      "market": "US",
+      "subs": "1.2K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Ate Icia Solo Traveler ",
+      "handle": "@ateicia",
+      "market": "PH",
+      "subs": "1.3K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Ganesh solo traveler",
+      "handle": "@ganeshthetraveler",
+      "market": "IN",
+      "subs": "8.4K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Jade Nomad Life | Jade的游牧生活",
+      "handle": "@jadenomadlife",
+      "market": "US",
+      "subs": "29.3K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Japan Solo Travel",
+      "handle": "@japansolotravel2022",
+      "market": "JP",
+      "subs": "1.7K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Retired Nomad Solo Travels",
+      "handle": "@fly.gratis",
+      "market": "US",
+      "subs": "20.3K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "NehazKitchen & Travel on a Budget",
+      "handle": "@nehazkitchen221",
+      "market": "UK",
+      "subs": "1.8K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget travelers ",
+      "handle": "@budgetravelers",
+      "market": "—",
+      "subs": "61.4K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Travel",
+      "handle": "@passportoadventure",
+      "market": "US",
+      "subs": "6.4K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Big with a Tiny Budget",
+      "handle": "@travel_big_with_a_tiny_budget",
+      "market": "IN",
+      "subs": "97.7K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "JB budget travel",
+      "handle": "@jbbudgettravel",
+      "market": "—",
+      "subs": "1.1K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Travel Diaries",
+      "handle": "@vianyz",
+      "market": "ID",
+      "subs": "2.4K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Traveller Chris. Com",
+      "handle": "@budget-traveller-chris",
+      "market": "—",
+      "subs": "1.5K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "True Budget Travelling",
+      "handle": "@craig_black",
+      "market": "UK",
+      "subs": "66.3K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Fun and Budget Travels",
+      "handle": "@funandbudgettravels",
+      "market": "US",
+      "subs": "5.8K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Trip on a Budget",
+      "handle": "@triponabudget",
+      "market": "RO",
+      "subs": "2.8K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "BUDGET TOURISM KSRTC",
+      "handle": "@budgettourism2025",
+      "market": "IN",
+      "subs": "38.9K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Family Man",
+      "handle": "@budgetfamilyman",
+      "market": "IN",
+      "subs": "76.1K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Travel By Suhail",
+      "handle": "@budgettravelbysuhail2",
+      "market": "IN",
+      "subs": "8.4K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Anudeep Budget Travel Vlogs",
+      "handle": "@anudeeptraveller",
+      "market": "IN",
+      "subs": "10.1K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Sean and Tinna - Retired Budget Slow Travelers",
+      "handle": "@seanandtinna",
+      "market": "—",
+      "subs": "10.6K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Travel & Food By Saidu",
+      "handle": "@budgettravelfoodbysaidu",
+      "market": "IN",
+      "subs": "41.4K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Trip Guide",
+      "handle": "@budgettripguide",
+      "market": "IN",
+      "subs": "1.3K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Tourist",
+      "handle": "@budgettourist",
+      "market": "BD",
+      "subs": "13.9K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "PM Bala | Budget TN Travel",
+      "handle": "@travelwithpmbala",
+      "market": "IN",
+      "subs": "1.9K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel In Budget",
+      "handle": "@travelinbudget",
+      "market": "IN",
+      "subs": "6.5K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Global Budget Explorer",
+      "handle": "@globalbudgetexplorer",
+      "market": "CH",
+      "subs": "1.2K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Indian Budget Traveller | Sahil",
+      "handle": "@indianbudgettraveller",
+      "market": "IN",
+      "subs": "2.5K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Traveller Bharath (BTB)",
+      "handle": "@budgettravellerbharath",
+      "market": "IN",
+      "subs": "19.7K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "penyoo kecil - Budget Travel, Food and Experience ",
+      "handle": "@penyookecil",
+      "market": "ID",
+      "subs": "12K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Travel 365",
+      "handle": "@bookingflynhotel",
+      "market": "BD",
+      "subs": "1.2K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "BUDGET NOMAD",
+      "handle": "@budget_nomad",
+      "market": "UK",
+      "subs": "2.2K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Travel with Rashid",
+      "handle": "@rashid056",
+      "market": "PK",
+      "subs": "1.5K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Pursuits",
+      "handle": "@familytravelpursuits8318",
+      "market": "US",
+      "subs": "2.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel love family",
+      "handle": "@travellovefamily",
+      "market": "IN",
+      "subs": "14.8K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "True Family Travel",
+      "handle": "@truefamilytravel",
+      "market": "SE",
+      "subs": "1.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Family",
+      "handle": "@travel.family",
+      "market": "ID",
+      "subs": "2.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "MH Family Adventures (Cruise Travel)",
+      "handle": "@mhfamilyadventures",
+      "market": "US",
+      "subs": "41.9K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Harper Family Travel",
+      "handle": "@harperfamilytravel",
+      "market": "US",
+      "subs": "6.9K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Slow Travels Family",
+      "handle": "@theslowtravelsfamily",
+      "market": "UK",
+      "subs": "41.6K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Watson's Family Travels",
+      "handle": "@watsonsfamilytravels",
+      "market": "UK",
+      "subs": "1.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Where's Mondo!!! Family Travel",
+      "handle": "@wheresmondo",
+      "market": "US",
+      "subs": "1.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel",
+      "handle": "@familytravel_dulichtrainghiem",
+      "market": "US",
+      "subs": "21.9K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Time",
+      "handle": "@familytraveltime",
+      "market": "US",
+      "subs": "2.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Family",
+      "handle": "@travelfamily34",
+      "market": "TR",
+      "subs": "1.9K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Work & Ministry",
+      "handle": "@vicjo",
+      "market": "UK",
+      "subs": "4.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Roaming Family Travel",
+      "handle": "@roamingfamilytravel",
+      "market": "US",
+      "subs": "1.8K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Brave Family Travel",
+      "handle": "@bravefamilytravel",
+      "market": "US",
+      "subs": "4.9K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel with Family ",
+      "handle": "@travelwithfamilysrilanka",
+      "market": "LK",
+      "subs": "2.6K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel",
+      "handle": "@familytravelcolleenkelly",
+      "market": "US",
+      "subs": "5K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Wishes",
+      "handle": "@familytravelwishes",
+      "market": "IN",
+      "subs": "1.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Story",
+      "handle": "@family_travel_story",
+      "market": "UK",
+      "subs": "47.5K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Wanderlocal Travel Family",
+      "handle": "@wanderlocal",
+      "market": "US",
+      "subs": "21.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Mothership Adrift Travel and Sailing",
+      "handle": "@mothershipadrift",
+      "market": "UK",
+      "subs": "18.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Prince Family Travel",
+      "handle": "@princefamilytravel",
+      "market": "US",
+      "subs": "1.9K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Exploreteria: Family Travel",
+      "handle": "@exploreteria",
+      "market": "US",
+      "subs": "26.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Guide",
+      "handle": "@family-travel-guide",
+      "market": "US",
+      "subs": "7K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Sky Surfers Family Travel",
+      "handle": "@skysurfers.familytravel",
+      "market": "AU",
+      "subs": "6.8K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Todoing Family - Family Travel",
+      "handle": "@todoingfamily",
+      "market": "AU",
+      "subs": "7.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Wandering Wagars | Adventure Family Travel",
+      "handle": "@wanderingwagars",
+      "market": "CA",
+      "subs": "4.9K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Trips with the Meyers Brothers",
+      "handle": "@familytripspod",
+      "market": "US",
+      "subs": "21.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Vlog",
+      "handle": "@familytravelvlog",
+      "market": "AU",
+      "subs": "1.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Bucket List Family Travel",
+      "handle": "@bucketlistfamilytravel",
+      "market": "US",
+      "subs": "50.6K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Itineraries",
+      "handle": "@familytravelitineraries",
+      "market": "US",
+      "subs": "9.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Blasian Family Travel",
+      "handle": "@blasianfamilytravel",
+      "market": "US",
+      "subs": "2.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Just Us Travel",
+      "handle": "@just-us-travel",
+      "market": "NO",
+      "subs": "5.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "TRAVEL TECHY FAMILY VLOGS",
+      "handle": "@traveltechyfamilyvlogs",
+      "market": "IN",
+      "subs": "3.7K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Goals",
+      "handle": "@thefamilytravelgoals",
+      "market": "US",
+      "subs": "5.6K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Family Channel",
+      "handle": "@travelfamilychannel",
+      "market": "ID",
+      "subs": "1.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Chad & Mia - Bali Travel and Bali Life",
+      "handle": "@chadandmiaofficial",
+      "market": "AU",
+      "subs": "3.5K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Those Travel Parents | Family Travel & Reviews",
+      "handle": "@thosetravelparents",
+      "market": "US",
+      "subs": "1.7K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "♡Travel with Silva family♡",
+      "handle": "@byler-67-st",
+      "market": "—",
+      "subs": "2.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Learners and Makers - Travel Family",
+      "handle": "@learnersandmakers",
+      "market": "US",
+      "subs": "1.6K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Fun Travel ",
+      "handle": "@familyfuntravel",
+      "market": "PT",
+      "subs": "10.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family travel fun ",
+      "handle": "@familylifefun1991",
+      "market": "—",
+      "subs": "9.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "M&M Family Travel Channel",
+      "handle": "@mmfamilychannel",
+      "market": "MX",
+      "subs": "2.2K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Travel Mum",
+      "handle": "@thetravelmum",
+      "market": "UK",
+      "subs": "4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Time L&S Travel",
+      "handle": "@familytimels",
+      "market": "AT",
+      "subs": "1.6K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Fortuna-Family Travel",
+      "handle": "@fortuna-familytravel1726",
+      "market": "UA",
+      "subs": "1.8K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Rosie's Family Travel and Adventure Channel",
+      "handle": "@travelingleons",
+      "market": "US",
+      "subs": "10.9K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Lilipas Travel ",
+      "handle": "@lilipastravel",
+      "market": "IN",
+      "subs": "1.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "HappyMummyShopper - Family Travel & Days Out",
+      "handle": "@happymummyshopper",
+      "market": "UK",
+      "subs": "1.7K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Easy Family Travel | ครอบครัวเที่ยวง่ายๆ",
+      "handle": "@kuankaw09",
+      "market": "TH",
+      "subs": "1.7K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "TripLifeFamily",
+      "handle": "@triplifefamily",
+      "market": "UA",
+      "subs": "22.8K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Dad Life - Parent Humour and Family Travel ",
+      "handle": "@dadlifewithriver",
+      "market": "UK",
+      "subs": "20.9K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Vibes",
+      "handle": "@familytravelvibess",
+      "market": "IN",
+      "subs": "2.5K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "ARS FAMILY TRAVEL VLOGs",
+      "handle": "@arsfamilyvlogs",
+      "market": "—",
+      "subs": "1.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "L.A. Family Travel",
+      "handle": "@lafamilytravel",
+      "market": "US",
+      "subs": "1.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Phelps Travel ",
+      "handle": "@phelpstravel",
+      "market": "UK",
+      "subs": "6.2K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "On A Plane Again | Family Adventure Travel",
+      "handle": "@onaplaneagain",
+      "market": "UK",
+      "subs": "17.7K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Family Travel Tales",
+      "handle": "@thefamilytraveltales",
+      "market": "US",
+      "subs": "1.9K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "WiFiFamily Music Travel Food",
+      "handle": "@wififamilymusictravelfood4734",
+      "market": "US",
+      "subs": "1.8K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "American Travel Family ",
+      "handle": "@americantravelfamily",
+      "market": "US",
+      "subs": "11.2K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "TheFamilyof5 – Swiss Family Travel",
+      "handle": "@thefamilyof5.switzerland",
+      "market": "CH",
+      "subs": "13.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Roaming Rogers Family Travel",
+      "handle": "@roamingrogersfamilytravel",
+      "market": "US",
+      "subs": "51.2K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Dinkum Tribe Neurodivergent Family Travel",
+      "handle": "@dinkumtribe",
+      "market": "US",
+      "subs": "1.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Life",
+      "handle": "@valentinstory",
+      "market": "US",
+      "subs": "1.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Fairytale Travel Guide",
+      "handle": "@fairytaletravelguide",
+      "market": "US",
+      "subs": "7.5K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Adventure Channel - Travel Show",
+      "handle": "@familyadventurechanneltravels",
+      "market": "—",
+      "subs": "1.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Food Family Travel",
+      "handle": "@food.family.travel",
+      "market": "US",
+      "subs": "5K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "World Solo Travel by Ashwin A",
+      "handle": "@worldsolotravel",
+      "market": "—",
+      "subs": "1.1K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "SOLO TRAVEL KISHAN",
+      "handle": "@solotravelerkishan9612",
+      "market": "—",
+      "subs": "1.6K",
+      "niche": "solo travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Budget Savvy Travelers",
+      "handle": "@thebudgetsavvytravelers301",
+      "market": "US",
+      "subs": "4.4K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Travel Co",
+      "handle": "@budgettravelco",
+      "market": "US",
+      "subs": "5.4K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Darby Family Travel Vlog",
+      "handle": "@thedarbyfamilytravelvlog1124",
+      "market": "US",
+      "subs": "4.8K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel with gujarati family ",
+      "handle": "@travelwithgujaratifamily",
+      "market": "IN",
+      "subs": "7.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Trip | Семейные путешествия",
+      "handle": "@familytrip2022",
+      "market": "CZ",
+      "subs": "24.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Family Travel Station",
+      "handle": "@familytravelstation",
+      "market": "US",
+      "subs": "1.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "travel with family slc.",
+      "handle": "@travelwith.6",
+      "market": "LK",
+      "subs": "1.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Tech Travel With Manu Family ",
+      "handle": "@tech_travel_with-manu_family.",
+      "market": "IN",
+      "subs": "6.2K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel With Tamil Family",
+      "handle": "@travelwithtamilfamily",
+      "market": "CA",
+      "subs": "17.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel With Happy Family",
+      "handle": "@travelwithhappyfamily",
+      "market": "—",
+      "subs": "1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family Travel Семья, Жизнь и Путешествия",
+      "handle": "@araratto",
+      "market": "FR",
+      "subs": "1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Mini Travellers, Family Travel Made Easy",
+      "handle": "@minitravellers",
+      "market": "UK",
+      "subs": "3.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Lux Travel for Families",
+      "handle": "@luxtravelforfamilies",
+      "market": "US",
+      "subs": "22.4K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Melissa 🏰 Family Travel",
+      "handle": "@melissallado",
+      "market": "US",
+      "subs": "1.6K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "travel and samayal  family",
+      "handle": "@travelandsamayalfamily",
+      "market": "—",
+      "subs": "20.7K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Family TraveL ",
+      "handle": "@olkhin_travel",
+      "market": "KZ",
+      "subs": "3.3K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "2 Travel U",
+      "handle": "@2travelu",
+      "market": "US",
+      "subs": "5.2K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "여행하는가족생활 Travel Family Life",
+      "handle": "@travelfamilylife",
+      "market": "KR",
+      "subs": "15.7K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Beth's MidLifeAdventure",
+      "handle": "@mid.lifeadventurer",
+      "market": "US",
+      "subs": "22.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "VANESSA’S VANLIFE JOURNEY ",
+      "handle": "@vanessasvanlifejourney",
+      "market": "US",
+      "subs": "70.1K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "VanlifeGamer",
+      "handle": "@trentthetraveler2",
+      "market": "US",
+      "subs": "87.5K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Van Life With Rita ",
+      "handle": "@vanlifewithrita",
+      "market": "UK",
+      "subs": "51.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "vanlifemeow",
+      "handle": "@vanlifemeow",
+      "market": "US",
+      "subs": "37.8K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Vintage Vanlife",
+      "handle": "@vintagevanlife",
+      "market": "US",
+      "subs": "7K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Ardview Vanlife",
+      "handle": "@ardview-vanlife",
+      "market": "—",
+      "subs": "2.9K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Ruben's Vanlife",
+      "handle": "@rubensvanlife",
+      "market": "NO",
+      "subs": "3.1K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Helen & Andy Travel (Vanlife)",
+      "handle": "@helenandytravel",
+      "market": "UK",
+      "subs": "7K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": " Van Life Travel",
+      "handle": "@vanlifetravel27",
+      "market": "US",
+      "subs": "4.6K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Charlie's Vanlife travels ",
+      "handle": "@charliesvanlife",
+      "market": "UK",
+      "subs": "2.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "TK Vanlife",
+      "handle": "@tkvanlife",
+      "market": "DE",
+      "subs": "32.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Everlong Vanlife",
+      "handle": "@alexundchristian",
+      "market": "DE",
+      "subs": "14.2K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Field view Adventures",
+      "handle": "@fieldviewadventures",
+      "market": "UK",
+      "subs": "20.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "SASvANACH Vanlife",
+      "handle": "@sasvanach",
+      "market": "UK",
+      "subs": "2K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Kacie Johnston",
+      "handle": "@kaciesvanlife",
+      "market": "US",
+      "subs": "35K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Desi Van Life America ",
+      "handle": "@desivanlifeamerica",
+      "market": "—",
+      "subs": "28.7K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Urban Vanlife",
+      "handle": "@urbanvanlife",
+      "market": "UK",
+      "subs": "60.7K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Go Small. Live Large! Vanlife Travel",
+      "handle": "@gosmall.livelarge",
+      "market": "US",
+      "subs": "49K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Van Life Thru a Lens",
+      "handle": "@vanlifethrualens",
+      "market": "US",
+      "subs": "1.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Leap Into Vanlife",
+      "handle": "@theleapintovanlife5390",
+      "market": "—",
+      "subs": "6.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "VanLife Campers",
+      "handle": "@vanlifecampers",
+      "market": "CA",
+      "subs": "2.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Van Life With EV",
+      "handle": "@vanlifewithev",
+      "market": "IN",
+      "subs": "17K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "LivingLykeMike",
+      "handle": "@livinglykemike",
+      "market": "US",
+      "subs": "13.6K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Our Van Tales",
+      "handle": "@ourvantales",
+      "market": "UK",
+      "subs": "40.1K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Living Beyond The Script",
+      "handle": "@livingbeyondthescript",
+      "market": "UK",
+      "subs": "38K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Liz Bond",
+      "handle": "@bondingwithliz",
+      "market": "US",
+      "subs": "3.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Telugu van wala",
+      "handle": "@teluguvanwala",
+      "market": "IN",
+      "subs": "7.5K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "TravelWithTobi",
+      "handle": "@travelwithtobi",
+      "market": "US",
+      "subs": "5.6K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Traveling Van Life",
+      "handle": "@travelingvanlife",
+      "market": "UK",
+      "subs": "1.1K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "NguyenVo-Vanlife",
+      "handle": "@nguyenvo-vanlife",
+      "market": "US",
+      "subs": "15.5K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "15min VANLIFE",
+      "handle": "@15minvanlife",
+      "market": "JP",
+      "subs": "14K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Scotty Boxa | Van Life | Aussie Travel Adventure",
+      "handle": "@scottyboxa",
+      "market": "AU",
+      "subs": "2K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Spindrift Van",
+      "handle": "@spindriftvan8842",
+      "market": "UK",
+      "subs": "2.5K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travelling TraVins Van Life Uk",
+      "handle": "@travellingtravins",
+      "market": "UK",
+      "subs": "2.8K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Vanlife Conversions",
+      "handle": "@vanlifeconversions",
+      "market": "UK",
+      "subs": "35.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "van life vegan",
+      "handle": "@vanlifevegan",
+      "market": "—",
+      "subs": "3.7K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Andy & Max | Land Rover Defender Vanlife",
+      "handle": "@rileytheroamer",
+      "market": "AU",
+      "subs": "1.9K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Brenna Living Joyfully",
+      "handle": "@brennalivingjoyfully",
+      "market": "AU",
+      "subs": "22.2K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Adventures in my van  - VANLIFE / TRAVEL",
+      "handle": "@adventuresinmyvan",
+      "market": "UK",
+      "subs": "1.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "JustUs Vanlife",
+      "handle": "@justusvanlife",
+      "market": "US",
+      "subs": "2.5K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Scottishmaninavan",
+      "handle": "@scottishmaninavan",
+      "market": "UK",
+      "subs": "28.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Sprinter Van Life",
+      "handle": "@sprintervanlife21",
+      "market": "UK",
+      "subs": "7.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Ozzy Van Life",
+      "handle": "@ozzyvanlife",
+      "market": "AU",
+      "subs": "5.8K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Life With Anthony",
+      "handle": "@foasquad",
+      "market": "US",
+      "subs": "88.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Esperanza vanlife",
+      "handle": "@esperanzavanlife",
+      "market": "GR",
+      "subs": "10K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Vanlife bama Persian",
+      "handle": "@vanlifebamapersian",
+      "market": "DE",
+      "subs": "2.2K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Marios with a Van",
+      "handle": "@marioswithavan",
+      "market": "GR",
+      "subs": "8.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Adventure Van Freddie",
+      "handle": "@adventurevanfreddie",
+      "market": "UK",
+      "subs": "8.1K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Harry & Lauren",
+      "handle": "@harryandlauren",
+      "market": "UK",
+      "subs": "9.8K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "MIDLIFE VANLIFE",
+      "handle": "@midlifevanlife",
+      "market": "—",
+      "subs": "18.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "VanLife And Chris",
+      "handle": "@vanlifeandchris",
+      "market": "UK",
+      "subs": "1.5K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Angela & Alan: Van Life & UK Adventures",
+      "handle": "@angelaalan",
+      "market": "UK",
+      "subs": "1.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Happie To Be Here",
+      "handle": "@happietobehere",
+      "market": "US",
+      "subs": "10.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Shooting Star Vanlife",
+      "handle": "@pennyshootingstar",
+      "market": "US",
+      "subs": "1.2K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Dave and Bonita's Vanlife ",
+      "handle": "@daveandbonitasvanlife",
+      "market": "UK",
+      "subs": "1.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Van's Van And Travels",
+      "handle": "@vansvanandtravels7566",
+      "market": "—",
+      "subs": "3.7K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Van Life Vibes",
+      "handle": "@vanlifevibes",
+      "market": "US",
+      "subs": "7.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Gonk and Moody VANLIFE",
+      "handle": "@gonkandmoody",
+      "market": "UK",
+      "subs": "4.6K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "“Van Life & Everyday Adventures with Florida Girl”",
+      "handle": "@lde320",
+      "market": "US",
+      "subs": "4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "メグ旅  Van Life",
+      "handle": "@meg-vanlife",
+      "market": "JP",
+      "subs": "2.8K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Katie & Dan in a Van",
+      "handle": "@katieanddan",
+      "market": "CA",
+      "subs": "6.5K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel with Bobby",
+      "handle": "@ramblin.sunshine",
+      "market": "—",
+      "subs": "18.9K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Van Life Builds",
+      "handle": "@vanlifebuilds",
+      "market": "UK",
+      "subs": "68.8K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Vanlife Myway",
+      "handle": "@vanlifemyway7806",
+      "market": "UK",
+      "subs": "3.9K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Kevin the Camper",
+      "handle": "@kevinthecamper",
+      "market": "—",
+      "subs": "2.1K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Van Aventure - Van Life",
+      "handle": "@van-aventure",
+      "market": "FR",
+      "subs": "42.1K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "WANDERLUST DIANA",
+      "handle": "@lifeontheroad28",
+      "market": "US",
+      "subs": "33.7K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Vanlife in Japan | U-channel",
+      "handle": "@u-channel.vanlifejapan",
+      "market": "JP",
+      "subs": "2.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "gilly",
+      "handle": "@gillytho",
+      "market": "UK",
+      "subs": "5.1K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Jess & Joe | Van Life",
+      "handle": "@jessandjoehaveago",
+      "market": "UK",
+      "subs": "1.6K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "JK and Kim in the Van - Van Life After 60",
+      "handle": "@jkandkiminthevan",
+      "market": "US",
+      "subs": "4.6K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "VanTastic Traveling",
+      "handle": "@vantastictraveling",
+      "market": "NL",
+      "subs": "2.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Ash’s Van Life",
+      "handle": "@ashsvanlife",
+      "market": "—",
+      "subs": "1.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Ann-Maria ",
+      "handle": "@campervancapers",
+      "market": "—",
+      "subs": "10.2K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Van Life Cara",
+      "handle": "@vanlifecara",
+      "market": "US",
+      "subs": "3.7K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Wanderlust Life",
+      "handle": "@wanderlustlifeita",
+      "market": "IT",
+      "subs": "28.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Vanlife65plus",
+      "handle": "@vanlife65plus",
+      "market": "DE",
+      "subs": "3.9K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Ebike VanLife",
+      "handle": "@ebikevanlife",
+      "market": "US",
+      "subs": "5.6K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Pinky - Rahul & Elly | Vanlife",
+      "handle": "@cafe_caravan",
+      "market": "IN",
+      "subs": "5.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Kannada Budget Trip",
+      "handle": "@kannada_budget_trip",
+      "market": "IN",
+      "subs": "1.4K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Budget Travelers",
+      "handle": "@budget_travelers",
+      "market": "ZA",
+      "subs": "1.3K",
+      "niche": "budget travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Chris the Freelancer - Digital Nomad",
+      "handle": "@christhefreelancer",
+      "market": "AU",
+      "subs": "84.2K",
+      "niche": "digital nomad",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Fit Nomads",
+      "handle": "@fitnomads",
+      "market": "AU",
+      "subs": "38.5K",
+      "niche": "digital nomad",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Life & Travel Tales",
+      "handle": "@2023blessedsoul",
+      "market": "AU",
+      "subs": "25.1K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel World Attractions",
+      "handle": "@travelworldattractions",
+      "market": "AU",
+      "subs": "14.8K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Rez World Travel",
+      "handle": "@rezworldtravel",
+      "market": "AU",
+      "subs": "10.7K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "AusVenture - Explore, Fish, 4WD, Travel, Adventure",
+      "handle": "@ausventure.explore",
+      "market": "AU",
+      "subs": "10.5K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Vegan Travel Show",
+      "handle": "@thevegantravelshow",
+      "market": "AU",
+      "subs": "6.8K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Global Work & Travel",
+      "handle": "@globalworkandtravel",
+      "market": "AU",
+      "subs": "5.2K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "6 Reasons Why Travel Blog",
+      "handle": "@6reasonswhytravelblog",
+      "market": "AU",
+      "subs": "3.7K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Adventure Lifestyle",
+      "handle": "@adventurelifestyleaus",
+      "market": "AU",
+      "subs": "3.1K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel With Kim C",
+      "handle": "@travelwithkimc",
+      "market": "AU",
+      "subs": "2.1K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Adventure Travel Australia",
+      "handle": "@adventuretravelaustralia",
+      "market": "AU",
+      "subs": "2K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Tildesley's Travel Aus",
+      "handle": "@tildesleystravelaus",
+      "market": "AU",
+      "subs": "1.7K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Tales",
+      "handle": "@travel.tales.official",
+      "market": "AU",
+      "subs": "1.6K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Aussie Travel Gold",
+      "handle": "@aussietravelgold4873",
+      "market": "AU",
+      "subs": "1.6K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "VAN TRIP IN OZ Campervan travel",
+      "handle": "@vantripinoz369",
+      "market": "AU",
+      "subs": "1.5K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Parker Up Travel",
+      "handle": "@parkerup.travel",
+      "market": "AU",
+      "subs": "1.4K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "GHI Travel Adventures",
+      "handle": "@ghitraveladventures",
+      "market": "AU",
+      "subs": "1.1K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel with Zan",
+      "handle": "@travelwithzan",
+      "market": "AU",
+      "subs": "1K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Eddy Explores",
+      "handle": "@eddysadventurestravels",
+      "market": "UK",
+      "subs": "62.1K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Life is too short",
+      "handle": "@lifeistooshortck",
+      "market": "UK",
+      "subs": "55K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Trolls TV",
+      "handle": "@traveltrollstv",
+      "market": "UK",
+      "subs": "48.1K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Digital Nomad Girl",
+      "handle": "@digitalnomadgirl",
+      "market": "UK",
+      "subs": "32K",
+      "niche": "digital nomad",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Ashley's Vanlife",
+      "handle": "@ashleys.vanlife",
+      "market": "UK",
+      "subs": "19.9K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Adventure Ruben | Travel & More",
+      "handle": "@adventureattitude",
+      "market": "UK",
+      "subs": "9.8K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "A New Life In The Van",
+      "handle": "@anewlifeinthevan",
+      "market": "UK",
+      "subs": "9.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The China Adventure",
+      "handle": "@thechinaadventure",
+      "market": "UK",
+      "subs": "9.2K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Crazy Adventure Travels",
+      "handle": "@thecatwoman2005",
+      "market": "UK",
+      "subs": "6.8K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "On The Road With Jonny and Kate",
+      "handle": "@ontheroadwithjk",
+      "market": "UK",
+      "subs": "6.4K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Live Learn - Sarah & Cooper",
+      "handle": "@travellivelearn",
+      "market": "UK",
+      "subs": "5.7K",
+      "niche": "digital nomad",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Macs Adventure",
+      "handle": "@macsadventuretv",
+      "market": "UK",
+      "subs": "4.9K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Adventure Van Life",
+      "handle": "@adventurevanlife",
+      "market": "UK",
+      "subs": "3.7K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "LostwithMaple",
+      "handle": "@lostwithmaple",
+      "market": "UK",
+      "subs": "3.5K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Money Travel Media",
+      "handle": "@moneytravelmedia",
+      "market": "UK",
+      "subs": "2.8K",
+      "niche": "digital nomad",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Vanlife with James",
+      "handle": "@vanlifewithjames",
+      "market": "UK",
+      "subs": "2.5K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Vanlife Volunteers",
+      "handle": "@vanlifevolunteers",
+      "market": "UK",
+      "subs": "2.3K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "TRAVEL WITH JAY NEW LIFE  🌏",
+      "handle": "@travelwithjaynewlife",
+      "market": "UK",
+      "subs": "1.7K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "KooKoo Adventure Travel",
+      "handle": "@kookootravel",
+      "market": "UK",
+      "subs": "1.6K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Inday&Arvin Travel adventure",
+      "handle": "@indayarvintraveladventure808",
+      "market": "UK",
+      "subs": "1.5K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel Made Me Do It",
+      "handle": "@travelmademedoit",
+      "market": "UK",
+      "subs": "1.2K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Travel With Zora",
+      "handle": "@travelwithzora",
+      "market": "NZ",
+      "subs": "3.8K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Adventure Travel New Zealand",
+      "handle": "@adventuretravelnewzealand",
+      "market": "NZ",
+      "subs": "3.5K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Brown Vanlife",
+      "handle": "@thebrownvanlife",
+      "market": "CA",
+      "subs": "13.1K",
+      "niche": "van life",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "The Travel Tip",
+      "handle": "@thetraveltip",
+      "market": "CA",
+      "subs": "7.6K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Adventure Travel and Scuba",
+      "handle": "@adventuretravelandscuba",
+      "market": "CA",
+      "subs": "7.5K",
+      "niche": "adventure travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Only Thing Travel",
+      "handle": "@andrewchristoffel",
+      "market": "CA",
+      "subs": "1.1K",
+      "niche": "travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    },
+    {
+      "name": "Kids' Perspective Family Travel",
+      "handle": "@kidsperspectivefamilytrave9184",
+      "market": "CA",
+      "subs": "1.1K",
+      "niche": "family travel",
+      "deliv": "—",
+      "st": [
+        "out",
+        "New lead"
+      ],
+      "rb": [
+        "new",
+        "new"
+      ]
+    }
+  ]
+}

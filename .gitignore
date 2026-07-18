@@ -1,0 +1,10 @@
+# secrets — these live in GitHub Actions Secrets, never in the repo
+.env
+token.json
+credentials.json
+workers/token.json
+workers/credentials.json
+workers/.env
+__pycache__/
+*.pyc
+workers/data/

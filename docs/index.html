@@ -505,6 +505,26 @@
   .pchip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .pmore{font-family:var(--fm);font-size:11px;color:var(--dim);text-align:center;padding:6px;}
 
+  .goalpill{font-family:var(--fm);font-size:12px;color:var(--muted);background:var(--surface-2,#f1efe9);border:1px solid var(--line);border-radius:20px;padding:4px 11px;}
+  .goalpill.hit{color:#137a3f;border-color:#137a3f55;background:#eafaf0;}
+  .hideskip{font-family:var(--fm);font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:5px;cursor:pointer;}
+  .triagehint{font-size:12.5px;color:var(--muted);background:var(--surface,#fff);border:1px dashed var(--line);border-radius:10px;padding:9px 13px;margin-bottom:12px;line-height:1.55;}
+  .xls th.c{text-align:center;}
+  td.act{white-space:nowrap;text-align:center;}
+  td.act button{width:27px;height:27px;border-radius:7px;border:1px solid var(--line);background:var(--surface,#fff);cursor:pointer;font-size:14px;line-height:1;margin:0 2px;color:var(--muted);vertical-align:middle;}
+  td.act button:hover{border-color:var(--ink);color:var(--ink);}
+  td.act .tick.on{background:#eafaf0;border-color:#137a3f;color:#137a3f;}
+  td.act .cross.on{background:#fdecec;border-color:#c0392b;color:#c0392b;}
+  td.act .del:hover{background:#fdecec;border-color:#c0392b;color:#c0392b;}
+  .doneflag{font-family:var(--fm);font-size:11.5px;color:#137a3f;margin-right:6px;}
+  .addemail{font-family:var(--fm);font-size:12px;color:var(--brand);cursor:pointer;}
+  .addemail:hover{text-decoration:underline;}
+  td.em{cursor:text;}
+  .eminput{width:96%;font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--brand);border-radius:6px;outline:none;}
+  .pillst.ready{background:#eafaf0;color:#137a3f;}
+  .pillst.skip{background:#efece7;color:#8a8172;}
+  #undoDel{color:var(--brand);text-decoration:none;}
+  #undoDel:hover{text-decoration:underline;}
   .inbox-status{font-family:var(--fm);font-size:12px;color:var(--muted);margin-bottom:14px;}
   .alist{display:flex;flex-direction:column;gap:12px;}
   .acard{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow,0 1px 3px rgba(23,21,18,.07));padding:16px 18px;display:flex;flex-direction:column;gap:10px;}
@@ -576,12 +596,17 @@
         <div class="phead"><div><h1>Creators</h1><div class="sub">Your sourced roster, grouped by status</div></div></div>
         <div class="crtools">
           <span class="crcount" id="crCount"></span>
+          <span class="goalpill" id="goalPill" title="Drafts you've created today"></span>
+          <label class="hideskip"><input type="checkbox" id="hideSkip"> Hide skipped</label>
+          <span style="flex:1"></span>
           <button class="btn2" id="crExport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg>Export CSV</button>
+          <button class="btn pri" id="crDraft" disabled>Draft flagged (0)</button>
         </div>
+        <div class="triagehint" id="triageHint">Work down the list &mdash; <b>&check;</b> the creators worth contacting, <b>&times;</b> the ones to skip, click a blank email to add one, then hit <b>Draft flagged</b> to create the Gmail drafts. Aim for 30&ndash;50 a day.</div>
         <div class="xlswrap">
           <table class="xls">
             <thead><tr>
-              <th>Creator</th><th>Handle</th><th>Email</th><th>Market</th><th class="r">Subs</th><th>Niche</th><th>Deliverable</th><th>Rebook</th>
+              <th>Creator</th><th>Handle</th><th>Email</th><th>Market</th><th class="r">Subs</th><th>Niche</th><th class="c">Outreach?</th>
             </tr></thead>
             <tbody id="crBody"></tbody>
           </table>
@@ -668,54 +693,126 @@
 (function(){
   var SAMPLE=[];
   var DATA=SAMPLE;
-  var ORDER=["Live","In production","Onboarding","Replied","Negotiating","Outreached","New lead","Declined"];
+  var ORDER=["Ready to draft","Outreached","Live","In production","Onboarding","Replied","Negotiating","New lead","Skipped","Declined"];
   var body=document.getElementById("crBody");
   var countEl=document.getElementById("crCount");
   var search=document.getElementById("globalSearch");
   var seg=document.getElementById("marketSeg");
   var market="All", term="";
+  var COLS=7;
+
+  // ---- Triage state (per-creator, saved in this browser only) ----------------
+  var STATE={}; try{ STATE=JSON.parse(localStorage.getItem("simify_triage_v1")||"{}"); }catch(e){ STATE={}; }
+  function saveState(){ try{ localStorage.setItem("simify_triage_v1", JSON.stringify(STATE)); }catch(e){} }
+  function keyOf(c){ var h=String(c.handle||"").replace(/^@/,"").toLowerCase(); return h||("name:"+String(c.name||"").toLowerCase()); }
+  function stateFor(c){ return STATE[keyOf(c)]||{}; }
+  function setStateFor(c,patch){ var k=keyOf(c); STATE[k]=Object.assign({},STATE[k]||{},patch); saveState(); }
+  function emailOf(c){ var s=stateFor(c); return (s.email!==undefined?s.email:(c.email||"")); }
+  function isOutreached(c){ return !!stateFor(c).outreached || (c.st&&c.st[1]==="Outreached"); }
+  function effStatus(c){ var s=stateFor(c);
+    if(isOutreached(c)) return ["out","Outreached"];
+    if(s.flag==="proceed") return ["ready","Ready to draft"];
+    if(s.flag==="skip") return ["skip","Skipped"];
+    return c.st; }
+
+  // ---- Daily goal counter ----------------------------------------------------
+  var todayStr=(new Date()).toISOString().slice(0,10);
+  var DAILY={date:todayStr,count:0}; try{ var d=JSON.parse(localStorage.getItem("simify_daily_v1")||"null"); if(d&&d.date===todayStr) DAILY=d; }catch(e){}
+  function saveDaily(){ try{ localStorage.setItem("simify_daily_v1", JSON.stringify(DAILY)); }catch(e){} }
+  function bumpDaily(n){ if(DAILY.date!==todayStr){ DAILY={date:todayStr,count:0}; } DAILY.count+=n; saveDaily(); renderGoal(); }
+  function renderGoal(){ var el=document.getElementById("goalPill"); if(!el)return; var c=DAILY.date===todayStr?DAILY.count:0; el.textContent=c+" drafted today · goal 30–50"; el.className="goalpill"+(c>=30?" hit":""); }
+
   function filtered(){
+    var hideSkip=(document.getElementById("hideSkip")||{}).checked;
     return DATA.filter(function(c){
+      if(stateFor(c).deleted)return false;
+      if(hideSkip&&stateFor(c).flag==="skip"&&!stateFor(c).outreached)return false;
       if(market!=="All"&&c.market!==market)return false;
-      if(term){var t=term.toLowerCase(); if((c.name+" "+c.handle+" "+c.niche).toLowerCase().indexOf(t)<0)return false;}
+      if(term){var t=term.toLowerCase(); if((c.name+" "+c.handle+" "+c.niche+" "+emailOf(c)).toLowerCase().indexOf(t)<0)return false;}
       return true;
     });
   }
+  function readyList(){ return DATA.filter(function(c){ var s=stateFor(c); return s.flag==="proceed"&&!isOutreached(c)&&!s.deleted&&emailOf(c).indexOf("@")>0; }); }
+  function updateDraftBtn(){ var b=document.getElementById("crDraft"); if(!b)return; var n=readyList().length; b.textContent="Draft flagged ("+n+")"; b.disabled=n===0; }
+  function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(ch){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch];}); }
+  function ytLink(h){ var s=String(h||"").trim(); if(s.charAt(0)==="@"){ return '<a href="https://www.youtube.com/'+esc(s)+'" target="_blank" rel="noopener">'+esc(s)+"</a>"; } return esc(s)||"&mdash;"; }
+  function emailCell(c){ var e=emailOf(c); if(e&&e.indexOf("@")>0){ return '<a class="emlink" href="mailto:'+esc(e)+'">'+esc(e)+'</a>'; } return '<span class="addemail">+ add email</span>'; }
+
   function render(){
     var list=filtered();
-    countEl.textContent="Showing "+list.length+" of "+DATA.length+" creators";
-    if(!list.length){ body.innerHTML='<tr><td class="empty2" colspan="8">No creators match your filters.</td></tr>'; return; }
-    function ytLink(h){ var s=String(h||"").trim(); if(s.charAt(0)==="@"){ return '<a href="https://www.youtube.com/'+s+'" target="_blank" rel="noopener">'+s+"</a>"; } return s||"&mdash;"; }
-    function emailCell(e){ var s=String(e||"").trim(); if(s.indexOf("@")>0){ return '<a href="mailto:'+s+'">'+s+"</a>"; } return "&mdash;"; }
+    var removed=DATA.filter(function(c){return stateFor(c).deleted;}).length;
+    countEl.innerHTML="Showing "+list.length+" of "+DATA.length+" creators"+(removed?' · <a href="#" id="undoDel">'+removed+" removed (undo)</a>":"");
+    renderGoal(); updateDraftBtn();
+    if(!list.length){ body.innerHTML='<tr><td class="empty2" colspan="'+COLS+'">No creators match your filters.</td></tr>'; return; }
     var html="";
     ORDER.forEach(function(status){
-      var g=list.filter(function(c){return c.st[1]===status;});
+      var g=list.filter(function(c){return effStatus(c)[1]===status;});
       if(!g.length)return;
-      html+='<tr class="grp"><td colspan="8"><span class="pillst '+g[0].st[0]+'">'+status+'</span><span class="gcount">'+g.length+" creator"+(g.length>1?"s":"")+"</span></td></tr>";
+      html+='<tr class="grp"><td colspan="'+COLS+'"><span class="pillst '+effStatus(g[0])[0]+'">'+status+'</span><span class="gcount">'+g.length+" creator"+(g.length>1?"s":"")+"</span></td></tr>";
       g.forEach(function(c){
-        html+="<tr>"+
-          '<td class="cnm">'+c.name+"</td>"+
+        var s=stateFor(c), k=encodeURIComponent(keyOf(c));
+        html+='<tr data-k="'+k+'">'+
+          '<td class="cnm">'+esc(c.name)+"</td>"+
           '<td class="hd">'+ytLink(c.handle)+"</td>"+
-          '<td class="em">'+emailCell(c.email)+"</td>"+
-          "<td>"+c.market+"</td>"+
-          '<td class="r">'+(typeof c.subs==="number"?c.subs.toLocaleString():c.subs)+"</td>"+
-          "<td>"+c.niche+"</td>"+
-          "<td>"+c.deliv+"</td>"+
-          '<td><span class="rb '+c.rb[0]+'">'+c.rb[1]+"</span></td>"+
-          "</tr>";
+          '<td class="em" data-edit="1">'+emailCell(c)+"</td>"+
+          "<td>"+esc(c.market)+"</td>"+
+          '<td class="r">'+(typeof c.subs==="number"?c.subs.toLocaleString():esc(c.subs))+"</td>"+
+          "<td>"+esc(c.niche)+"</td>"+
+          '<td class="act">'+
+            (isOutreached(c)?'<span class="doneflag">drafted &check;</span>':
+              '<button class="tick'+(s.flag==="proceed"?" on":"")+'" data-act="proceed" title="Flag for outreach">&check;</button>'+
+              '<button class="cross'+(s.flag==="skip"?" on":"")+'" data-act="skip" title="Skip — no outreach">&times;</button>')+
+            '<button class="del" data-act="delete" title="Remove from roster">&#128465;</button>'+
+          "</td>"+
+        "</tr>";
       });
     });
     body.innerHTML=html;
   }
+  function findByKey(k){ k=decodeURIComponent(k); for(var i=0;i<DATA.length;i++){ if(keyOf(DATA[i])===k) return DATA[i]; } return null; }
+  // action buttons + email editing (event delegation)
+  body.addEventListener("click",function(e){
+    var undo=e.target.closest("#undoDel"); if(undo){ e.preventDefault(); DATA.forEach(function(c){ if(stateFor(c).deleted) setStateFor(c,{deleted:false}); }); render(); return; }
+    var tr=e.target.closest("tr[data-k]"); if(!tr) return; var c=findByKey(tr.getAttribute("data-k")); if(!c) return;
+    var btn=e.target.closest("button[data-act]");
+    if(btn){ var act=btn.getAttribute("data-act");
+      if(act==="delete"){ if(confirm('Remove "'+c.name+'" from the roster? You can undo from the count line above.')){ setStateFor(c,{deleted:true}); render(); } return; }
+      if(act==="proceed"){ setStateFor(c,{flag:stateFor(c).flag==="proceed"?null:"proceed"}); render(); return; }
+      if(act==="skip"){ setStateFor(c,{flag:stateFor(c).flag==="skip"?null:"skip"}); render(); return; }
+    }
+    var em=e.target.closest("td.em"); if(em&&!em.querySelector("input")){
+      var cur=emailOf(c);
+      em.innerHTML='<input class="eminput" type="email" value="'+esc(cur)+'" placeholder="name@example.com">';
+      var inp=em.querySelector("input"); inp.focus(); inp.select();
+      function commit(save){ if(save){ setStateFor(c,{email:inp.value.trim()}); } render(); }
+      inp.addEventListener("keydown",function(ev){ if(ev.key==="Enter"){ commit(true);} else if(ev.key==="Escape"){ commit(false);} });
+      inp.addEventListener("blur",function(){ commit(true); });
+    }
+  });
+  var hs=document.getElementById("hideSkip"); if(hs) hs.addEventListener("change",render);
+  var draftBtn=document.getElementById("crDraft");
+  if(draftBtn) draftBtn.addEventListener("click",function(){
+    var list=readyList(); if(!list.length){ toastMsg2("Flag creators with ✓ first (they need an email)"); return; }
+    if(!confirm("Create "+list.length+" Gmail draft"+(list.length>1?"s":"")+"? Nothing sends — you review and send each from the Inbox tab.")) return;
+    draftBtn.disabled=true; draftBtn.textContent="Drafting…";
+    fetch("/api/draft",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({creators:list.map(function(c){return {to:emailOf(c),name:c.name,niche:c.niche};})})})
+      .then(function(r){return r.json();}).then(function(j){
+        if(j&&j.ok){ var okset={}; (j.results||[]).forEach(function(x){ if(x.ok) okset[String(x.to).toLowerCase()]=1; });
+          list.forEach(function(c){ if(okset[emailOf(c).toLowerCase()]) setStateFor(c,{outreached:true,flag:null}); });
+          bumpDaily(j.created||0); render(); toastMsg2((j.created||0)+" draft"+((j.created||0)===1?"":"s")+" created — review in the Inbox tab");
+        } else { render(); toastMsg2("Couldn't draft: "+((j&&j.error)||"backend not connected")); }
+      }).catch(function(){ render(); toastMsg2("Backend not connected (drafting works on the live site)"); });
+  });
+  function toastMsg2(m){ var t=document.getElementById("toast"),ts=document.getElementById("toastMsg"); if(t&&ts){ ts.textContent=m; t.classList.add("show"); setTimeout(function(){t.classList.remove("show");},2600);} }
   if(search)search.addEventListener("input",function(){ term=search.value; render(); });
   if(seg)[].slice.call(seg.querySelectorAll("button")).forEach(function(b){ b.addEventListener("click",function(){ [].slice.call(seg.querySelectorAll("button")).forEach(function(x){x.classList.remove("on");}); b.classList.add("on"); market=b.getAttribute("data-mk"); render(); }); });
   var exp=document.getElementById("crExport");
   if(exp)exp.addEventListener("click",function(){
     var list=filtered();
-    var head=["Creator","Handle","Email","Market","Subs","Niche","Deliverable","Status","Rebook"];
+    var head=["Creator","Handle","Email","Market","Subs","Niche","Status"];
     var lines=[head.join(",")];
     list.forEach(function(c){
-      var row=[c.name,c.handle,c.email||"",c.market,c.subs,c.niche,c.deliv,c.st[1],c.rb[1]];
+      var row=[c.name,c.handle,emailOf(c),c.market,c.subs,c.niche,effStatus(c)[1]];
       lines.push(row.map(function(v){ v=String(v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; }).join(","));
     });
     var blob=new Blob([lines.join("\n")],{type:"text/csv"});

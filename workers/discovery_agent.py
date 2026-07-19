@@ -179,10 +179,16 @@ def _extract_email(text: str) -> str:
 # Claude scoring
 # ---------------------------------------------------------------------------
 
-SCORE_SYSTEM = "You are a marketing analyst. Respond with valid JSON only, no extra text."
+SCORE_SYSTEM = ("You are a paid-social creative strategist for a travel brand. You judge whether a "
+                "creator would produce short-form video that works as paid ad creative. "
+                "Respond with valid JSON only, no extra text.")
 
+# The goal of the gifting programme is to get short-form content Simify can run as
+# PAID ADS. So we score for ad-worthiness, not just "is it travel". Bias toward
+# personality-led gen-z/millennial lifestyle+travel creators who film themselves.
 SCORE_TEMPLATE = """\
-Score this influencer's fit for Simify, a travel eSIM brand targeting international travellers.
+Simify (a travel eSIM brand) gifts creators so they make short-form videos Simify can run as PAID ADS.
+Judge how good this creator would be for that.
 
 Profile:
   Handle: {handle}
@@ -190,16 +196,22 @@ Profile:
   Followers: {followers}
   Bio: {bio}
   Country: {country}
-  Target market for this campaign: {market}
+  Campaign market (soft preference, not a hard filter): {market}
+  Search niche: {niche}
 
-Scoring criteria (1-10):
-- Travel content relevance (is their content about travel, not just lifestyle?)
-- Audience geography match (do they reach people in or travelling to {market}?)
-- Authenticity signals (realistic engagement for follower count, not inflated)
-- Posting frequency (active account, not dormant)
+Score 1-10, rewarding:
+- Personality-led, on-camera creator (a real face/voice), NOT faceless drone/stock/compilation channels
+- Lifestyle + travel content that suits short-form (Shorts/Reels/TikTok-style, snackable, hook-y)
+- Would make natural, authentic, brand-safe PAID AD creative (energetic, well-shot, relatable)
+- Reads as a gen-z or millennial creator (younger, relatable to travellers)
+- English-speaking, reaching a travel-intent Western audience
+- Authentic engagement for their size (not inflated), active/posting recently
+
+Penalise: faceless channels, stock-footage or AI-voice compilations, dormant accounts,
+non-English audiences unlikely to fit Western paid-ad targeting, pure long-form-only talking heads.
 
 Respond with JSON exactly:
-{{"score": <int 1-10>, "reason": "<one sentence>", "recommended": <true|false>}}
+{{"score": <int 1-10>, "reason": "<one sentence: would this make good short-form ad content?>", "recommended": <true|false>}}
 
 recommended = true if score >= 7"""
 

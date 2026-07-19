@@ -17,14 +17,29 @@ from datetime import date, timedelta
 import export_prospects_json
 import youtube_discovery_agent as yda
 
+# Niches tuned to the "Global 100+ Prospects" reference sheet: lifestyle + travel
+# creators who make snackable short-form (the point of gifting = content for paid
+# ads). Vlog-flavoured queries skew toward gen-z/millennial faces-on-camera
+# creators rather than faceless/stock travel channels.
 NICHES = [
-    "travel", "digital nomad", "backpacking", "solo travel",
-    "budget travel", "family travel", "van life", "adventure travel",
+    "travel vlog", "lifestyle vlog", "solo female travel", "couple travel vlog",
+    "van life", "sailing", "digital nomad", "backpacking",
+    "budget travel", "road trip", "adventure travel", "aviation",
+]
+
+# Rotate the search market daily instead of AU-only. English-primary markets:
+# the AU home base + the UK/NZ expansion focus + the US/CA (largest creator pools
+# and the biggest paid-ad audiences). (regionCode, human name for scoring prompt.)
+REGIONS = [
+    ("AU", "Australia"), ("GB", "United Kingdom"), ("US", "United States"),
+    ("CA", "Canada"), ("NZ", "New Zealand"),
 ]
 
 TARGET_NEW_LEADS = 50
 MAX_NICHES_PER_RUN = 4  # safety cap on YouTube API quota use per day
 COUNT_PER_NICHE = 40
+MIN_SUBS = 1_000        # nano floor
+MAX_SUBS = 150_000      # up to the "Small (100-150K)" tier in the reference sheet
 
 
 def niches_for(target_date: date) -> list[str]:
@@ -32,15 +47,33 @@ def niches_for(target_date: date) -> list[str]:
     return [NICHES[(start + offset) % len(NICHES)] for offset in range(MAX_NICHES_PER_RUN)]
 
 
+def region_for(target_date: date) -> tuple[str, str]:
+    """One market per day, cycling through REGIONS so a week covers them all
+    (keeps daily API quota the same as the old AU-only run)."""
+    return REGIONS[target_date.toordinal() % len(REGIONS)]
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Daily nano/micro YouTube lead discovery")
-    parser.add_argument("--date", default=None, help="ISO date to compute the niche rotation for (default: today)")
+    parser = argparse.ArgumentParser(description="Daily nano/micro/small YouTube lead discovery")
+    parser.add_argument("--date", default=None, help="ISO date to compute the niche/region rotation for (default: today)")
     parser.add_argument("--dry-run", action="store_true", help="Preview what would be added without writing to the spreadsheet")
+    parser.add_argument("--score", action="store_true",
+                        help="Quality-filter with Claude (needs ANTHROPIC_API_KEY): keeps only creators who fit the "
+                             "short-form / ad-ready / gen-z-millennial lifestyle+travel rubric. Recommended for quality.")
+    parser.add_argument("--region", default=None,
+                        help="Override the daily market rotation with a single regionCode (e.g. GB, US, NZ)")
     args = parser.parse_args()
 
     target_date = date.fromisoformat(args.date) if args.date else date.today()
+    if args.region:
+        region_code = args.region.upper()
+        market = dict(REGIONS).get(region_code, region_code)
+    else:
+        region_code, market = region_for(target_date)
     mode = "DRY RUN preview" if args.dry_run else "Live run"
-    print(f"=== {mode} for {target_date.isoformat()} ===\n")
+    scoring = "ON (quality-filtered)" if args.score else "OFF (raw, review manually)"
+    print(f"=== {mode} for {target_date.isoformat()} | market={market} ({region_code}) | "
+          f"subs {MIN_SUBS:,}-{MAX_SUBS:,} | scoring {scoring} ===\n")
 
     total_new = 0
     attempted = []
@@ -49,13 +82,13 @@ def main():
         try:
             added = yda.run(
                 niche=niche,
-                market="Australia",
-                region="AU",
-                min_followers=1000,
-                max_followers=100000,
+                market=market,
+                region=region_code,
+                min_followers=MIN_SUBS,
+                max_followers=MAX_SUBS,
                 count=COUNT_PER_NICHE,
                 exclude_file=None,
-                no_score=True,
+                no_score=not args.score,
                 dry_run=args.dry_run,
             )
         except Exception as e:
@@ -69,10 +102,10 @@ def main():
         if total_new >= TARGET_NEW_LEADS:
             break
 
-    print(f"=== Done. {total_new} new leads across niches: {attempted} ===")
+    print(f"=== Done. {total_new} new leads in {market} across niches: {attempted} ===")
     if total_new < TARGET_NEW_LEADS:
-        print(f"(Under the {TARGET_NEW_LEADS}/day target even after {len(attempted)} niches — "
-              f"the AU nano/micro travel pool may be thinning out. Consider widening region or follower range.)")
+        print(f"(Under the {TARGET_NEW_LEADS}/day target even after {len(attempted)} niches in {market} — "
+              f"tomorrow's rotation hits a different market. Widen NICHES or MAX_SUBS if this persists.)")
 
     if not args.dry_run:
         print()

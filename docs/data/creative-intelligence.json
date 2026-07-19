@@ -1,0 +1,731 @@
+{
+ "meta": {
+  "source": "Motion · Simify AU",
+  "window": "Last 90 days",
+  "generated": "2026-07-20",
+  "sample": 12,
+  "goalMetric": "ROAS",
+  "note": "Top influencer creatives by paid-ad spend, pulled live from Motion. Refreshed on demand."
+ },
+ "kpis": {
+  "spend": 320157,
+  "avgRoas": 0.93,
+  "avgThumb": 14.9,
+  "paidReady": 1,
+  "paidReadyPct": 8
+ },
+ "creatives": [
+  {
+   "creator": "jetsetting",
+   "destination": "Europe",
+   "creatorCountry": "AU Creator",
+   "format": "Video",
+   "length": ">60s",
+   "angle": "Itinerary / Travel Plan",
+   "persona": "Holiday Maker",
+   "spend": 26933,
+   "roas": 1.8,
+   "thumbstop": 13.5,
+   "hold": 52,
+   "ctr": 2.84,
+   "hook": [
+    "Listicle"
+   ],
+   "msgAngle": [
+    "Avoid Roaming Fees"
+   ],
+   "visual": [
+    "Listicle",
+    "Screen Recording"
+   ],
+   "aud": [
+    "Smart Travelers"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a27662a3014acb6cc0bd0d7/large-thumbnail/67cf7da2-3dc8-4e07-b33f-990f87a89ea6.jpg",
+   "video": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/creativeassetfacebook/6a0d240af970bc7bbaa03265/video.mp4",
+   "paidScore": 75,
+   "verdict": "Winner"
+  },
+  {
+   "creator": "anamariatepes00",
+   "destination": "Bali / Indonesia",
+   "creatorCountry": "EU Creator",
+   "format": "Video",
+   "length": "45s-60s",
+   "angle": "Itinerary / Travel Plan",
+   "persona": "Holiday Maker",
+   "spend": 39689,
+   "roas": 0.91,
+   "thumbstop": 20.6,
+   "hold": 69,
+   "ctr": 2.3,
+   "hook": [
+    "Listicle"
+   ],
+   "msgAngle": [
+    "Stay Connected"
+   ],
+   "visual": [
+    "Listicle",
+    "Screen Recording"
+   ],
+   "aud": [
+    "International Travelers"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a2bcb3c11237eecac002cf5/large-thumbnail/0112d825-a475-4e09-89c1-761b0a6f9a6c.jpg",
+   "video": "https://www.facebook.com/reel/927571163609939/",
+   "paidScore": 74,
+   "verdict": "Iterate CTA"
+  },
+  {
+   "creator": "nicole",
+   "destination": "Bali / Indonesia",
+   "creatorCountry": "UK Creator",
+   "format": "Video",
+   "length": "45s-60s",
+   "angle": "Problem - Solution",
+   "persona": "Holiday Maker",
+   "spend": 18723,
+   "roas": 1.87,
+   "thumbstop": 18.0,
+   "hold": 53,
+   "ctr": 1.18,
+   "hook": [
+    "Warning"
+   ],
+   "msgAngle": [
+    "Stress-Free Travel"
+   ],
+   "visual": [
+    "Greenscreen",
+    "Listicle"
+   ],
+   "aud": [
+    "International Travelers"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a55b6f61b6dca812523e580/large-thumbnail/b8f01194-3e84-4cb9-ab16-cce96387f644.jpg",
+   "video": "https://www.facebook.com/reel/948260414709023/",
+   "paidScore": 74,
+   "verdict": "Scale"
+  },
+  {
+   "creator": "lift.sisters",
+   "destination": "Bali / Indonesia",
+   "creatorCountry": "UK Creator",
+   "format": "Video",
+   "length": "45s-60s",
+   "angle": "My Tips & Tricks",
+   "persona": "Holiday Maker",
+   "spend": 58020,
+   "roas": 0.85,
+   "thumbstop": 19.3,
+   "hold": 68,
+   "ctr": 1.38,
+   "hook": [
+    "Listicle"
+   ],
+   "msgAngle": [
+    "Instant Connectivity"
+   ],
+   "visual": [
+    "Listicle",
+    "Screen Recording"
+   ],
+   "aud": [
+    "Travel Girlies"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a55b6f61b6dca812523e45c/large-thumbnail/9bd2b833-0c24-4c05-a0d3-e635df9725bc.jpg",
+   "video": "https://www.facebook.com/reel/2382830172222474/",
+   "paidScore": 66,
+   "verdict": "Iterate CTA"
+  },
+  {
+   "creator": "samilearnskorean",
+   "destination": "South Korea",
+   "creatorCountry": "AU Creator",
+   "format": "Video",
+   "length": ">60s",
+   "angle": "My Tips & Tricks",
+   "persona": "Holiday Maker",
+   "spend": 15618,
+   "roas": 0.78,
+   "thumbstop": 17.4,
+   "hold": 50,
+   "ctr": 2.3,
+   "hook": [
+    "Listicle"
+   ],
+   "msgAngle": [
+    "Stress-Free Travel"
+   ],
+   "visual": [
+    "Montage",
+    "Screen Recording",
+    "Listicle"
+   ],
+   "aud": [
+    "International Travelers"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a27662b3014acb6cc0bd0e4/large-thumbnail/a63bc909-c89c-424f-9559-3c176600cefa.jpg",
+   "video": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/creativeassetfacebook/69796d953bac25b1db8a0ba3/video.mp4",
+   "paidScore": 62,
+   "verdict": "Iterate CTA"
+  },
+  {
+   "creator": "madalyn.ugc",
+   "destination": "Vietnam",
+   "creatorCountry": "AU Creator",
+   "format": "Video",
+   "length": ">60s",
+   "angle": "Food Recommendations",
+   "persona": "General Travellers",
+   "spend": 13604,
+   "roas": 0.4,
+   "thumbstop": 18.2,
+   "hold": 56,
+   "ctr": 2.4,
+   "hook": [
+    "Question"
+   ],
+   "msgAngle": [
+    "Instant Connectivity"
+   ],
+   "visual": [
+    "Montage",
+    "Screen Recording"
+   ],
+   "aud": [
+    "International Travelers"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a20c0933014acb6cc766d3e/large-thumbnail/051628a6-0c22-47ed-a690-96603ea9ba52.jpg",
+   "video": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/creativeassetfacebook/6a20c0853014acb6cc75fb5c/video.mp4",
+   "paidScore": 59,
+   "verdict": "Iterate CTA"
+  },
+  {
+   "creator": "itscherrydiary",
+   "destination": "Europe",
+   "creatorCountry": "AU Creator",
+   "format": "Video",
+   "length": "45s-60s",
+   "angle": "My Tips & Tricks",
+   "persona": "Holiday Maker",
+   "spend": 25540,
+   "roas": 0.84,
+   "thumbstop": 18.1,
+   "hold": 36,
+   "ctr": 0.98,
+   "hook": [
+    "Listicle"
+   ],
+   "msgAngle": [
+    "Instant Connectivity"
+   ],
+   "visual": [
+    "Listicle"
+   ],
+   "aud": [
+    "International Travelers"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a55b6f61b6dca812523e59b/large-thumbnail/c9a0c1e0-5fc0-48ef-9663-d21b82f55f9a.jpg",
+   "video": "https://www.facebook.com/reel/1263316328965509/",
+   "paidScore": 53,
+   "verdict": "Iterate CTA"
+  },
+  {
+   "creator": "BeyondBordersAndBarrels",
+   "destination": "Europe",
+   "creatorCountry": "AU Creator",
+   "format": "Video",
+   "length": "45s-60s",
+   "angle": "My Tips & Tricks",
+   "persona": "Holiday Maker",
+   "spend": 18034,
+   "roas": 0.74,
+   "thumbstop": 15.8,
+   "hold": 40,
+   "ctr": 1.42,
+   "hook": [
+    "Listicle"
+   ],
+   "msgAngle": [
+    "Stress-Free Travel"
+   ],
+   "visual": [
+    "Greenscreen",
+    "Montage"
+   ],
+   "aud": [
+    "International Travelers"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a18f39e5973d5b54fb303c8/large-thumbnail/f976e85e-55f0-4954-aaa4-80f403895620.jpg",
+   "video": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/creativeassetfacebook/6a18f39c5973d5b54fb2f4ea/video.mp4",
+   "paidScore": 52,
+   "verdict": "Iterate CTA"
+  },
+  {
+   "creator": "BeyondBordersAndBarrels",
+   "destination": "Europe",
+   "creatorCountry": "AU Creator",
+   "format": "Video",
+   "length": "45s-60s",
+   "angle": "My Tips & Tricks",
+   "persona": "Holiday Maker",
+   "spend": 20615,
+   "roas": 0.68,
+   "thumbstop": 15.3,
+   "hold": 43,
+   "ctr": 1.49,
+   "hook": [
+    "Listicle"
+   ],
+   "msgAngle": [
+    "Stress-Free Travel"
+   ],
+   "visual": [
+    "Greenscreen",
+    "Montage"
+   ],
+   "aud": [
+    "International Travelers"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a0a56e095c14adcbda0e0a4/large-thumbnail/4ee7bf58-fea2-4f33-b971-d147200b3304.jpg",
+   "video": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/creativeassetfacebook/6a0a56d9db83ec6fbe765f73/video.mp4",
+   "paidScore": 51,
+   "verdict": "Iterate CTA"
+  },
+  {
+   "creator": "pchvns",
+   "destination": "Europe",
+   "creatorCountry": "UK Creator",
+   "format": "Video",
+   "length": ">60s",
+   "angle": "Itinerary / Travel Plan",
+   "persona": "Budget-Conscious Traveller",
+   "spend": 25456,
+   "roas": 0.61,
+   "thumbstop": 10.3,
+   "hold": 44,
+   "ctr": 1.13,
+   "hook": [
+    "Storytelling"
+   ],
+   "msgAngle": [
+    "Avoid Roaming Fees"
+   ],
+   "visual": [
+    "Greenscreen",
+    "Montage"
+   ],
+   "aud": [
+    "Smart Travelers"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a349551606d3ff164f2c264/large-thumbnail/c0c44ebc-b738-4bed-a0c2-0a21840f676b.jpg",
+   "video": "https://www.facebook.com/reel/953114954175252/",
+   "paidScore": 42,
+   "verdict": "Test/learn"
+  },
+  {
+   "creator": "wheretonexttt",
+   "destination": "Global",
+   "creatorCountry": "USA Creator",
+   "format": "Collab",
+   "length": ">60s",
+   "angle": "Testimonials/Reviews",
+   "persona": "Solo Travellers",
+   "spend": 14692,
+   "roas": 0.12,
+   "thumbstop": 12.0,
+   "hold": 33,
+   "ctr": 1.36,
+   "hook": [
+    "Storytelling"
+   ],
+   "msgAngle": [
+    "Ease of Use"
+   ],
+   "visual": [
+    "Montage",
+    "Screen Recording"
+   ],
+   "aud": [
+    "International Travelers"
+   ],
+   "assetType": [
+    "UGC"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a3dec10606d3ff164f65889/large-thumbnail/94cf9622-0dbb-4625-9f24-a2df89cc9577.jpg",
+   "video": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/creativeassetfacebook/6a3dec0e606d3ff164f64c72/video.mp4",
+   "paidScore": 35,
+   "verdict": "Test/learn"
+  },
+  {
+   "creator": "patandissy",
+   "destination": "Europe",
+   "creatorCountry": "AU Creator",
+   "format": "Static",
+   "length": "",
+   "angle": "My Tips & Tricks",
+   "persona": "Budget-Conscious Traveller",
+   "spend": 43233,
+   "roas": 1.58,
+   "thumbstop": 0.0,
+   "hold": 0,
+   "ctr": 1.29,
+   "hook": [],
+   "msgAngle": [
+    "Travel Hack"
+   ],
+   "visual": [
+    "UGC Overlay"
+   ],
+   "aud": [
+    "Backpackers"
+   ],
+   "assetType": [
+    "Lifestyle Image with Text"
+   ],
+   "thumb": "https://motionaccountassets.blob.core.windows.net/65e953069e294a50eb819628/adunit/6a55b6f61b6dca812523e5c3/large-thumbnail/dfdf5583-0628-47d4-b949-a29c1a986259.jpg",
+   "video": null,
+   "paidScore": 30,
+   "verdict": "Winner"
+  }
+ ],
+ "patterns": {
+  "hook": [
+   {
+    "tag": "Warning",
+    "n": 1,
+    "avgRoas": 1.87,
+    "avgThumb": 18.0,
+    "spend": 18723
+   },
+   {
+    "tag": "Listicle",
+    "n": 7,
+    "avgRoas": 0.94,
+    "avgThumb": 17.1,
+    "spend": 204449
+   },
+   {
+    "tag": "Question",
+    "n": 1,
+    "avgRoas": 0.4,
+    "avgThumb": 18.2,
+    "spend": 13604
+   },
+   {
+    "tag": "Storytelling",
+    "n": 2,
+    "avgRoas": 0.36,
+    "avgThumb": 11.2,
+    "spend": 40148
+   }
+  ],
+  "visual": [
+   {
+    "tag": "UGC Overlay",
+    "n": 1,
+    "avgRoas": 1.58,
+    "avgThumb": 0.0,
+    "spend": 43233
+   },
+   {
+    "tag": "Listicle",
+    "n": 6,
+    "avgRoas": 1.18,
+    "avgThumb": 17.8,
+    "spend": 184523
+   },
+   {
+    "tag": "Greenscreen",
+    "n": 4,
+    "avgRoas": 0.98,
+    "avgThumb": 14.9,
+    "spend": 82828
+   },
+   {
+    "tag": "Screen Recording",
+    "n": 6,
+    "avgRoas": 0.81,
+    "avgThumb": 16.8,
+    "spend": 168556
+   },
+   {
+    "tag": "Montage",
+    "n": 6,
+    "avgRoas": 0.56,
+    "avgThumb": 14.8,
+    "spend": 108019
+   }
+  ],
+  "msgAngle": [
+   {
+    "tag": "Travel Hack",
+    "n": 1,
+    "avgRoas": 1.58,
+    "avgThumb": 0.0,
+    "spend": 43233
+   },
+   {
+    "tag": "Avoid Roaming Fees",
+    "n": 2,
+    "avgRoas": 1.21,
+    "avgThumb": 11.9,
+    "spend": 52389
+   },
+   {
+    "tag": "Stress-Free Travel",
+    "n": 4,
+    "avgRoas": 1.02,
+    "avgThumb": 16.6,
+    "spend": 72990
+   },
+   {
+    "tag": "Stay Connected",
+    "n": 1,
+    "avgRoas": 0.91,
+    "avgThumb": 20.6,
+    "spend": 39689
+   },
+   {
+    "tag": "Instant Connectivity",
+    "n": 3,
+    "avgRoas": 0.7,
+    "avgThumb": 18.5,
+    "spend": 97164
+   },
+   {
+    "tag": "Ease of Use",
+    "n": 1,
+    "avgRoas": 0.12,
+    "avgThumb": 12.0,
+    "spend": 14692
+   }
+  ],
+  "angle": [
+   {
+    "tag": "Problem - Solution",
+    "n": 1,
+    "avgRoas": 1.87,
+    "avgThumb": 18.0,
+    "spend": 18723
+   },
+   {
+    "tag": "Itinerary / Travel Plan",
+    "n": 3,
+    "avgRoas": 1.11,
+    "avgThumb": 14.8,
+    "spend": 92078
+   },
+   {
+    "tag": "My Tips & Tricks",
+    "n": 6,
+    "avgRoas": 0.91,
+    "avgThumb": 14.3,
+    "spend": 181060
+   },
+   {
+    "tag": "Food Recommendations",
+    "n": 1,
+    "avgRoas": 0.4,
+    "avgThumb": 18.2,
+    "spend": 13604
+   },
+   {
+    "tag": "Testimonials/Reviews",
+    "n": 1,
+    "avgRoas": 0.12,
+    "avgThumb": 12.0,
+    "spend": 14692
+   }
+  ],
+  "destination": [
+   {
+    "tag": "Bali / Indonesia",
+    "n": 3,
+    "avgRoas": 1.21,
+    "avgThumb": 19.3,
+    "spend": 116432
+   },
+   {
+    "tag": "Europe",
+    "n": 6,
+    "avgRoas": 1.04,
+    "avgThumb": 12.2,
+    "spend": 159811
+   },
+   {
+    "tag": "South Korea",
+    "n": 1,
+    "avgRoas": 0.78,
+    "avgThumb": 17.4,
+    "spend": 15618
+   },
+   {
+    "tag": "Vietnam",
+    "n": 1,
+    "avgRoas": 0.4,
+    "avgThumb": 18.2,
+    "spend": 13604
+   },
+   {
+    "tag": "Global",
+    "n": 1,
+    "avgRoas": 0.12,
+    "avgThumb": 12.0,
+    "spend": 14692
+   }
+  ],
+  "persona": [
+   {
+    "tag": "Budget-Conscious Traveller",
+    "n": 2,
+    "avgRoas": 1.09,
+    "avgThumb": 5.2,
+    "spend": 68689
+   },
+   {
+    "tag": "Holiday Maker",
+    "n": 8,
+    "avgRoas": 1.06,
+    "avgThumb": 17.2,
+    "spend": 223172
+   },
+   {
+    "tag": "General Travellers",
+    "n": 1,
+    "avgRoas": 0.4,
+    "avgThumb": 18.2,
+    "spend": 13604
+   },
+   {
+    "tag": "Solo Travellers",
+    "n": 1,
+    "avgRoas": 0.12,
+    "avgThumb": 12.0,
+    "spend": 14692
+   }
+  ]
+ },
+ "creators": [
+  {
+   "creator": "jetsetting",
+   "n": 1,
+   "spend": 26933,
+   "bestRoas": 1.8,
+   "avgThumb": 13.5,
+   "avgScore": 75
+  },
+  {
+   "creator": "anamariatepes00",
+   "n": 1,
+   "spend": 39689,
+   "bestRoas": 0.91,
+   "avgThumb": 20.6,
+   "avgScore": 74
+  },
+  {
+   "creator": "nicole",
+   "n": 1,
+   "spend": 18723,
+   "bestRoas": 1.87,
+   "avgThumb": 18.0,
+   "avgScore": 74
+  },
+  {
+   "creator": "lift.sisters",
+   "n": 1,
+   "spend": 58020,
+   "bestRoas": 0.85,
+   "avgThumb": 19.3,
+   "avgScore": 66
+  },
+  {
+   "creator": "samilearnskorean",
+   "n": 1,
+   "spend": 15618,
+   "bestRoas": 0.78,
+   "avgThumb": 17.4,
+   "avgScore": 62
+  },
+  {
+   "creator": "madalyn.ugc",
+   "n": 1,
+   "spend": 13604,
+   "bestRoas": 0.4,
+   "avgThumb": 18.2,
+   "avgScore": 59
+  },
+  {
+   "creator": "itscherrydiary",
+   "n": 1,
+   "spend": 25540,
+   "bestRoas": 0.84,
+   "avgThumb": 18.1,
+   "avgScore": 53
+  },
+  {
+   "creator": "BeyondBordersAndBarrels",
+   "n": 2,
+   "spend": 38649,
+   "bestRoas": 0.74,
+   "avgThumb": 15.6,
+   "avgScore": 52
+  },
+  {
+   "creator": "pchvns",
+   "n": 1,
+   "spend": 25456,
+   "bestRoas": 0.61,
+   "avgThumb": 10.3,
+   "avgScore": 42
+  },
+  {
+   "creator": "wheretonexttt",
+   "n": 1,
+   "spend": 14692,
+   "bestRoas": 0.12,
+   "avgThumb": 12.0,
+   "avgScore": 35
+  },
+  {
+   "creator": "patandissy",
+   "n": 1,
+   "spend": 43233,
+   "bestRoas": 1.58,
+   "avgThumb": 0.0,
+   "avgScore": 30
+  }
+ ]
+}

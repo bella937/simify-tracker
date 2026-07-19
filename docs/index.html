@@ -563,6 +563,69 @@
   .edacts{display:flex;align-items:center;gap:10px;padding:14px 20px;border-top:1px solid var(--line);flex-wrap:wrap;}
   .btn.ghost{background:transparent;border:1px solid var(--line);}
   .edstatus{font-family:var(--fm);font-size:12px;color:#137a3f;margin-left:4px;}
+  /* --- CRM inbox --- */
+  .mailwrap{grid-template-columns:320px 1fr;}
+  .ibstats{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .ibstat{display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:var(--surface,#fff);border:1px solid var(--line);border-radius:12px;padding:9px 15px;cursor:pointer;min-width:98px;transition:.12s;}
+  .ibstat:hover{border-color:var(--ink);}
+  .ibstat.on{border-color:var(--brand,#f0a02a);background:#fff6e9;}
+  .ibsn{font-size:19px;font-weight:700;color:var(--ink);line-height:1;}
+  .ibsl{font-family:var(--fm);font-size:11px;color:var(--muted);}
+  .ibtools{display:flex;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+  .ibsearch{flex:1;min-width:230px;display:flex;align-items:center;gap:8px;background:var(--surface,#fff);border:1px solid var(--line);border-radius:10px;padding:9px 13px;}
+  .ibsearch svg{width:16px;height:16px;stroke:var(--muted);flex:0 0 auto;}
+  .ibsearch input{border:none;background:transparent;outline:none;font:inherit;font-size:13.5px;width:100%;color:var(--ink);}
+  .ibchips{display:flex;gap:6px;flex-wrap:wrap;}
+  .ibchip{font-family:var(--fm);font-size:12px;color:var(--muted);background:var(--surface,#fff);border:1px solid var(--line);border-radius:20px;padding:6px 13px;cursor:pointer;}
+  .ibchip:hover{border-color:var(--ink);color:var(--ink);}
+  .ibchip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .cvrow{display:flex;gap:11px;padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s;}
+  .cvrow:last-child{border-bottom:none;}
+  .cvrow:hover{background:var(--surface-2,#faf8f3);}
+  .cvrow.active{background:#fff5e6;box-shadow:inset 3px 0 0 var(--brand,#f0a02a);}
+  .cvmain{flex:1;min-width:0;}
+  .cvl1{display:flex;align-items:center;gap:6px;}
+  .cvname{font-weight:650;font-size:13.5px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;}
+  .cvpin{color:var(--brand,#f0a02a);font-size:12px;flex:0 0 auto;}
+  .pdot{width:8px;height:8px;border-radius:50%;flex:0 0 auto;}
+  .pdot.high{background:#c0392b;}
+  .pdot.med{background:#e08a1e;}
+  .pdot.low{background:#9aa2ad;}
+  .cvl2{font-family:var(--fm);font-size:11px;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:1px 0;}
+  .cvl3{font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .cvl4{display:flex;align-items:center;gap:6px;margin-top:5px;}
+  .stpill{font-family:var(--fm);font-size:10px;color:var(--ink);background:var(--surface-2,#f1efe9);border:1px solid var(--line);border-radius:20px;padding:1px 8px;}
+  .duebadge{font-family:var(--fm);font-size:10px;color:#c0392b;background:#fdecec;border:1px solid #c0392b33;border-radius:20px;padding:1px 8px;}
+  .thread{display:flex;flex-direction:column;}
+  .crhead{display:flex;align-items:center;gap:14px;padding:18px 20px 14px;border-bottom:1px solid var(--line);}
+  .crhinfo{flex:1;min-width:0;}
+  .crhname{font-size:17px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:9px;}
+  .ytbadge{font-family:var(--fm);font-size:10.5px;font-weight:600;color:#c4302b;background:#fdeceb;border:1px solid #c4302b33;border-radius:6px;padding:2px 7px;text-decoration:none;}
+  .crhmeta{font-family:var(--fm);font-size:12px;color:var(--muted);margin-top:3px;}
+  .pinbtn{flex:0 0 auto;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--surface,#fff);color:var(--muted);cursor:pointer;font-size:16px;}
+  .pinbtn.on{background:#fff6e9;border-color:var(--brand,#f0a02a);color:var(--brand,#f0a02a);}
+  .pipeline{display:flex;padding:16px 20px 14px;overflow-x:auto;border-bottom:1px solid var(--line);}
+  .pstep{flex:1;min-width:70px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;padding:0;}
+  .pstep .pdotm{width:13px;height:13px;border-radius:50%;background:#e6e2da;border:2px solid #e6e2da;z-index:1;}
+  .pstep::before{content:"";position:absolute;top:6px;left:-50%;width:100%;height:2px;background:#e6e2da;}
+  .pstep:first-child::before{display:none;}
+  .pstep .plabel{font-family:var(--fm);font-size:9.5px;color:var(--muted);text-align:center;line-height:1.15;}
+  .pstep.done .pdotm{background:var(--brand,#f0a02a);border-color:var(--brand,#f0a02a);}
+  .pstep.done::before{background:var(--brand,#f0a02a);}
+  .pstep.cur .pdotm{background:#fff;border-color:var(--brand,#f0a02a);box-shadow:0 0 0 3px #fff6e9;}
+  .pstep.cur .plabel{color:var(--ink);font-weight:700;}
+  .pstep.cur::before{background:var(--brand,#f0a02a);}
+  .crmrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);}
+  @media(max-width:1200px){.crmrow{grid-template-columns:repeat(2,1fr);}}
+  .crmf{display:flex;flex-direction:column;gap:4px;}
+  .crmf>span{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.03em;color:var(--dim);}
+  .crmf select,.crmf input{border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit;font-size:13px;background:var(--surface,#fff);color:var(--ink);}
+  .crmf select:focus,.crmf input:focus{outline:none;border-color:var(--brand,#f0a02a);}
+  .notesf{display:flex;flex-direction:column;gap:5px;padding:14px 20px;border-bottom:1px solid var(--line);}
+  .notesf>span{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.03em;color:var(--dim);}
+  .notesf textarea{border:1px solid var(--line);border-radius:8px;padding:9px 11px;font:inherit;font-size:13px;min-height:52px;resize:vertical;color:var(--ink);background:#fffdf9;}
+  .notesf textarea:focus{outline:none;border-color:var(--brand,#f0a02a);}
+  .edmeta2{padding:14px 20px 2px;}
   .alist{display:flex;flex-direction:column;gap:12px;}
   .acard{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow,0 1px 3px rgba(23,21,18,.07));padding:16px 18px;display:flex;flex-direction:column;gap:10px;}
   .acardhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
@@ -651,7 +714,12 @@
       </section>
 
       <section class="view" id="view-approvals">
-        <div class="phead"><div><h1>Automated inbox</h1><div class="sub">Your outreach drafts &mdash; click one to edit the recipient, subject or message, then send. Nothing sends without your click.</div></div></div>
+        <div class="phead"><div><h1>Inbox</h1><div class="sub">Built for creator partnerships &mdash; full context on every thread, nothing sends without your click.</div></div></div>
+        <div class="ibstats" id="ibStats"></div>
+        <div class="ibtools">
+          <div class="ibsearch"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg><input id="ibSearch" type="text" placeholder="Search creator, email, niche, country, stage&hellip;" autocomplete="off"></div>
+          <div class="ibchips" id="ibChips"></div>
+        </div>
         <div id="inboxStatus" class="inbox-status"></div>
         <div class="mailwrap">
           <div class="maillist" id="inboxList"></div>
@@ -868,6 +936,13 @@
     if(n){ render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline(); }
     return n;
   };
+  // Real creator context for the Inbox, matched by email (null if we don't have them).
+  window.simCreatorByEmail=function(email){
+    email=String(email||"").trim().toLowerCase(); if(!email) return null;
+    for(var i=0;i<DATA.length;i++){ var c=DATA[i]; if(emailOf(c).toLowerCase()===email){ var s=effStatus(c);
+      return {name:c.name,handle:c.handle,subs:c.subs,market:c.market,niche:c.niche,statusLabel:s[1],statusCls:s[0]}; } }
+    return null;
+  };
   function ovParseSubs(s){
     if(s==null) return 0;
     s=String(s).trim().replace(/,/g,"");
@@ -967,80 +1042,134 @@
 </script>
 <script>
 (function(){
-  var DRAFTS=[], selId=null;
+  var DRAFTS=[], selId=null, searchTerm="", activeFilter="all";
   var listEl=document.getElementById("inboxList");
   var viewEl=document.getElementById("mailView");
   var stEl=document.getElementById("inboxStatus");
+  var statsEl=document.getElementById("ibStats");
+  var chipsEl=document.getElementById("ibChips");
+  var searchEl=document.getElementById("ibSearch");
   function toast(m){ var t=document.getElementById("toast"),ts=document.getElementById("toastMsg"); if(t&&ts){ts.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2400);} }
   function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
-  function initial(to){ return ((String(to).replace(/[^A-Za-z0-9]/g,"")[0])||"?").toUpperCase(); }
+  function initial(s){ return ((String(s).replace(/[^A-Za-z0-9]/g,"")[0])||"?").toUpperCase(); }
+  function today(){ try{ return (new Date()).toISOString().slice(0,10); }catch(e){ return ""; } }
   function notConfigured(){ return '<div class="mempty">Mailbox not connected yet \u2014 your Gmail drafts appear here once the site is deployed with your Gmail secret (behind Cloudflare Access).</div>'; }
-  function welcome(){ return '<div class="mwelcome"><div class="mwicon">\u2709</div><div class="mwt">Select a draft to edit</div><div class="mws">Click a message on the left to edit the recipient, subject or wording, then send.</div></div>'; }
+  function welcome(){ return '<div class="mwelcome"><div class="mwicon">\u2709</div><div class="mwt">Select a conversation</div><div class="mws">Every thread shows the creator, their pipeline stage and your notes \u2014 before you open it.</div></div>'; }
+
+  var CRM={}; try{ CRM=JSON.parse(localStorage.getItem("simify_crm_v1")||"{}"); }catch(e){ CRM={}; }
+  function crmSave(){ try{ localStorage.setItem("simify_crm_v1",JSON.stringify(CRM)); }catch(e){} }
+  function crmFor(email){ return CRM[String(email||"").toLowerCase()]||{}; }
+  function crmSet(email,patch){ var k=String(email||"").toLowerCase(); CRM[k]=Object.assign({},CRM[k]||{},patch); crmSave(); }
+  var STAGES=["Prospect","Contacted","Interested","Product sent","Content pending","Review","Published","Affiliate active","Completed"];
+  function stageFromStatus(l){ return ({"New lead":"Prospect","Ready to draft":"Prospect","Skipped":"Prospect","Declined":"Prospect","Outreached":"Contacted","Replied":"Interested","Negotiating":"Interested","Onboarding":"Product sent","In production":"Content pending","Live":"Published"})[l]||"Prospect"; }
+  function stageOf(d){ var c=crmFor(d.to); if(c.stage) return c.stage; return d.cr?stageFromStatus(d.cr.statusLabel):"Prospect"; }
+  function priOf(d){ return crmFor(d.to).priority||""; }
+  function isFollowDue(d){ var f=crmFor(d.to).follow||""; return !!(f && f<=today()); }
+  function enrich(){ DRAFTS.forEach(function(d){ d.cr = window.simCreatorByEmail ? window.simCreatorByEmail(d.to) : null; }); }
+  function nameOf(d){ return (d.cr&&d.cr.name)||d.to; }
+
+  function renderStats(){
+    if(!statsEl) return;
+    var due=DRAFTS.filter(isFollowDue).length, high=DRAFTS.filter(function(d){return priOf(d)==="high";}).length, pin=DRAFTS.filter(function(d){return crmFor(d.to).pin;}).length;
+    var cards=[["all","To send",DRAFTS.length],["due","Follow-ups due",due],["high","High priority",high],["pin","Pinned",pin]];
+    statsEl.innerHTML=cards.map(function(c){ return '<button class="ibstat'+(activeFilter===c[0]?" on":"")+'" data-f="'+c[0]+'"><span class="ibsn">'+c[2]+'</span><span class="ibsl">'+c[1]+'</span></button>'; }).join("");
+  }
+  function renderChips(){
+    if(!chipsEl) return;
+    var chips=[["all","All"],["due","Follow-up due"],["high","High priority"],["pin","Pinned"]];
+    chipsEl.innerHTML=chips.map(function(c){ return '<button class="ibchip'+(activeFilter===c[0]?" on":"")+'" data-f="'+c[0]+'">'+c[1]+'</button>'; }).join("");
+  }
+  function matches(d){
+    if(activeFilter==="due"&&!isFollowDue(d)) return false;
+    if(activeFilter==="high"&&priOf(d)!=="high") return false;
+    if(activeFilter==="pin"&&!crmFor(d.to).pin) return false;
+    if(searchTerm){ var hay=(nameOf(d)+" "+d.to+" "+(d.subject||"")+" "+(d.cr?d.cr.niche+" "+d.cr.market+" "+d.cr.handle:"")+" "+stageOf(d)).toLowerCase(); if(hay.indexOf(searchTerm)<0) return false; }
+    return true;
+  }
+  function sortDrafts(a,b){ var pa=crmFor(a.to).pin?0:1,pb=crmFor(b.to).pin?0:1; if(pa!==pb)return pa-pb; return (isFollowDue(a)?0:1)-(isFollowDue(b)?0:1); }
 
   function renderList(){
+    renderStats(); renderChips();
     if(!DRAFTS.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">Inbox clear \u2014 flag creators in the Creators tab and hit <b>Draft flagged</b> to add drafts here.</div>'; viewEl.innerHTML=welcome(); return; }
-    stEl.textContent=DRAFTS.length+" draft"+(DRAFTS.length>1?"s":"")+" waiting \u00B7 click to edit, then send";
-    listEl.innerHTML=DRAFTS.map(function(d){
-      return '<div class="mrow'+(d.id===selId?" active":"")+'" data-id="'+esc(d.id)+'">'+
-        '<div class="mav">'+esc(initial(d.to))+'</div>'+
-        '<div class="mmain"><div class="mline1"><span class="mto">'+esc(d.to)+'</span><span class="mtag">Draft</span></div>'+
-        '<div class="mline2"><span class="msub">'+esc(d.subject||"(no subject)")+'</span> <span class="msnip">'+esc(d.snippet||"")+'</span></div></div>'+
-      '</div>';
+    var list=DRAFTS.filter(matches).slice().sort(sortDrafts);
+    stEl.textContent=list.length+" of "+DRAFTS.length+" conversation"+(DRAFTS.length>1?"s":"");
+    if(!list.length){ listEl.innerHTML='<div class="mempty">No conversations match.</div>'; return; }
+    listEl.innerHTML=list.map(function(d){
+      var cr=d.cr, pri=priOf(d), pin=crmFor(d.to).pin, due=isFollowDue(d), meta=[];
+      if(cr){ if(cr.subs)meta.push(esc(cr.subs)); if(cr.market&&cr.market!=="\u2014")meta.push(esc(cr.market)); }
+      return '<div class="cvrow'+(d.id===selId?" active":"")+'" data-id="'+esc(d.id)+'">'+
+        '<div class="mav">'+esc(initial(nameOf(d)))+'</div>'+
+        '<div class="cvmain"><div class="cvl1"><span class="cvname">'+esc(nameOf(d))+'</span>'+(pin?'<span class="cvpin">\u2605</span>':'')+(pri?'<span class="pdot '+pri+'"></span>':'')+'</div>'+
+        '<div class="cvl2">'+(cr?'@'+esc((cr.handle||"").replace(/^@/,""))+(meta.length?' \u00B7 '+meta.join(' \u00B7 '):''):esc(d.to))+'</div>'+
+        '<div class="cvl3">'+esc(d.subject||"(no subject)")+'</div>'+
+        '<div class="cvl4"><span class="stpill">'+esc(stageOf(d))+'</span>'+(due?'<span class="duebadge">follow-up due</span>':'')+'</div>'+
+        '</div></div>';
     }).join("");
   }
 
   function openDraft(id){
     selId=id; renderList();
     viewEl.innerHTML='<div class="mloading">Loading\u2026</div>';
-    fetch("/api/draft-get?id="+encodeURIComponent(id)).then(function(r){return r.json();}).then(function(d){
-      if(!d||d.error){ viewEl.innerHTML='<div class="mloading">Couldn\u2019t load this draft.</div>'; return; }
-      viewEl.innerHTML=editorHtml(d); wireEditor(d.id);
+    fetch("/api/draft-get?id="+encodeURIComponent(id)).then(function(r){return r.json();}).then(function(g){
+      if(!g||g.error){ viewEl.innerHTML='<div class="mloading">Couldn\u2019t load this draft.</div>'; return; }
+      var d=DRAFTS.filter(function(x){return x.id===id;})[0]||{id:id,to:g.to}; g.to=g.to||d.to;
+      if(!d.cr) d.cr=window.simCreatorByEmail?window.simCreatorByEmail(g.to):null;
+      viewEl.innerHTML=detailHtml(g,d); wireDetail(g,d);
     }).catch(function(){ viewEl.innerHTML='<div class="mloading">Backend not connected (editing works on the live site).</div>'; });
   }
-  function editorHtml(d){
-    var bodyHtml=d.html||('<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px">'+esc(d.text).replace(/\n/g,"<br>")+'</div>');
-    return '<div class="editor">'+
-      '<div class="edhead"><div class="mav big">'+esc(initial(d.to))+'</div>'+
-        '<div class="edmeta"><div class="edrow"><label>To</label><input id="edTo" type="email" value="'+esc(d.to)+'"></div>'+
-        '<div class="edrow"><label>Subject</label><input id="edSubject" type="text" value="'+esc(d.subject)+'"></div></div></div>'+
+  function pipelineHtml(stage){
+    var ci=STAGES.indexOf(stage);
+    return '<div class="pipeline">'+STAGES.map(function(s,i){ var cls=i<ci?"done":(i===ci?"cur":""); return '<button class="pstep '+cls+'" data-stage="'+esc(s)+'"><span class="pdotm"></span><span class="plabel">'+esc(s)+'</span></button>'; }).join("")+'</div>';
+  }
+  function detailHtml(g,d){
+    var email=g.to, cr=d.cr, c=crmFor(email), stage=stageOf(d);
+    var metaBits=[]; if(cr){ if(cr.handle)metaBits.push(esc(cr.handle)); if(cr.subs)metaBits.push(esc(cr.subs)+" subs"); if(cr.market&&cr.market!=="\u2014")metaBits.push(esc(cr.market)); if(cr.niche)metaBits.push(esc(cr.niche)); } else { metaBits.push(esc(email)); metaBits.push("not in your roster"); }
+    var head='<div class="crhead"><div class="mav big">'+esc(initial(nameOf(d)))+'</div>'+
+      '<div class="crhinfo"><div class="crhname">'+esc(nameOf(d))+(cr&&cr.handle?' <a class="ytbadge" href="https://www.youtube.com/'+esc(cr.handle)+'" target="_blank" rel="noopener">YouTube</a>':'')+'</div>'+
+      '<div class="crhmeta">'+metaBits.join(' \u00B7 ')+'</div></div>'+
+      '<button class="pinbtn'+(c.pin?" on":"")+'" data-crm="pin" title="Pin conversation">\u2605</button></div>';
+    var crm='<div class="crmrow">'+
+      '<label class="crmf"><span>Priority</span><select data-crm="priority"><option value="">\u2014</option><option value="high"'+(c.priority==="high"?" selected":"")+'>High</option><option value="med"'+(c.priority==="med"?" selected":"")+'>Medium</option><option value="low"'+(c.priority==="low"?" selected":"")+'>Low</option></select></label>'+
+      '<label class="crmf"><span>Follow up</span><input type="date" data-crm="follow" value="'+esc(c.follow||"")+'"></label>'+
+      '<label class="crmf"><span>Campaign</span><input type="text" data-crm="campaign" placeholder="e.g. UK Summer" value="'+esc(c.campaign||"")+'"></label>'+
+      '<label class="crmf"><span>Affiliate</span><select data-crm="affiliate"><option value="">Not active</option><option value="pending"'+(c.affiliate==="pending"?" selected":"")+'>Code sent</option><option value="active"'+(c.affiliate==="active"?" selected":"")+'>Sales active</option></select></label>'+
+      '</div>'+
+      '<label class="notesf"><span>Private notes \u00B7 creators never see these</span><textarea data-crm="notes" placeholder="Context, next steps, what they said\u2026">'+esc(c.notes||"")+'</textarea></label>';
+    var bodyHtml=g.html||('<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px">'+esc(g.text).replace(/\n/g,"<br>")+'</div>');
+    var editor='<div class="editor"><div class="edmeta2"><div class="edrow"><label>To</label><input id="edTo" type="email" value="'+esc(g.to)+'"></div>'+
+      '<div class="edrow"><label>Subject</label><input id="edSubject" type="text" value="'+esc(g.subject)+'"></div></div>'+
       '<div class="edbodywrap"><div id="edBody" class="edbody" contenteditable="true">'+bodyHtml+'</div></div>'+
       '<div class="edacts"><button class="btn pri" id="edSend">Send</button><button class="btn" id="edSave">Save draft</button>'+
-        '<a class="btn ghost" href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Open in Gmail</a>'+
-        '<span class="edstatus" id="edStatus"></span></div></div>';
+      '<a class="btn ghost" href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Open in Gmail</a>'+
+      '<span class="edstatus" id="edStatus"></span></div></div>';
+    return '<div class="thread">'+head+pipelineHtml(stage)+crm+editor+'</div>';
+  }
+  function wireDetail(g,d){
+    var email=g.to, thread=viewEl.querySelector(".thread"); if(!thread) return;
+    thread.querySelectorAll(".pstep").forEach(function(b){ b.addEventListener("click",function(){ var s=b.getAttribute("data-stage"); crmSet(email,{stage:s}); var ci=STAGES.indexOf(s); thread.querySelectorAll(".pstep").forEach(function(x,i){ x.className="pstep "+(i<ci?"done":(i===ci?"cur":"")); }); renderList(); }); });
+    var pinb=thread.querySelector(".pinbtn"); if(pinb) pinb.addEventListener("click",function(){ var v=!crmFor(email).pin; crmSet(email,{pin:v}); pinb.classList.toggle("on",v); renderList(); });
+    thread.querySelectorAll("[data-crm]").forEach(function(el){ if(el.tagName==="BUTTON")return; var ev=(el.tagName==="SELECT"||el.type==="date")?"change":"input"; el.addEventListener(ev,function(){ var p={}; p[el.getAttribute("data-crm")]=el.value; crmSet(email,p); renderList(); }); });
+    wireEditor(g.id);
   }
   function wireEditor(id){
     var toI=document.getElementById("edTo"), subI=document.getElementById("edSubject"), bodyI=document.getElementById("edBody"), stat=document.getElementById("edStatus");
     function payload(){ return {id:id,to:toI.value.trim(),subject:subI.value.trim(),html:bodyI.innerHTML}; }
-    function saveThen(after){
-      stat.textContent="Saving\u2026";
-      return fetch("/api/draft-update",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload())}).then(function(r){return r.json();}).then(function(j){
-        if(j&&j.ok){ var d=DRAFTS.filter(function(x){return x.id===id;})[0]; if(d){ d.to=j.to; d.subject=j.subject; d.snippet=(bodyI.textContent||"").replace(/\s+/g," ").trim().slice(0,140); } renderList(); }
-        return j;
-      });
-    }
-    document.getElementById("edSave").addEventListener("click",function(){
-      saveThen().then(function(j){ if(j&&j.ok){ stat.textContent="Saved \u2713"; setTimeout(function(){stat.textContent="";},1800);} else { stat.textContent=""; toast("Save failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Backend not connected"); });
-    });
-    document.getElementById("edSend").addEventListener("click",function(){
-      var to=toI.value.trim(); if(to.indexOf("@")<1){ toast("Add a valid recipient first"); return; }
-      if(!confirm("Send this email to "+to+" now?\n\nIt will be sent from your Gmail.")) return;
-      saveThen().then(function(){ stat.textContent="Sending\u2026";
-        return fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:id})}).then(function(r){return r.json();});
-      }).then(function(j){
-        if(j&&j.ok){ DRAFTS=DRAFTS.filter(function(x){return x.id!==id;}); selId=null; renderList(); if(DRAFTS.length) viewEl.innerHTML=welcome(); toast("Sent to "+to);
-          if(window.simMarkOutreached) window.simMarkOutreached(to); }
-        else { stat.textContent=""; toast("Send failed: "+((j&&j.error)||"error")); }
-      }).catch(function(){ stat.textContent=""; toast("Send failed"); });
-    });
+    function save(){ stat.textContent="Saving\u2026"; return fetch("/api/draft-update",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload())}).then(function(r){return r.json();}).then(function(j){ if(j&&j.ok){ var d=DRAFTS.filter(function(x){return x.id===id;})[0]; if(d){ d.to=j.to; d.subject=j.subject; d.snippet=(bodyI.textContent||"").replace(/\s+/g," ").trim().slice(0,140); d.cr=window.simCreatorByEmail?window.simCreatorByEmail(j.to):d.cr; } renderList(); } return j; }); }
+    document.getElementById("edSave").addEventListener("click",function(){ save().then(function(j){ if(j&&j.ok){ stat.textContent="Saved \u2713"; setTimeout(function(){stat.textContent="";},1600);} else { stat.textContent=""; toast("Save failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Backend not connected"); }); });
+    document.getElementById("edSend").addEventListener("click",function(){ var to=toI.value.trim(); if(to.indexOf("@")<1){ toast("Add a valid recipient first"); return; } if(!confirm("Send this email to "+to+" now?\n\nIt will be sent from your Gmail.")) return; save().then(function(){ stat.textContent="Sending\u2026"; return fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:id})}).then(function(r){return r.json();}); }).then(function(j){ if(j&&j.ok){ DRAFTS=DRAFTS.filter(function(x){return x.id!==id;}); selId=null; renderList(); viewEl.innerHTML=welcome(); toast("Sent to "+to); if(window.simMarkOutreached) window.simMarkOutreached(to); } else { stat.textContent=""; toast("Send failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Send failed"); }); });
   }
-  if(listEl) listEl.addEventListener("click",function(e){ var row=e.target.closest(".mrow"); if(!row)return; openDraft(row.getAttribute("data-id")); });
+
+  if(listEl) listEl.addEventListener("click",function(e){ var row=e.target.closest(".cvrow"); if(row) openDraft(row.getAttribute("data-id")); });
+  if(statsEl) statsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); renderList(); } });
+  if(chipsEl) chipsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); renderList(); } });
+  if(searchEl) searchEl.addEventListener("input",function(){ searchTerm=searchEl.value.trim().toLowerCase(); renderList(); });
 
   function load(){
     stEl.textContent="Loading your drafts\u2026"; listEl.innerHTML=""; viewEl.innerHTML="";
     fetch("/api/drafts").then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});}).then(function(res){
-      if(res.ok&&res.j&&res.j.drafts){ DRAFTS=res.j.drafts; selId=null; renderList(); }
-      else { stEl.textContent=""; listEl.innerHTML=notConfigured(); viewEl.innerHTML=welcome(); }
-    }).catch(function(){ stEl.textContent=""; listEl.innerHTML=notConfigured(); viewEl.innerHTML=welcome(); });
+      if(res.ok&&res.j&&res.j.drafts){ DRAFTS=res.j.drafts; selId=null; enrich(); renderList(); }
+      else { stEl.textContent=""; renderStats(); renderChips(); listEl.innerHTML=notConfigured(); viewEl.innerHTML=welcome(); }
+    }).catch(function(){ stEl.textContent=""; renderStats(); renderChips(); listEl.innerHTML=notConfigured(); viewEl.innerHTML=welcome(); });
   }
   var navBtn=document.querySelector('.nav[data-view="approvals"]');
   if(navBtn) navBtn.addEventListener("click",load); // reload each open so newly-flagged drafts appear

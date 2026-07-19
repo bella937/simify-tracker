@@ -1,11 +1,13 @@
 """
-Creates Simify outreach emails as Gmail DRAFTS (never sends) for the sourced
-creators who have a direct email in the Priority Outreach sheet. Human reviews
-and sends from Gmail. Marks drafted creators 'Contacted' in the xlsx.
+Creates/updates Simify outreach emails as Gmail DRAFTS (never sends) for sourced
+creators who have a direct email. Human reviews and sends from Gmail.
+First line is tailored (free, no AI) from the creator's niche. Idempotent:
+re-running UPDATES the existing draft to a recipient rather than duplicating.
 
-SAFETY: this module must only ever call drafts().create(); never messages().send().
+SAFETY: only calls drafts().create()/drafts().update(); never messages().send(),
+never drafts().send(), never delete. Cannot send or delete mail.
 """
-import base64, os, re, sys
+import base64, os, re
 from email.mime.text import MIMEText
 import openpyxl
 from google.oauth2.credentials import Credentials
@@ -17,15 +19,40 @@ SCOPES = ["https://www.googleapis.com/auth/gmail.readonly",
 HERE = os.path.dirname(os.path.abspath(__file__))
 XLSX = os.path.join(HERE, "Simify_YouTube_MicroNano_Prospects.xlsx")
 SHEET = "★ Priority Outreach (New)"
+SUBJECT = "Join the Simify creator programme \U0001F381"  # 🎁
 
-SUBJECT = "a little gift from Simify for your next trip"
-def body(first):
-    return (f"Hi {first},\n\n"
-            "I run YouTube partnerships at Simify (travel eSIMs, data in 100+ countries). "
-            "We'd love to gift you $150 of data for a trip you've got coming up, plus a share "
-            "of every sale from your audience.\n\n"
-            "No cost, no catch. Want me to send the details?\n\n"
-            "Best,\nBella")
+def first_line(niche):
+    if niche:
+        seg = re.split(r"[,/(]", str(niche))[0].strip().lower()
+        if seg:
+            return f"Love your {seg} content on YouTube!"
+    return "Love what you're doing on YouTube!"
+
+def greet_name(name):
+    if not name: return "there"
+    import re as _re
+    m=_re.search(r"\(([^)]+)\)", str(name))          # "(Kev)" -> Kev
+    if m:
+        c=m.group(1).strip().split()
+        if c: return c[0]
+    s=_re.sub(r"^(hey|hi|hello)\s+","",str(name).strip(),flags=_re.I)  # drop leading greeting
+    w=_re.split(r"[\s(\u2013\u2014-]",s)[0].strip()
+    STOP={"aussie","real","the","two","my","team","world","adventures","travel","little","big","one","just","not"}
+    if not w or w.lower() in STOP or not w[:1].isalpha(): return "there"
+    return w
+
+def body(first, niche):
+    return (f"Hey {first},\n"
+            f"{first_line(niche)}\n\n"
+            "I'm Bella from Simify — we're an Aussie eSIM brand trusted by 1M+ travellers, "
+            "and we're looking for creators to join our affiliate programme. Here's how it works:\n\n"
+            "\U0001F381 We'll gift you a $150 AUD eSIM voucher\n"
+            "\U0001F4F2 Share your Simify experience in a YouTube Short or a video integration\n"
+            "\U0001F4B8 Earn 15% commission on every sale through your unique discount code\n"
+            "\U0001F680 We'll also feature your content in our paid campaigns to boost your reach "
+            "and help you grow your audience\n\n"
+            "Let me know if you're interested and I'll send over all the details!\n\n"
+            "Bella\nInfluencer Partnerships — Simify\nsimify.com")
 
 def gmail():
     c = Credentials.from_authorized_user_file("token.json", SCOPES)
@@ -33,34 +60,50 @@ def gmail():
         c.refresh(Request()); open("token.json","w").write(c.to_json())
     return build("gmail", "v1", credentials=c)
 
-def make_draft(svc, to, subject, text):
-    m = MIMEText(text); m["to"] = to; m["subject"] = subject
-    raw = base64.urlsafe_b64encode(m.as_bytes()).decode()
-    return svc.users().drafts().create(userId="me", body={"message": {"raw": raw}}).execute()
+def existing_drafts_by_recipient(svc):
+    m = {}
+    res = svc.users().drafts().list(userId="me", maxResults=200).execute()
+    for d in res.get("drafts", []):
+        meta = svc.users().drafts().get(userId="me", id=d["id"], format="metadata").execute()
+        hdrs = meta.get("message", {}).get("payload", {}).get("headers", [])
+        to = next((h["value"] for h in hdrs if h["name"].lower() == "to"), "")
+        if to: m[to.strip().lower()] = d["id"]
+    return m
+
+def raw(to, subject, text):
+    msg = MIMEText(text, "plain", "utf-8")   # utf-8 so emoji encode correctly
+    msg["to"] = to; msg["subject"] = subject
+    return base64.urlsafe_b64encode(msg.as_bytes()).decode()
 
 def main():
-    wb = openpyxl.load_workbook(XLSX)
-    ws = wb[SHEET]
-    header = [c.value for c in ws[1]]
-    ci = {h: i for i, h in enumerate(header)}
+    wb = openpyxl.load_workbook(XLSX); ws = wb[SHEET]
+    hdr = [c.value for c in ws[1]]; ci = {h: i for i, h in enumerate(hdr)}
     svc = gmail()
-    made = 0
+    drafts = existing_drafts_by_recipient(svc)
+    n = 0
     for row in ws.iter_rows(min_row=2):
         vals = [c.value for c in row]
         if not any(vals): continue
-        email = vals[ci.get("Email")] if ci.get("Email") is not None else None
-        name = vals[ci.get("Channel Name")]
-        status = str(vals[ci.get("Status")] or "").strip().lower()
+        email = vals[ci.get("Email")]
         if not email or "@" not in str(email): continue
-        if status not in ("", "not contacted"):   # don't re-draft
-            continue
-        first = re.split(r"[\s(]", str(name).strip())[0] if name else "there"
-        d = make_draft(svc, str(email).strip(), SUBJECT, body(first))
-        row[ci["Status"]].value = "Contacted"     # advance in the sheet
-        print(f"  draft created for {name} <{email}>  (draft id {d['id']})")
-        made += 1
+        name = vals[ci.get("Channel Name")]
+        niche = vals[ci.get("Niche / Content")]
+        first = greet_name(name)
+        to = str(email).strip()
+        body_txt = body(first, niche)
+        r = raw(to, SUBJECT, body_txt)
+        did = drafts.get(to.lower())
+        if did:
+            svc.users().drafts().update(userId="me", id=did, body={"message": {"raw": r}}).execute()
+            action = "updated"
+        else:
+            svc.users().drafts().create(userId="me", body={"message": {"raw": r}}).execute()
+            action = "created"
+        row[ci["Status"]].value = "Contacted"
+        print(f"  {action}: {name} <{to}>")
+        n += 1
     wb.save(XLSX)
-    print(f"Done. {made} outreach draft(s) created in Gmail (review + send there). Sheet updated to 'Contacted'.")
+    print(f"Done. {n} draft(s) synced in Gmail with your template (review + send there). No emails sent.")
 
 if __name__ == "__main__":
     main()

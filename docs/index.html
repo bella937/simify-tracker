@@ -526,25 +526,43 @@
   #undoDel{color:var(--brand);text-decoration:none;}
   #undoDel:hover{text-decoration:underline;}
   .inbox-status{font-family:var(--fm);font-size:12px;color:var(--muted);margin-bottom:14px;}
-  .mbox{background:var(--surface,#fff);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow,0 1px 3px rgba(23,21,18,.06));overflow:hidden;}
-  .mrow{display:flex;align-items:center;gap:14px;padding:13px 18px;border-bottom:1px solid var(--line);transition:background .12s;}
+  .mailwrap{display:grid;grid-template-columns:380px 1fr;gap:16px;align-items:start;}
+  @media(max-width:900px){.mailwrap{grid-template-columns:1fr;}}
+  .maillist{background:var(--surface,#fff);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow,0 1px 3px rgba(23,21,18,.06));overflow:hidden;max-height:74vh;overflow-y:auto;}
+  .mrow{display:flex;align-items:center;gap:12px;padding:12px 15px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s;}
   .mrow:last-child{border-bottom:none;}
   .mrow:hover{background:var(--surface-2,#faf8f3);}
-  .mrow.sent{opacity:.55;}
-  .mav{flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:var(--brand,#f0a02a);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;}
+  .mrow.active{background:#fff5e6;box-shadow:inset 3px 0 0 var(--brand,#f0a02a);}
+  .mav{flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:var(--brand,#f0a02a);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
+  .mav.big{width:44px;height:44px;font-size:17px;flex-basis:44px;}
   .mmain{flex:1;min-width:0;}
   .mline1{display:flex;align-items:center;gap:8px;margin-bottom:2px;}
-  .mto{font-family:var(--fm);font-size:12px;color:var(--dim);}
-  .mtag{font-family:var(--fm);font-size:10px;letter-spacing:.03em;text-transform:uppercase;color:#137a3f;background:#eafaf0;border:1px solid #137a3f33;border-radius:20px;padding:1px 8px;}
-  .mline2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13.5px;}
+  .mto{font-family:var(--fm);font-size:11.5px;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .mtag{flex:0 0 auto;font-family:var(--fm);font-size:9.5px;letter-spacing:.03em;text-transform:uppercase;color:#137a3f;background:#eafaf0;border:1px solid #137a3f33;border-radius:20px;padding:1px 7px;}
+  .mline2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;}
   .mline2 .msub{font-weight:600;color:var(--ink);}
   .mline2 .msnip{color:var(--muted);}
-  .macts{flex:0 0 auto;display:flex;align-items:center;gap:10px;}
-  .macts .mopen{font-size:12.5px;color:var(--muted);text-decoration:none;white-space:nowrap;}
-  .macts .mopen:hover{color:var(--ink);text-decoration:underline;}
-  .macts .msend{padding:6px 16px;}
-  .msent{font-family:var(--fm);font-size:12px;color:#137a3f;font-weight:600;}
-  @media(max-width:640px){.mline1 .mto{max-width:46vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.macts .mopen{display:none;}}
+  .mempty{padding:26px 20px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6;}
+  .mailview{background:var(--surface,#fff);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow,0 1px 3px rgba(23,21,18,.06));min-height:460px;display:flex;flex-direction:column;}
+  .mwelcome{margin:auto;text-align:center;color:var(--muted);padding:44px;}
+  .mwicon{font-size:34px;color:var(--brand,#f0a02a);margin-bottom:10px;}
+  .mwt{font-weight:600;color:var(--ink);font-size:15px;margin-bottom:4px;}
+  .mws{font-size:13px;max-width:44ch;line-height:1.6;margin:0 auto;}
+  .mloading{margin:auto;color:var(--muted);padding:44px;}
+  .editor{display:flex;flex-direction:column;width:100%;}
+  .edhead{display:flex;gap:14px;align-items:flex-start;padding:18px 20px 14px;border-bottom:1px solid var(--line);}
+  .edmeta{flex:1;min-width:0;}
+  .edrow{display:flex;align-items:center;gap:10px;padding:5px 0;}
+  .edrow label{flex:0 0 58px;font-family:var(--fm);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.03em;}
+  .edrow input{flex:1;min-width:0;border:1px solid transparent;background:transparent;font:inherit;font-size:14px;color:var(--ink);padding:5px 8px;border-radius:7px;}
+  .edrow input:hover{background:var(--surface-2,#faf8f3);}
+  .edrow input:focus{outline:none;border-color:var(--brand,#f0a02a);background:#fff;}
+  .edbodywrap{padding:8px;}
+  .edbody{min-height:260px;max-height:52vh;overflow-y:auto;padding:16px 18px;border-radius:10px;outline:none;font-size:14px;line-height:1.55;color:#111;}
+  .edbody:focus{box-shadow:inset 0 0 0 1px var(--line);}
+  .edacts{display:flex;align-items:center;gap:10px;padding:14px 20px;border-top:1px solid var(--line);flex-wrap:wrap;}
+  .btn.ghost{background:transparent;border:1px solid var(--line);}
+  .edstatus{font-family:var(--fm);font-size:12px;color:#137a3f;margin-left:4px;}
   .alist{display:flex;flex-direction:column;gap:12px;}
   .acard{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow,0 1px 3px rgba(23,21,18,.07));padding:16px 18px;display:flex;flex-direction:column;gap:10px;}
   .acardhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
@@ -633,9 +651,12 @@
       </section>
 
       <section class="view" id="view-approvals">
-        <div class="phead"><div><h1>Automated inbox</h1><div class="sub">Your Gmail drafts &mdash; review and send from here. Nothing sends without your click.</div></div></div>
+        <div class="phead"><div><h1>Automated inbox</h1><div class="sub">Your outreach drafts &mdash; click one to edit the recipient, subject or message, then send. Nothing sends without your click.</div></div></div>
         <div id="inboxStatus" class="inbox-status"></div>
-        <div id="inboxList" class="alist"></div>
+        <div class="mailwrap">
+          <div class="maillist" id="inboxList"></div>
+          <div class="mailview" id="mailView"></div>
+        </div>
       </section>
       <section class="view" id="view-automations">
         <div class="phead"><div><h1>Automations</h1><div class="sub">The background workers that run without you</div></div></div>
@@ -840,6 +861,13 @@
     setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); },120);
   });
   window.simAddCreator=function(c){ DATA.push({name:c.name||"New creator",handle:c.handle||"@new",email:c.email||"",market:c.market||"AU",subs:c.subs||0,niche:c.niche||"General",deliv:c.deliv||"1x Short",st:["out","Outreached"],rb:["new","new"]}); render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline(); };
+  // Called by the Inbox when a draft is sent — flags the matching creator Outreached.
+  window.simMarkOutreached=function(email){
+    email=String(email||"").trim().toLowerCase(); if(!email) return 0;
+    var n=0; DATA.forEach(function(c){ if(emailOf(c).toLowerCase()===email && !isOutreached(c)){ setStateFor(c,{outreached:true,flag:null}); n++; } });
+    if(n){ render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline(); }
+    return n;
+  };
   function ovParseSubs(s){
     if(s==null) return 0;
     s=String(s).trim().replace(/,/g,"");
@@ -939,46 +967,83 @@
 </script>
 <script>
 (function(){
-  var loaded=false;
-  function toast(m){ var t=document.getElementById("toast"),ts=document.getElementById("toastMsg"); if(t&&ts){ts.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2400);} }
-  function esc(x){ return String(x||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
-  function notConfigured(){ return '<div class="empty" style="border-style:solid"><div style="font-weight:600;color:var(--ink);margin-bottom:6px;">Mailbox not connected yet</div><div style="max-width:60ch;margin:0 auto;line-height:1.6;">Your Gmail drafts appear here once the backend is deployed with your Gmail secret (and the site is behind Cloudflare Access). Until then, review and send from Gmail directly.</div></div>'; }
-  function render(drafts){
-    var st=document.getElementById("inboxStatus"), list=document.getElementById("inboxList");
-    if(!drafts.length){ st.textContent=""; list.innerHTML='<div class="empty" style="border-style:solid"><div style="font-weight:600;color:var(--ink);margin-bottom:6px;">Inbox clear</div><div>No drafts waiting. New outreach and reply drafts show up here.</div></div>'; return; }
-    st.textContent=drafts.length+" draft"+(drafts.length>1?"s":"")+" waiting \u00B7 review and send";
-    list.innerHTML='<div class="mbox">'+drafts.map(function(d){
-      var to=String(d.to||""); var init=((to.replace(/[^A-Za-z0-9]/g,"")[0])||"?").toUpperCase();
-      return '<div class="mrow" data-id="'+esc(d.id)+'" data-to="'+esc(to)+'">'+
-        '<div class="mav">'+esc(init)+'</div>'+
-        '<div class="mmain">'+
-          '<div class="mline1"><span class="mto">'+esc(to)+'</span><span class="mtag">Draft</span></div>'+
-          '<div class="mline2"><span class="msub">'+esc(d.subject)+'</span><span class="msnip"> &mdash; '+esc(d.snippet)+'</span></div>'+
-        '</div>'+
-        '<div class="macts"><a class="mopen" href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Open in Gmail</a><button class="btn pri msend" data-act="send">Send</button></div>'+
-      '</div>';
-    }).join("")+'</div>';
-  }
-  function load(){
-    var st=document.getElementById("inboxStatus"); st.textContent="Loading your drafts\u2026"; document.getElementById("inboxList").innerHTML="";
-    fetch("/api/drafts").then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});}).then(function(res){
-      if(res.ok && res.j && res.j.drafts){ render(res.j.drafts); }
-      else { st.textContent=""; document.getElementById("inboxList").innerHTML=notConfigured(); }
-    }).catch(function(){ document.getElementById("inboxStatus").textContent=""; document.getElementById("inboxList").innerHTML=notConfigured(); });
-  }
+  var DRAFTS=[], selId=null;
   var listEl=document.getElementById("inboxList");
-  if(listEl) listEl.addEventListener("click",function(e){
-    var b=e.target.closest('button[data-act="send"]'); if(!b) return;
-    var row=b.closest(".mrow"), id=row.getAttribute("data-id"), to=row.getAttribute("data-to");
-    if(!confirm("Send this email to "+to+" now?\n\nIt will be sent from your Gmail.")) return;
-    b.disabled=true; b.textContent="Sending\u2026";
-    fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:id})}).then(function(r){return r.json();}).then(function(j){
-      if(j.ok){ row.classList.add("sent"); row.querySelector(".macts").innerHTML='<span class="msent">Sent &check;</span>'; toast("Sent to "+to); }
-      else { b.disabled=false; b.textContent="Send"; toast("Send failed: "+(j.error||"error")); }
-    }).catch(function(){ b.disabled=false; b.textContent="Send"; toast("Send failed"); });
-  });
+  var viewEl=document.getElementById("mailView");
+  var stEl=document.getElementById("inboxStatus");
+  function toast(m){ var t=document.getElementById("toast"),ts=document.getElementById("toastMsg"); if(t&&ts){ts.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2400);} }
+  function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function initial(to){ return ((String(to).replace(/[^A-Za-z0-9]/g,"")[0])||"?").toUpperCase(); }
+  function notConfigured(){ return '<div class="mempty">Mailbox not connected yet \u2014 your Gmail drafts appear here once the site is deployed with your Gmail secret (behind Cloudflare Access).</div>'; }
+  function welcome(){ return '<div class="mwelcome"><div class="mwicon">\u2709</div><div class="mwt">Select a draft to edit</div><div class="mws">Click a message on the left to edit the recipient, subject or wording, then send.</div></div>'; }
+
+  function renderList(){
+    if(!DRAFTS.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">Inbox clear \u2014 flag creators in the Creators tab and hit <b>Draft flagged</b> to add drafts here.</div>'; viewEl.innerHTML=welcome(); return; }
+    stEl.textContent=DRAFTS.length+" draft"+(DRAFTS.length>1?"s":"")+" waiting \u00B7 click to edit, then send";
+    listEl.innerHTML=DRAFTS.map(function(d){
+      return '<div class="mrow'+(d.id===selId?" active":"")+'" data-id="'+esc(d.id)+'">'+
+        '<div class="mav">'+esc(initial(d.to))+'</div>'+
+        '<div class="mmain"><div class="mline1"><span class="mto">'+esc(d.to)+'</span><span class="mtag">Draft</span></div>'+
+        '<div class="mline2"><span class="msub">'+esc(d.subject||"(no subject)")+'</span> <span class="msnip">'+esc(d.snippet||"")+'</span></div></div>'+
+      '</div>';
+    }).join("");
+  }
+
+  function openDraft(id){
+    selId=id; renderList();
+    viewEl.innerHTML='<div class="mloading">Loading\u2026</div>';
+    fetch("/api/draft-get?id="+encodeURIComponent(id)).then(function(r){return r.json();}).then(function(d){
+      if(!d||d.error){ viewEl.innerHTML='<div class="mloading">Couldn\u2019t load this draft.</div>'; return; }
+      viewEl.innerHTML=editorHtml(d); wireEditor(d.id);
+    }).catch(function(){ viewEl.innerHTML='<div class="mloading">Backend not connected (editing works on the live site).</div>'; });
+  }
+  function editorHtml(d){
+    var bodyHtml=d.html||('<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px">'+esc(d.text).replace(/\n/g,"<br>")+'</div>');
+    return '<div class="editor">'+
+      '<div class="edhead"><div class="mav big">'+esc(initial(d.to))+'</div>'+
+        '<div class="edmeta"><div class="edrow"><label>To</label><input id="edTo" type="email" value="'+esc(d.to)+'"></div>'+
+        '<div class="edrow"><label>Subject</label><input id="edSubject" type="text" value="'+esc(d.subject)+'"></div></div></div>'+
+      '<div class="edbodywrap"><div id="edBody" class="edbody" contenteditable="true">'+bodyHtml+'</div></div>'+
+      '<div class="edacts"><button class="btn pri" id="edSend">Send</button><button class="btn" id="edSave">Save draft</button>'+
+        '<a class="btn ghost" href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Open in Gmail</a>'+
+        '<span class="edstatus" id="edStatus"></span></div></div>';
+  }
+  function wireEditor(id){
+    var toI=document.getElementById("edTo"), subI=document.getElementById("edSubject"), bodyI=document.getElementById("edBody"), stat=document.getElementById("edStatus");
+    function payload(){ return {id:id,to:toI.value.trim(),subject:subI.value.trim(),html:bodyI.innerHTML}; }
+    function saveThen(after){
+      stat.textContent="Saving\u2026";
+      return fetch("/api/draft-update",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload())}).then(function(r){return r.json();}).then(function(j){
+        if(j&&j.ok){ var d=DRAFTS.filter(function(x){return x.id===id;})[0]; if(d){ d.to=j.to; d.subject=j.subject; d.snippet=(bodyI.textContent||"").replace(/\s+/g," ").trim().slice(0,140); } renderList(); }
+        return j;
+      });
+    }
+    document.getElementById("edSave").addEventListener("click",function(){
+      saveThen().then(function(j){ if(j&&j.ok){ stat.textContent="Saved \u2713"; setTimeout(function(){stat.textContent="";},1800);} else { stat.textContent=""; toast("Save failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Backend not connected"); });
+    });
+    document.getElementById("edSend").addEventListener("click",function(){
+      var to=toI.value.trim(); if(to.indexOf("@")<1){ toast("Add a valid recipient first"); return; }
+      if(!confirm("Send this email to "+to+" now?\n\nIt will be sent from your Gmail.")) return;
+      saveThen().then(function(){ stat.textContent="Sending\u2026";
+        return fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:id})}).then(function(r){return r.json();});
+      }).then(function(j){
+        if(j&&j.ok){ DRAFTS=DRAFTS.filter(function(x){return x.id!==id;}); selId=null; renderList(); if(DRAFTS.length) viewEl.innerHTML=welcome(); toast("Sent to "+to);
+          if(window.simMarkOutreached) window.simMarkOutreached(to); }
+        else { stat.textContent=""; toast("Send failed: "+((j&&j.error)||"error")); }
+      }).catch(function(){ stat.textContent=""; toast("Send failed"); });
+    });
+  }
+  if(listEl) listEl.addEventListener("click",function(e){ var row=e.target.closest(".mrow"); if(!row)return; openDraft(row.getAttribute("data-id")); });
+
+  function load(){
+    stEl.textContent="Loading your drafts\u2026"; listEl.innerHTML=""; viewEl.innerHTML="";
+    fetch("/api/drafts").then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});}).then(function(res){
+      if(res.ok&&res.j&&res.j.drafts){ DRAFTS=res.j.drafts; selId=null; renderList(); }
+      else { stEl.textContent=""; listEl.innerHTML=notConfigured(); viewEl.innerHTML=welcome(); }
+    }).catch(function(){ stEl.textContent=""; listEl.innerHTML=notConfigured(); viewEl.innerHTML=welcome(); });
+  }
   var navBtn=document.querySelector('.nav[data-view="approvals"]');
-  if(navBtn) navBtn.addEventListener("click",function(){ if(!loaded){ loaded=true; load(); } });
+  if(navBtn) navBtn.addEventListener("click",load); // reload each open so newly-flagged drafts appear
 })();
 </script>
 </body>

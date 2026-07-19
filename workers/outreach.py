@@ -69,11 +69,15 @@ def body_text(first, niche):
             "\U0001F680 We'll also feature your content in our paid campaigns to boost your reach "
             "and help you grow your audience\n\n"
             "Let me know if you're interested and I'll send over all the details!\n\n"
-            "Bella\nInfluencer Partnerships Manager at Simify\nsimify.com")
+            "Bella\nPartnerships Manager | Simify\nbella@simify.com")
 
-def body_html(first, niche):
+def body_html(first, niche, signature=""):
     fn = html.escape(first)
     fl = html.escape(first_line(niche))
+    # Close with Bella's real Gmail signature (branded HTML) when we have it;
+    # fall back to a plain text sign-off otherwise. API drafts don't auto-append
+    # the Gmail signature, so we embed it here (no risk of it doubling on send).
+    signoff = signature or "Bella<br>Partnerships Manager | Simify<br>bella@simify.com"
     return (
         '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;'
         'line-height:1.5;color:#111">'
@@ -88,8 +92,23 @@ def body_html(first, niche):
         "\U0001F680 We'll also feature your content in our paid campaigns to boost your reach "
         "and help you grow your audience<br><br>"
         "Let me know if you're interested and I'll send over all the details!<br><br>"
-        "Bella<br>Influencer Partnerships Manager at Simify<br>simify.com"
+        f"{signoff}"
         "</div>")
+
+def get_signature(svc):
+    """Return Bella's default Gmail sign-as signature (HTML), or '' if unavailable."""
+    try:
+        res = svc.users().settings().sendAs().list(userId="me").execute()
+        sends = res.get("sendAs", [])
+        for sa in sends:
+            if sa.get("isDefault") and sa.get("signature"):
+                return sa["signature"]
+        for sa in sends:
+            if sa.get("signature"):
+                return sa["signature"]
+    except Exception as e:
+        print(f"  [warn] couldn't read Gmail signature ({type(e).__name__}); using text sign-off")
+    return ""
 
 def gmail():
     c = Credentials.from_authorized_user_file("token.json", SCOPES)
@@ -119,6 +138,7 @@ def main():
     wb = openpyxl.load_workbook(XLSX); ws = wb[SHEET]
     hdr = [c.value for c in ws[1]]; ci = {h: i for i, h in enumerate(hdr)}
     svc = gmail()
+    sig = get_signature(svc)
     drafts = existing_drafts_by_recipient(svc)
     n = 0
     for row in ws.iter_rows(min_row=2):
@@ -131,7 +151,7 @@ def main():
         first = greet_name(name)
         to = str(email).strip()
         subject = subject_line(name)
-        r = raw(to, subject, body_text(first, niche), body_html(first, niche))
+        r = raw(to, subject, body_text(first, niche), body_html(first, niche, sig))
         did = drafts.get(to.lower())
         if did:
             svc.users().drafts().update(userId="me", id=did, body={"message": {"raw": r}}).execute()
@@ -153,6 +173,7 @@ def draft_from_json(markets=None):
     creators = json.load(open(JSON_PATH, encoding="utf-8"))["creators"]
     want = {m.strip().upper() for m in markets} if markets else None
     svc = gmail()
+    sig = get_signature(svc)
     drafts = existing_drafts_by_recipient(svc)
     n = 0
     for c in creators:
@@ -164,7 +185,7 @@ def draft_from_json(markets=None):
         name, niche = c.get("name"), c.get("niche")
         first = greet_name(name)
         subject = subject_line(name)
-        r = raw(email, subject, body_text(first, niche), body_html(first, niche))
+        r = raw(email, subject, body_text(first, niche), body_html(first, niche, sig))
         did = drafts.get(email.lower())
         if did:
             svc.users().drafts().update(userId="me", id=did, body={"message": {"raw": r}}).execute()

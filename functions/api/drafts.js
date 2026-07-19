@@ -33,8 +33,14 @@ export async function onRequestGet({ env }) {
       )).json();
       const hs = (m.message && m.message.payload && m.message.payload.headers) || [];
       const get = (n) => (hs.find((x) => x.name.toLowerCase() === n) || {}).value || "";
-      out.push({ id: d.id, to: get("to"), subject: get("subject") || "(no subject)",
-                 snippet: (m.message && m.message.snippet) || "" });
+      // Gmail snippets come HTML-entity-encoded (e.g. &#39;); decode to plain text
+      // so the tracker shows readable apostrophes (the frontend re-escapes safely).
+      const decode = (s) => String(s || "")
+        .replace(/&#3[49];/g, (m) => (m === "&#39;" ? "'" : '"'))
+        .replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+        .replace(/&amp;/g, "&");
+      out.push({ id: d.id, to: get("to"), subject: decode(get("subject")) || "(no subject)",
+                 snippet: decode((m.message && m.message.snippet) || "") });
     }
     return Response.json({ drafts: out });
   } catch (e) {

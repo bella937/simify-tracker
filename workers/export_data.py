@@ -135,11 +135,21 @@ def _iter_sheet(path, sheet):
     wb.close()
 
 
-def creator(name, handle, loc, subs, niche, status_val):
-    """Build one dashboard-schema record (PII intentionally excluded)."""
+def clean_email(value):
+    """Return a trimmed email if it looks like one, else '' (never a stray label)."""
+    s = str(value or "").strip()
+    return s if ("@" in s and "." in s.split("@")[-1]) else ""
+
+
+def creator(name, handle, loc, subs, niche, status_val, email=None):
+    """Build one dashboard-schema record. `email` is the creator's public
+    business-inquiry address (from their channel 'About') where we have it —
+    shown in the Creators tab so outreach is one click. The site must stay behind
+    Cloudflare Access, since this and /api/drafts expose contact/inbox data."""
     return {
         "name": name,
         "handle": handle_from_url(handle) if not str(handle or "").startswith("@") else handle,
+        "email": clean_email(email),
         "market": market(loc),
         "subs": fmt_subs(subs),
         "niche": niche or "",
@@ -175,6 +185,7 @@ def main():
             subs=r.get("Subscribers"),
             niche=r.get("Niche / Content"),
             status_val=r.get("Status"),
+            email=r.get("Email"),
         )
         if add(rec):
             counts["priority"] += 1
@@ -191,6 +202,7 @@ def main():
             subs=r.get("Subscribers"),
             niche=r.get("Niche"),
             status_val=r.get("Status"),
+            email=r.get("Email") or r.get("Contact Email") or r.get("Contact"),
         )
         if add(rec):
             counts["existing"] += 1

@@ -55,7 +55,7 @@ def subject_line(name):
     label = greet_name(name)
     if not label or label == "there":
         label = clean_channel(name)
-    return f"{label} × Simify — gifted eSIM + 15% \U0001F381"  # ×  🎁
+    return f"{label} × Simify - gifted eSIM + 15% \U0001F381"  # 🎁 (plain hyphen, no em dash)
 
 def body_text(first, niche):
     return (f"Hey {first},\n\n"

@@ -21,8 +21,12 @@ from datetime import datetime, timezone
 import openpyxl
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+GLOBAL_XLSX = os.path.join(HERE, "Simify_Global_Prospects.xlsx")  # Bella's curated 100+ list
 NEW_XLSX = os.path.join(HERE, "Simify_YouTube_MicroNano_Prospects.xlsx")
 OLD_XLSX = os.path.join(HERE, "Simify_Influencer_Prospects.xlsx")
+
+# Markets Bella has excluded from the programme (see her "no India" call).
+EXCLUDE_MARKETS = {"IN"}
 OUT = os.path.join(HERE, "..", "docs", "data", "creators.json")
 
 # spreadsheet Status -> [dashboard css class, label]. Labels must match the
@@ -171,7 +175,31 @@ def main():
         creators.append(rec)
         return True
 
-    counts = {"priority": 0, "existing": 0, "pool": 0}
+    counts = {"global": 0, "priority": 0, "existing": 0, "pool": 0}
+
+    # 0) Bella's curated "Global 100+ Prospects" — highest-quality vetted list, so
+    #    it's added first and wins cross-sheet dedup. Excludes markets she's ruled out.
+    for r in _iter_sheet(GLOBAL_XLSX, "Global 100+ Prospects"):
+        name = r.get("Channel Name")
+        if not name:
+            continue
+        country = r.get("Country")
+        if market(country) in EXCLUDE_MARKETS or str(country or "").strip().upper() in EXCLUDE_MARKETS:
+            continue
+        cat = r.get("Category")
+        if cat and str(cat).startswith("⭐"):   # "⭐ Your example" -> a real niche
+            cat = "Lifestyle / travel"
+        rec = creator(
+            name=name,
+            handle=r.get("▶ YouTube (click)"),
+            loc=country,
+            subs=r.get("Subscribers"),
+            niche=cat,
+            status_val=r.get("Status"),
+            email=r.get("Email (from bio)"),
+        )
+        if add(rec):
+            counts["global"] += 1
 
     # 1) Priority Outreach (New) — the primary creator reference, richest data.
     for r in _iter_sheet(NEW_XLSX, "★ Priority Outreach (New)"):
@@ -233,9 +261,9 @@ def main():
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
     print(f"Wrote {len(creators)} creators to {OUT}")
-    print(f"  from Priority Outreach: {counts['priority']}, "
+    print(f"  from Global 100+: {counts['global']}, Priority Outreach: {counts['priority']}, "
           f"Prospect List: {counts['existing']}, Wider Pool: {counts['pool']} "
-          f"(after cross-sheet dedup)")
+          f"(after cross-sheet dedup; India excluded)")
 
 
 if __name__ == "__main__":

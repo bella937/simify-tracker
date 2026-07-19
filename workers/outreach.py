@@ -8,7 +8,7 @@ recipient rather than duplicating.
 SAFETY: only calls drafts().create()/drafts().update(); never messages().send(),
 never drafts().send(), never delete. Cannot send or delete mail.
 """
-import base64, html, os, re
+import argparse, base64, html, json, os, re
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import openpyxl
@@ -21,6 +21,7 @@ SCOPES = ["https://www.googleapis.com/auth/gmail.readonly",
 HERE = os.path.dirname(os.path.abspath(__file__))
 XLSX = os.path.join(HERE, "Simify_YouTube_MicroNano_Prospects.xlsx")
 SHEET = "★ Priority Outreach (New)"
+JSON_PATH = os.path.join(HERE, "..", "docs", "data", "creators.json")
 
 def first_line(niche):
     if niche:
@@ -144,5 +145,45 @@ def main():
     wb.save(XLSX)
     print(f"Done. {n} draft(s) synced in Gmail with your template (review + send there). No emails sent.")
 
+def draft_from_json(markets=None):
+    """Draft to EVERY creator in creators.json that has an email, optionally
+    filtered to a set of market codes (e.g. {'AU','UK','NZ'}). Reuses the same
+    template + idempotent upsert. Broader than main(), which only reads the
+    priority xlsx sheet."""
+    creators = json.load(open(JSON_PATH, encoding="utf-8"))["creators"]
+    want = {m.strip().upper() for m in markets} if markets else None
+    svc = gmail()
+    drafts = existing_drafts_by_recipient(svc)
+    n = 0
+    for c in creators:
+        email = (c.get("email") or "").strip()
+        if "@" not in email:
+            continue
+        if want is not None and str(c.get("market", "")).upper() not in want:
+            continue
+        name, niche = c.get("name"), c.get("niche")
+        first = greet_name(name)
+        subject = subject_line(name)
+        r = raw(email, subject, body_text(first, niche), body_html(first, niche))
+        did = drafts.get(email.lower())
+        if did:
+            svc.users().drafts().update(userId="me", id=did, body={"message": {"raw": r}}).execute()
+            action = "updated"
+        else:
+            svc.users().drafts().create(userId="me", body={"message": {"raw": r}}).execute()
+            action = "created"
+        print(f"  {action}: {name} <{email}> [{c.get('market')}]")
+        n += 1
+    print(f"Done. {n} draft(s) synced in Gmail (review + send there). No emails sent.")
+
 if __name__ == "__main__":
-    main()
+    ap = argparse.ArgumentParser(description="Create Simify outreach Gmail DRAFTS (never sends).")
+    ap.add_argument("--from-json", action="store_true",
+                    help="draft to all emailable creators in creators.json (not just the priority sheet)")
+    ap.add_argument("--markets", default=None,
+                    help="comma-separated market filter for --from-json, e.g. AU,UK,NZ")
+    args = ap.parse_args()
+    if args.from_json:
+        draft_from_json(args.markets.split(",") if args.markets else None)
+    else:
+        main()

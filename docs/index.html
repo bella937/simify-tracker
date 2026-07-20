@@ -748,6 +748,7 @@
      <button class="nav" data-view="content"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="m9 11 3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Content review</button>
     <button class="nav" data-view="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/><circle cx="12" cy="12" r="3.2"/></svg>Creative Intelligence<span class="newbadge">live</span></button>
     <button class="nav" data-view="attribution"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Affiliate &amp; revenue</button>
+     <button class="nav" data-view="analytics"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7" rx="1"/><rect x="12" y="6" width="3" height="11" rx="1"/><rect x="17" y="13" width="3" height="4" rx="1"/></svg>Analytics</button>
     <div class="me"><span class="av">B</span><span>Bella Vu<small>YouTube partnerships</small></span></div>
   </aside>
 
@@ -858,6 +859,10 @@
         <div id="affBanner" class="affbanner">Manual entry for now — <b>connect Shopify + Impact.com</b> to sync clicks, redemptions &amp; revenue automatically (roadmap). Commission defaults to your 15% programme rate.</div>
         <div id="affKpis" class="affkpis"></div>
         <div id="affBody"></div>
+      </section>
+      <section class="view" id="view-analytics">
+        <div class="phead"><div><h1>Analytics</h1><div class="sub" id="anSub">Funnel, content &amp; revenue performance across the programme</div></div></div>
+        <div id="anBody"></div>
       </section>
 
     </div>
@@ -973,6 +978,27 @@
   .affgen{border:1px dashed var(--line);background:none;color:var(--brand);border-radius:7px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
   .affcomm{font-weight:700;color:var(--auto);font-variant-numeric:tabular-nums}
   .affstat{font:inherit;font-size:12.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:6px 8px}
+  /* analytics */
+  .ansec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-bottom:18px}
+  .anh{margin:0 0 4px;font-size:16px;font-weight:750;color:var(--ink)}
+  .anhd{margin:0 0 16px;font-size:13px;color:var(--muted)}
+  .anfunnel{display:flex;flex-direction:column;gap:10px}
+  .anstep{display:grid;grid-template-columns:150px 1fr 66px 70px;align-items:center;gap:12px}
+  .anstep .lb{font-size:13.5px;font-weight:600;color:var(--ink)}
+  .anstep .track{height:26px;border-radius:8px;background:var(--bg);overflow:hidden;position:relative}
+  .anstep .track i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,color-mix(in srgb,var(--human) 85%,transparent),var(--human))}
+  .anstep .ct{font-family:var(--fm);font-weight:700;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+  .anstep .cv{font-family:var(--fm);font-size:12px;color:var(--auto);text-align:right;font-variant-numeric:tabular-nums}
+  .anstep .cv.dim{color:var(--muted)}
+  .anbars{display:flex;flex-direction:column;gap:9px}
+  .anbar{display:grid;grid-template-columns:120px 1fr 92px;align-items:center;gap:12px}
+  .anbar .lb{font-size:13px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .anbar .track{height:16px;border-radius:6px;background:var(--bg);overflow:hidden}
+  .anbar .track i{display:block;height:100%;border-radius:6px;background:var(--auto)}
+  .anbar .vv{font-family:var(--fm);font-size:12.5px;font-weight:700;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+  .an2col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.an2col{grid-template-columns:1fr}.anstep{grid-template-columns:110px 1fr 54px 58px;gap:8px}}
+  .anempty{color:var(--muted);font-size:13.5px;padding:8px 2px}
 </style>
 
 <div class="modal" id="cmpModal" hidden>
@@ -2021,6 +2047,89 @@ window.SimifyStore=(function(){
 
   SimifyStore.onExternalChange(render);
   var navBtn=document.querySelector('.nav[data-view="attribution"]'); if(navBtn) navBtn.addEventListener("click",render);
+  render();
+})();
+</script>
+<script>
+/* ============================================================================
+   Analytics — read-only performance dashboard computed live from the store:
+   outreach funnel, content throughput, and affiliate revenue by market /
+   campaign, plus a per-campaign performance table with ROI.
+   ============================================================================ */
+(function(){
+  if(!window.SimifyStore) return;
+  var body=document.getElementById("anBody"), subEl=document.getElementById("anSub");
+  if(!body) return;
+  function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function money(n){ n=Number(n)||0; return "$"+n.toLocaleString(undefined,{maximumFractionDigits:0}); }
+  function num(v){ var n=parseFloat(v); return isNaN(n)?0:n; }
+  function pct(a,b){ return b>0?Math.round(a/b*100):0; }
+
+  var CONTACTED=["Outreached","Replied","Negotiating","Onboarding","In production","Live"];
+  var RESPONDED=["Replied","Negotiating","Onboarding","In production","Live"];
+
+  function kpiRow(cards){ return '<div class="affkpis">'+cards.map(function(c){ return '<div class="affkpi '+(c[2]||"")+'"><div class="n">'+c[0]+'</div><div class="k">'+c[1]+'</div></div>'; }).join("")+'</div>'; }
+  function barList(pairs){
+    if(!pairs.length) return '<div class="anempty">No revenue recorded yet.</div>';
+    var max=Math.max.apply(null,pairs.map(function(p){return p[1];}).concat([1]));
+    return '<div class="anbars">'+pairs.map(function(p){ return '<div class="anbar"><span class="lb">'+esc(p[0])+'</span><div class="track"><i style="width:'+Math.round(p[1]/max*100)+'%"></i></div><span class="vv">'+money(p[1])+'</span></div>'; }).join("")+'</div>';
+  }
+
+  function render(){
+    var roster=window.simAllCreators?window.simAllCreators():[];
+    var camps=SimifyStore.get("campaigns")||[], deliv=SimifyStore.get("deliverables")||{}, af=SimifyStore.get("affiliate")||{};
+
+    // ---- funnel ----
+    var sourced=roster.length, contacted=0, responded=0, live=0;
+    roster.forEach(function(c){ var s=window.simEffStatus?window.simEffStatus(c):(c.st||["","New lead"]); var l=s&&s[1];
+      if(CONTACTED.indexOf(l)>-1) contacted++; if(RESPONDED.indexOf(l)>-1) responded++; if(l==="Live") live++; });
+    var steps=[["Sourced",sourced,null],["Contacted",contacted,sourced],["In conversation",responded,contacted],["Live",live,responded]];
+    var fmax=Math.max(sourced,1);
+    var funnel='<div class="anfunnel">'+steps.map(function(s){
+      var conv=s[2]==null?'<span class="cv dim">—</span>':'<span class="cv">'+pct(s[1],s[2])+'%</span>';
+      return '<div class="anstep"><span class="lb">'+s[0]+'</span><div class="track"><i style="width:'+Math.max(pct(s[1],fmax),2)+'%"></i></div><span class="ct">'+s[1].toLocaleString()+'</span>'+conv+'</div>';
+    }).join("")+'</div>';
+
+    // ---- content throughput ----
+    var subm=0,appr=0,clive=0;
+    Object.keys(deliv).forEach(function(k){ var r=deliv[k]; if(r.url) subm++; if(r.status==="Approved"||r.status==="Live") appr++; if(r.status==="Live") clive++; });
+
+    // ---- revenue ----
+    var revenue=0,comm=0,red=0, byMarket={}, byCampaign={};
+    var campName={}; camps.forEach(function(c){ campName[c.id]=c.name||"Untitled"; });
+    Object.keys(af).forEach(function(k){ var r=af[k]; var rev=num(r.revenue); revenue+=rev; red+=num(r.redemptions);
+      if(r.status!=="Paid") comm+=rev*((r.rate==null?15:num(r.rate))/100);
+      var parts=k.split("::"), cid=parts[0], ck=parts[1];
+      if(rev>0){ var cr=window.simCreatorByKey?window.simCreatorByKey(ck):null; var mk=(cr&&cr.market)||"Other"; byMarket[mk]=(byMarket[mk]||0)+rev;
+        byCampaign[campName[cid]||"Untitled"]=(byCampaign[campName[cid]||"Untitled"]||0)+rev; }
+    });
+    function pairsOf(o){ return Object.keys(o).map(function(k){return [k,o[k]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,8); }
+
+    if(subEl) subEl.textContent=(revenue>0?money(revenue)+" revenue · ":"")+sourced+" sourced · "+live+" live";
+
+    // ---- campaign performance table ----
+    var campRows=camps.map(function(c){
+      var mem=(c.members||[]).length, ap=0, rev=0;
+      (c.members||[]).forEach(function(ck){ var d=deliv[c.id+"::"+ck]; if(d&&(d.status==="Approved"||d.status==="Live")) ap++; var a=af[c.id+"::"+ck]; if(a) rev+=num(a.revenue); });
+      var roi=(c.budget&&c.budget>0)?(rev/c.budget).toFixed(2)+"×":"—";
+      return '<tr><td class="affcname">'+esc(c.name||"Untitled")+'</td><td><span class="affcamp">'+esc(c.market||"—")+'</span></td>'+
+        '<td class="num">'+mem+'</td><td class="num">'+ap+'</td><td class="num">'+money(rev)+'</td><td class="num">'+(c.budget?money(c.budget):"—")+'</td><td class="num affcomm">'+roi+'</td></tr>';
+    }).join("");
+    var campTable=camps.length?('<div class="afftable"><table><thead><tr><th>Campaign</th><th>Market</th><th class="num">Creators</th><th class="num">Approved</th><th class="num">Revenue</th><th class="num">Budget</th><th class="num">ROI</th></tr></thead><tbody>'+campRows+'</tbody></table></div>'):'<div class="anempty">No campaigns yet — create one in the Campaigns tab.</div>';
+
+    body.innerHTML=
+      '<div class="ansec"><h3 class="anh">Outreach funnel</h3><p class="anhd">From sourced roster to live content. Percentages are stage-to-stage conversion.</p>'+funnel+'</div>'+
+      '<div class="ansec"><h3 class="anh">Content throughput</h3><p class="anhd">Creator submissions across every campaign.</p>'+
+        kpiRow([[subm.toLocaleString(),"Submissions",""],[appr.toLocaleString(),"Approved",""],[clive.toLocaleString(),"Live",""],[pct(appr,subm)+"%","Approval rate",""]])+'</div>'+
+      '<div class="ansec"><h3 class="anh">Revenue</h3><p class="anhd">Affiliate performance. Connect Shopify + Impact.com to populate automatically.</p>'+
+        kpiRow([[money(revenue),"Tracked revenue","rev"],[money(comm),"Commission owed",""],[red.toLocaleString(),"Redemptions",""]])+
+        '<div class="an2col" style="margin-top:16px"><div><h4 class="crvside" style="font-family:var(--fm);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 10px">Revenue by market</h4>'+barList(pairsOf(byMarket))+'</div>'+
+        '<div><h4 style="font-family:var(--fm);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 10px">Revenue by campaign</h4>'+barList(pairsOf(byCampaign))+'</div></div></div>'+
+      '<div class="ansec"><h3 class="anh">Campaign performance</h3><p class="anhd">Creators, approved content, revenue and ROI per campaign.</p>'+campTable+'</div>';
+  }
+
+  SimifyStore.onExternalChange(render);
+  var navBtn=document.querySelector('.nav[data-view="analytics"]'); if(navBtn) navBtn.addEventListener("click",render);
   render();
 })();
 </script>

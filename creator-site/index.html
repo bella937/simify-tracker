@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simify — Creator Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --o:#F5A623;--od:#D4840E;--ol:#FFF8E8;
+  --dk:#1E293B;--md:#475569;--mu:#8B96A5;--br:#EBE6D9;--bg:#FDFBF5;--wh:#FFFFFF;
+  --gr:#16A34A;--grb:#DCFCE7;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--dk);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:34px 18px 60px;gap:14px;}
+.mock-banner{position:fixed;top:0;left:0;right:0;background:var(--dk);color:#fff;text-align:center;padding:6px;font-size:11px;font-weight:700;letter-spacing:.02em;z-index:50;}
+
+.card{background:var(--wh);border:1px solid var(--br);border-radius:22px;max-width:580px;width:100%;box-shadow:0 1px 3px rgba(30,41,59,.04),0 24px 48px -24px rgba(30,41,59,.16);overflow:hidden;margin-top:24px;}
+
+/* header */
+.hd{background:var(--dk);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.hd-logo{display:flex;align-items:center;gap:9px;}
+.hd-logo svg{width:26px;height:26px;}
+.hd-logo b{color:#fff;font-weight:900;font-size:15.5px;}
+.hd-link{color:#B9C2CE;font-size:11.5px;font-weight:700;cursor:pointer;text-decoration:none;}
+.hd-link:hover{color:#fff;}
+
+/* progress */
+.prog{display:flex;gap:6px;padding:16px 24px 0;}
+.prog i{height:4px;flex:1;background:var(--br);border-radius:3px;transition:.3s;}
+.prog i.on{background:var(--o);}
+.prog i.done{background:var(--od);}
+
+/* screens */
+.screen{display:none;padding:26px 30px 34px;}
+.screen.active{display:block;animation:fade .28s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+@media(max-width:520px){.screen{padding:22px 20px 30px;}}
+
+.eyebrow{font-size:11px;font-weight:800;color:var(--od);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
+h1{font-size:26px;font-weight:900;line-height:1.18;letter-spacing:-.01em;margin-bottom:8px;}
+h1 .ac{color:var(--od);}
+.lede{font-size:14.5px;color:var(--md);font-weight:600;line-height:1.55;margin-bottom:22px;}
+.back{font-size:12px;font-weight:800;color:var(--mu);cursor:pointer;margin-bottom:16px;display:inline-block;}
+.back:hover{color:var(--od);}
+
+/* offer bullets */
+.perks{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.perk{display:flex;gap:13px;align-items:center;background:var(--bg);border:1px solid var(--br);border-radius:14px;padding:14px 16px;}
+.perk .em{font-size:22px;flex-shrink:0;width:30px;text-align:center;}
+.perk .pt{font-size:14.5px;font-weight:800;color:var(--dk);}
+.perk .ps{font-size:12.5px;color:var(--mu);font-weight:600;margin-top:1px;}
+
+/* choice cards */
+.choices{display:grid;gap:11px;}
+.choice{display:flex;align-items:center;gap:14px;text-align:left;background:var(--wh);border:1.5px solid var(--br);border-radius:15px;padding:15px 17px;cursor:pointer;transition:.14s;font-family:inherit;width:100%;}
+.choice:hover{border-color:var(--o);transform:translateY(-1px);box-shadow:0 6px 18px -10px rgba(30,41,59,.25);}
+.choice.sel{border-color:var(--o);background:var(--ol);}
+.choice .cem{font-size:26px;flex-shrink:0;width:34px;text-align:center;}
+.choice .cmain{flex:1;min-width:0;}
+.choice .cname{font-size:15px;font-weight:800;color:var(--dk);display:flex;align-items:center;gap:8px;}
+.choice .cdesc{font-size:12.5px;color:var(--mu);font-weight:600;margin-top:2px;line-height:1.4;}
+.choice .cgo{color:var(--mu);font-weight:900;flex-shrink:0;}
+.pill{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:2px 8px;border-radius:20px;background:#FDEBEB;color:#C4302B;}
+.pill.hot{background:var(--grb);color:var(--gr);}
+
+/* plan */
+.planbox{background:var(--bg);border:1px solid var(--br);border-radius:16px;padding:18px 20px;margin-bottom:16px;}
+.planline{font-size:12px;font-weight:800;color:var(--od);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;}
+.hook{font-size:16px;font-weight:800;color:var(--dk);font-style:italic;line-height:1.4;border-left:3px solid var(--o);padding-left:12px;margin-bottom:16px;}
+.beats{display:flex;flex-direction:column;gap:9px;}
+.beat{display:flex;gap:11px;}
+.beat .bn{flex:0 0 76px;font-size:10.5px;font-weight:800;color:var(--od);text-transform:uppercase;letter-spacing:.03em;padding-top:2px;}
+.beat .bw{font-size:13px;color:var(--md);line-height:1.45;flex:1;}
+
+.acc{width:100%;text-align:left;background:var(--wh);border:1.5px solid var(--br);border-radius:12px;padding:13px 16px;font-size:13px;font-weight:800;color:var(--dk);cursor:pointer;font-family:inherit;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.acc .ar{color:var(--mu);transition:.2s;}
+.acc.open .ar{transform:rotate(180deg);}
+.accp{display:none;margin:-4px 0 14px;}
+.accp.open{display:block;}
+.example{background:var(--ol);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--md);line-height:1.6;font-style:italic;}
+.proof{text-align:center;font-size:12.5px;color:var(--md);font-weight:600;background:var(--grb);border-radius:12px;padding:11px 14px;margin-bottom:16px;}
+.proof b{color:var(--gr);}
+.explain{text-align:left;background:var(--bg);border:1px solid var(--br);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--md);line-height:1.55;}
+.explain b{color:var(--dk);}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chips span{font-size:11px;font-weight:700;color:var(--od);background:var(--ol);border:1px solid #F5DFA8;border-radius:20px;padding:4px 10px;}
+.filmlist{text-align:left;background:var(--bg);border:1px solid var(--br);border-radius:12px;padding:8px 16px;}
+.filmlist .fl{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--md);line-height:1.5;padding:7px 0;border-bottom:1px solid var(--br);}
+.filmlist .fl:last-child{border-bottom:none;}
+.filmlist .fl::before{content:"✓";color:var(--gr);font-weight:900;flex-shrink:0;}
+.filmlist .fl b{color:var(--dk);}
+
+.inspo{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px;}
+.inspo-card{flex:0 0 200px;background:var(--wh);border:1px solid var(--br);border-radius:12px;padding:12px 14px;text-align:left;}
+.inspo-card .ih{font-size:12.5px;font-weight:800;color:var(--dk);line-height:1.35;margin-bottom:4px;}
+.inspo-card .id{font-size:11.5px;color:var(--mu);font-weight:600;line-height:1.4;}
+
+.lbl{text-align:left;font-size:11px;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px;}
+textarea,input.tf{width:100%;border:1.5px solid var(--br);border-radius:12px;padding:14px;font-size:14px;font-family:inherit;color:var(--dk);line-height:1.6;resize:vertical;}
+textarea:focus,input.tf:focus{outline:none;border-color:var(--o);}
+.script-ta{min-height:180px;background:var(--ol);border-color:var(--o);margin-bottom:18px;}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--o);color:#fff;border:none;border-radius:13px;padding:16px;font-size:15.5px;font-weight:800;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;}
+.btn:hover:not(:disabled){background:var(--od);}
+.btn:disabled{background:var(--br);color:var(--mu);cursor:not-allowed;}
+.btn.sec{background:var(--wh);color:var(--dk);border:1.5px solid var(--br);}
+.btn.sec:hover:not(:disabled){border-color:var(--o);background:var(--ol);color:var(--od);}
+.btnrow{display:flex;gap:10px;margin-top:6px;}
+.ghost{background:none;color:var(--mu);font-weight:800;font-size:12.5px;padding:12px;text-decoration:underline;cursor:pointer;border:none;font-family:inherit;width:100%;}
+
+/* sign & submit */
+.gate{background:var(--bg);border:1px solid var(--br);border-radius:16px;padding:18px 20px;margin-bottom:16px;text-align:left;}
+.gate.done{border-color:var(--gr);background:var(--grb);}
+.gate .gnum{width:26px;height:26px;border-radius:50%;background:var(--dk);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.gate.done .gnum{background:var(--gr);}
+.gate-hd{display:flex;align-items:center;gap:11px;margin-bottom:8px;}
+.gate-hd .gt{font-size:15px;font-weight:800;}
+.gate-hd .gtick{margin-left:auto;color:var(--gr);font-weight:900;font-size:16px;display:none;}
+.gate.done .gtick{display:block;}
+.gate-desc{font-size:12.5px;color:var(--md);line-height:1.5;margin-bottom:12px;}
+.chk{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--md);font-weight:700;cursor:pointer;margin-top:10px;}
+.chk input{width:17px;height:17px;accent-color:var(--o);cursor:pointer;}
+
+.mailprev{border:1.5px solid var(--br);border-radius:12px;overflow:hidden;margin-bottom:12px;text-align:left;}
+.mp-row{display:flex;gap:10px;padding:9px 14px;border-bottom:1px solid var(--br);font-size:12px;}
+.mp-row s{color:var(--mu);font-weight:800;width:56px;flex-shrink:0;text-decoration:none;}
+.mp-row b{color:var(--dk);font-weight:700;word-break:break-word;}
+.mp-body{padding:13px 14px;font-size:11.5px;color:var(--md);white-space:pre-wrap;line-height:1.6;max-height:180px;overflow-y:auto;background:var(--bg);}
+
+.recap{text-align:left;background:var(--ol);border-radius:12px;padding:14px 18px;margin-bottom:16px;}
+.recap-row{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;padding:4px 0;}
+.recap-row s{color:var(--od);font-weight:700;text-decoration:none;flex-shrink:0;}
+.recap-row b{color:var(--dk);text-align:right;font-weight:800;}
+
+.assets{text-align:left;margin-bottom:6px;}
+.aset{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--br);font-size:12.5px;}
+.aset:last-child{border-bottom:none;}
+.aset b{font-weight:800;color:var(--dk);}
+.aset s{color:var(--mu);font-weight:600;text-decoration:none;font-size:11px;}
+.aset a{background:var(--dk);color:#fff;font-size:10.5px;font-weight:800;padding:6px 13px;border-radius:20px;text-decoration:none;flex-shrink:0;cursor:pointer;}
+
+.done-ic{width:60px;height:60px;border-radius:50%;background:var(--grb);color:var(--gr);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 18px;}
+.tiny{font-size:11.5px;color:var(--mu);font-weight:600;margin-top:14px;line-height:1.5;text-align:center;}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dk);color:#fff;padding:11px 22px;border-radius:11px;font-size:12.5px;font-weight:800;opacity:0;transition:.25s;pointer-events:none;z-index:70;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="hd">
+    <div class="hd-logo"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M22 8h46l22 22v50a12 12 0 0 1-12 12H22a12 12 0 0 1-12-12V20A12 12 0 0 1 22 8z" fill="#F5A623"/><path d="M30 52c10 14 28 14 38 0" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M56 42l14 10-14 10" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Simify</b></div>
+    <a class="hd-link" id="draftLink" onclick="goDraft()">Already filmed? Submit draft →</a>
+  </div>
+  <div class="prog" id="prog"><i></i><i></i><i></i><i></i></div>
+
+  <!-- 1. WELCOME -->
+  <div class="screen active" data-s="0">
+    <div class="eyebrow">You're in 🎉</div>
+    <h1>Let's make <span class="ac">one great video</span> together</h1>
+    <div class="lede">Takes about 3 minutes. Pick your style, we'll write you a script to start from, then you send it over. That's it.</div>
+    <div class="perks">
+      <div class="perk"><span class="em">🎁</span><div><div class="pt">$100 USD eSIM voucher</div><div class="ps">Free data on us, for your own travels</div></div></div>
+      <div class="perk"><span class="em">💸</span><div><div class="pt">15% commission — forever</div><div class="ps">On every sale from your unique code</div></div></div>
+      <div class="perk"><span class="em">🚀</span><div><div class="pt">Featured in our paid ads</div><div class="ps">We put budget behind your content to grow your reach</div></div></div>
+    </div>
+    <div class="proof">💸 Our creators have earned <b>$3K–$6K+</b> in commission — from 1K followers to 1M+.</div>
+    <button class="acc" onclick="toggleAcc('what')"><span>ℹ️ New to Simify? 30-second explainer</span><span class="ar">▾</span></button>
+    <div class="accp" id="accp-what">
+      <div class="explain">
+        <b>Simify is a travel eSIM.</b> Instant mobile data in 150+ countries — no physical SIM, no roaming bills, no queuing at airport kiosks. Travellers install it in about a minute from the Simify app.
+        <div class="chips">
+          <span>🌍 150+ countries</span><span>⚡ Instant setup</span><span>♾️ Unlimited data plans</span><span>📵 No physical SIM</span><span>📱 Manage in the app</span><span>🗓️ Buy up to 6 months ahead</span>
+        </div>
+      </div>
+    </div>
+    <button class="btn" onclick="go(1)">Build my content plan →</button>
+    <div class="tiny">No lock-in. You approve everything before anything goes live.</div>
+  </div>
+
+  <!-- 2. TRAVELLER -->
+  <div class="screen" data-s="1">
+    <span class="back" onclick="go(0)">← Back</span>
+    <div class="eyebrow">Step 1 of 4 · About you</div>
+    <h1>What kind of traveller are you?</h1>
+    <div class="lede">Pick the one that best fits your content — we'll tailor everything to it.</div>
+    <div class="choices" id="travChoices"></div>
+  </div>
+
+  <!-- 3. ANGLE -->
+  <div class="screen" data-s="2">
+    <span class="back" onclick="go(1)">← Back</span>
+    <div class="eyebrow">Step 2 of 4 · Your style</div>
+    <h1>How do you want to tell it?</h1>
+    <div class="lede">These are the formats that perform best for us. Education-style videos do especially well on YouTube.</div>
+    <div class="choices" id="angleChoices"></div>
+  </div>
+
+  <!-- 4. PLAN + SCRIPT -->
+  <div class="screen" data-s="3">
+    <span class="back" onclick="go(2)">← Back</span>
+    <div class="eyebrow">Step 3 of 4 · Your content plan</div>
+    <h1 id="planTitle">Your video plan</h1>
+    <div class="lede" id="planSub">Here's a plan built for you. Tweak the script to sound like you — that's all we need.</div>
+
+    <div class="planbox">
+      <div class="planline">🎣 Your hook <span style="color:var(--mu);font-weight:700;text-transform:none;letter-spacing:0;">(first 3 seconds — make it count)</span></div>
+      <div class="hook" id="planHook"></div>
+      <div class="planline">🎬 Simple structure</div>
+      <div class="beats" id="planBeats"></div>
+    </div>
+
+    <button class="acc" onclick="toggleAcc('ex')"><span>💬 See a full example script</span><span class="ar">▾</span></button>
+    <div class="accp" id="accp-ex"><div class="example" id="planExample"></div></div>
+
+    <button class="acc" onclick="toggleAcc('say')"><span>📣 What to mention about Simify</span><span class="ar">▾</span></button>
+    <div class="accp" id="accp-say"><div class="explain">
+      Weave in <b>1–2 of these naturally</b> — like a travel hack you'd whisper to a friend, not a features list:
+      <div class="chips"><span>🌍 150+ countries</span><span>⚡ Instant setup</span><span>♾️ Unlimited data</span><span>📵 No physical SIM</span><span>📱 Manage in the app</span><span>🗓️ Buy 6 months ahead</span></div>
+      <div style="margin-top:9px;"><b>Story → solution:</b> name a real data headache you've had abroad (roaming bill, SIM swap, no signal), then how Simify fixed it. Make it feel like a personal win.</div>
+    </div></div>
+
+    <button class="acc" onclick="toggleAcc('film')"><span>🎬 Film checklist — this makes it ad-ready</span><span class="ar">▾</span></button>
+    <div class="accp" id="accp-film"><div class="filmlist">
+      <div class="fl">Introduce Simify in the first <b>5–12 seconds</b></div>
+      <div class="fl">Open with a <b>face-to-camera</b> hook</div>
+      <div class="fl">Add a <b>text title / hook</b> on screen</div>
+      <div class="fl">Show a <b>screen recording</b> of the Simify app or install</div>
+      <div class="fl">Include <b>travel b-roll</b> / footage</div>
+      <div class="fl"><b>Captions</b> (speech-to-text) the whole way through</div>
+      <div class="fl"><b>60 seconds or less</b></div>
+    </div></div>
+
+    <div class="lbl">✨ What great looks like</div>
+    <div class="inspo" id="planInspo"></div>
+
+    <div class="lbl">Your script <span style="text-transform:none;letter-spacing:0;color:var(--mu);">— edit freely, keep it in your own voice</span></div>
+    <textarea class="script-ta" id="scriptTa"></textarea>
+    <button class="btn" onclick="go(4)">Looks good → sign &amp; send →</button>
+  </div>
+
+  <!-- 5. SIGN & SEND -->
+  <div class="screen" data-s="4">
+    <span class="back" onclick="go(3)">← Back</span>
+    <div class="eyebrow">Step 4 of 4 · Almost there</div>
+    <h1>Sign &amp; send your plan</h1>
+    <div class="lede">Two quick things and you're done. We'll reply with your eSIM voucher, your discount code and the green light to film.</div>
+
+    <div class="gate" id="gate1">
+      <div class="gate-hd"><span class="gnum">1</span><span class="gt">Get your link &amp; code</span><span class="gtick">✓</span></div>
+      <div class="gate-desc">Sign up to our affiliate programme (30 seconds) — this creates your unique discount code and tracking link, so you get paid your 15%.</div>
+      <a class="btn sec" href="https://app.impact.com/campaign-promo-signup/Simify.brand?execution=e4s1&io=a4y1sjanN15kL3IPfqSqiMSUH8HXIxhu3W7n%2Fbg2yUq1ivWMW4JEga7eXPb9iTc0#/?viewkey=signUpPreStart" target="_blank" rel="noopener">Sign up &amp; get my code ↗</a>
+      <label class="chk"><input type="checkbox" id="signedChk" onchange="refreshSubmit()"> I've signed up</label>
+    </div>
+
+    <div class="gate" id="gate2">
+      <div class="gate-hd"><span class="gnum">2</span><span class="gt">Send us your plan</span><span class="gtick">✓</span></div>
+      <div class="gate-desc">This is the only email you send right now. It's pre-written — just hit send.</div>
+      <div class="mailprev">
+        <div class="mp-row"><s>To</s><b>creators@simify.com</b></div>
+        <div class="mp-row"><s>Subject</s><b id="mpSubject"></b></div>
+        <div class="mp-body" id="mpBody"></div>
+      </div>
+      <div class="btnrow">
+        <a class="btn" id="sendPlanBtn" href="#" >Open in email app</a>
+        <button class="btn sec" onclick="copyPlan()" style="flex:0 0 auto;padding:16px 18px;">Copy</button>
+      </div>
+    </div>
+
+    <button class="acc" onclick="toggleAcc('assets')"><span>📦 Brand kit &amp; how to add your code (for later)</span><span class="ar">▾</span></button>
+    <div class="accp" id="accp-assets">
+      <div class="assets">
+        <div class="aset"><div><b>Logo pack</b><br><s>PNG + SVG</s></div><a onclick="toast('Brand kit link would download here')">Get</a></div>
+        <div class="aset"><div><b>Your discount code + link</b><br><s>Arrives by email after you sign up</s></div><a onclick="toast('Sent to your email once approved')">Emailed</a></div>
+        <div class="aset"><div><b>Where it goes</b><br><s>First line of your video description</s></div></div>
+      </div>
+    </div>
+    <div class="tiny">Once we reply, film your video — then come back and hit “Submit draft” up top.</div>
+  </div>
+
+  <!-- DONE -->
+  <div class="screen" data-s="5">
+    <div class="done-ic">✓</div>
+    <h1 style="text-align:center;">Plan sent — nice work!</h1>
+    <div class="lede" style="text-align:center;">We'll reply within 1–2 business days with your $100 eSIM voucher, your discount code, and the go-ahead to film.</div>
+    <div class="recap" id="doneRecap"></div>
+    <button class="btn sec" onclick="go(0)">Start another</button>
+    <div class="tiny">Filmed already? Hit <b>“Already filmed? Submit draft”</b> at the top any time.</div>
+  </div>
+
+  <!-- DRAFT VIDEO (separate return trip) -->
+  <div class="screen" data-s="draft">
+    <span class="back" onclick="go(0)">← Back to start</span>
+    <div class="eyebrow">Welcome back 🎬</div>
+    <h1>Submit your draft video</h1>
+    <div class="lede">Filmed your video? Drop the link below and send — we'll review and give you the thumbs up to publish.</div>
+    <div class="lbl">Your draft video link <span style="text-transform:none;letter-spacing:0;color:var(--mu);">(YouTube unlisted, Drive, Dropbox…)</span></div>
+    <input class="tf" id="draftUrl" type="url" placeholder="https://youtu.be/..." oninput="buildDraftMail()" style="margin-bottom:18px;">
+    <div class="mailprev">
+      <div class="mp-row"><s>To</s><b>creators@simify.com</b></div>
+      <div class="mp-row"><s>Subject</s><b>My Simify draft video for review</b></div>
+      <div class="mp-body" id="draftBody"></div>
+    </div>
+    <div class="btnrow">
+      <a class="btn" id="sendDraftBtn" href="#">Open in email app</a>
+      <button class="btn sec" onclick="copyDraft()" style="flex:0 0 auto;padding:16px 18px;">Copy</button>
+    </div>
+    <div class="tiny">Reminder: your code &amp; link go in the <b>first line</b> of your video description.</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var TRAVELLERS=[
+  {id:"Family",em:"👨‍👩‍👧",name:"Family traveller",desc:"You travel with kids / the whole crew",pill:"We need more of you",hot:true},
+  {id:"Digital Nomad",em:"💻",name:"Digital nomad",desc:"You work while you travel",pill:"We need more of you",hot:true},
+  {id:"Solo Traveller",em:"🎒",name:"Solo traveller",desc:"You explore on your own terms"},
+  {id:"Holiday Maker",em:"🏖️",name:"Holiday maker",desc:"Trips, getaways, bucket-list travel"},
+  {id:"Budget Traveller",em:"💰",name:"Budget traveller",desc:"Smart, money-saving travel"}
+];
+var ANGLES=[
+  {id:"edu",em:"🎓",name:"Education / How-to",desc:"Teach something useful — setup, guides, tips",pill:"Best for YouTube",hot:true},
+  {id:"ps",em:"⚡",name:"Problem → Solution",desc:"A travel headache, and how you fixed it",pill:"Highest converting",hot:false},
+  {id:"itin",em:"🗺️",name:"Itinerary / Travel plan",desc:"Take us through your trip, day by day"},
+  {id:"tips",em:"✅",name:"Quick tips / Listicle",desc:"Rapid-fire tips, one of them is us"}
+];
+// playbooks: matched by angle, preferring a traveller-specific one, else the "*" default
+var PLAYBOOKS=[
+  {angle:"edu",trav:["*"],title:"Set up travel data in 60 seconds",
+   hook:"“Before your next trip, do THIS so you land with internet already working.”",
+   beats:[["Hook 0–3s","Say the outcome + a number. “3 steps to have data the second you land.” Show your phone."],["Value 3–40s","Screen-record the actual setup: order the eSIM → scan the QR → toggle it on. Talk through each step."],["CTA 40–55s","“It cost me nothing thanks to a voucher — my code below gets you 15% off.” Show the code."]],
+   example:"“Okay if you're travelling soon, save this. Step one — before you fly, order a Simify eSIM, no post office, no SIM swap. Step two, scan the QR and it installs in about 20 seconds. Step three, you land, flip it on, unlimited data instantly. I had Maps working before I left the airport in Bali. Code's below for 15% off.”",
+   inspo:["The '3 steps' setup demo","'What I do before every flight'","eSIM vs roaming — the real cost"]},
+  {angle:"edu",trav:["Family"],title:"Get the whole family online abroad — step by step",
+   hook:"“Travelling with kids? Here's how I get everyone online overseas without a scary phone bill.”",
+   beats:[["Hook 0–3s","Name the family pain: 4 phones, roaming = huge bill. Show the chaos."],["Value 3–45s","Walk through setting up data for the family's devices before you fly. Kids streaming in the car, you on Maps."],["CTA","“Sorted us all for less than one day of roaming.” Show code."]],
+   example:"“If you're taking the kids overseas, watch this. Last trip I got hit with a $400 roaming bill because they watched YouTube in the taxi. So now, before we fly, I set everyone up with a Simify eSIM. The kids have data in the car, I've got Maps, and it cost less than a single day of roaming for the whole family.”",
+   inspo:["'The $400 mistake we won't make again'","Setting up 4 devices before a family trip","Keeping kids happy + online on planes"]},
+  {angle:"ps",trav:["*"],title:"Don't get caught without data when you land",
+   hook:"“The worst travel feeling? Landing in a new country with zero internet.”",
+   beats:[["Hook 0–3s","The panic: no signal, can't get a taxi or find the hotel. Airport shot."],["Value 3–35s","The fix: eSIM set up before you fly, working the second you land. Show it live."],["CTA","“Never again.” Show your code."]],
+   example:"“The worst feeling when you travel? Landing, turning off airplane mode, and… nothing. No Maps, no taxi app, no way to message home. I got stranded outside the airport in Bali once. Now I set up a Simify eSIM before I fly — I land, flip it on, and everything just works.”",
+   inspo:["'Stranded at the airport' story","Roaming bill shock → the fix","'This saved my whole trip'"]},
+  {angle:"ps",trav:["Family"],title:"Avoid the family roaming bill shock",
+   hook:"“One roaming bill nearly ruined our family trip — here's what we do now.”",
+   beats:[["Hook 0–3s","Relatable family pain + the scary number."],["Value 3–45s","The fix across everyone's devices; real family travel moments online."],["CTA","“Whole family sorted before we flew.” Code."]],
+   example:"“Travelling with kids is chaos — the last thing you need is a surprise $400 bill because they streamed in the taxi. Now before every trip I set up Simify for the family. Everyone's online, I've got Maps, and it's a fraction of roaming. Total game changer.”",
+   inspo:["'Our $400 roaming horror story'","How we keep 4 devices online","Stress-free family travel setup"]},
+  {angle:"ps",trav:["Digital Nomad"],title:"Never lose connection on a work trip",
+   hook:"“If your income depends on wifi, never gamble on hotel internet again.”",
+   beats:[["Hook 0–3s","Establish the stakes: a dropped client call = lost money."],["Value 3–45s","Show working from the airport / a café on reliable data. Speed test."],["CTA","“Connectivity insurance.” Code."]],
+   example:"“I run my whole business from my laptop. Last thing I need is hotel wifi dropping during a client call. So I never travel without a Simify eSIM — I landed in Lisbon and took a call from the airport. If your income depends on being online, this is non-negotiable.”",
+   inspo:["'Working from 12 countries' setup","The dropped-call disaster (avoided)","My remote-work travel kit"]},
+  {angle:"itin",trav:["*"],title:"My trip itinerary — made effortless",
+   hook:"“My exact 5-day itinerary — and the one thing that made getting around effortless.”",
+   beats:[["Hook 0–3s","Tease the itinerary + number of days. Gorgeous destination shot."],["Value 3–60s","Day by day. Naturally show relying on data — booking, Maps, rideshare — not a hard sell."],["CTA","Soft: “Data sorted the whole trip with Simify — code below.”"]],
+   example:"“Here's my exact 5 days in Bali. Day one, Canggu cafés — booked it all on the go. Day two, Ubud rice terraces, found everything with Maps. The thing that made it effortless? Unlimited data the whole time with Simify, so I was never lost or offline.”",
+   inspo:["'5 days in [destination]'","My travel-day routine","How I plan on the go"]},
+  {angle:"tips",trav:["*"],title:"Travel tips — one of them saves real money",
+   hook:"“5 travel tips that'll save you money — number 3 saved me $100.”",
+   beats:[["Hook 0–3s","Number + benefit + curiosity gap (“number 3 saved me $100”)."],["Value 3–50s","Rapid-fire tips. Make the data/eSIM tip the standout with a real saving."],["CTA","Code on the standout tip."]],
+   example:"“5 things I wish I knew before I started travelling. One, packing cubes. Two, always carry some cash. Three — this saved me over $100 — ditch roaming and get an eSIM. I use Simify, unlimited data, set up before I fly. Four…”",
+   inspo:["'5 things I wish I knew'","Travel mistakes that cost me money","My non-negotiable travel apps"]}
+];
+
+var st={trav:null,angle:null,pb:null};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function toast(m){var t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2200);}
+function screens(){return document.querySelectorAll(".screen");}
+function show(s){screens().forEach(function(el){el.classList.toggle("active",el.getAttribute("data-s")===String(s));});window.scrollTo({top:0,behavior:"smooth"});setProg(s);}
+function setProg(s){var idx={"1":0,"2":1,"3":2,"4":3};var p=document.getElementById("prog");var n=idx[String(s)];p.style.visibility=(n===undefined)?"hidden":"visible";[].forEach.call(p.children,function(i,k){i.className=(n===undefined)?"":(k<n?"done":(k===n?"on":""));});}
+
+function go(s){
+  if(s===1&&!document.getElementById("travChoices").children.length) renderTrav();
+  if(s===2){ if(!st.trav){return;} renderAngle(); }
+  if(s===3){ if(!st.angle){return;} buildPlan(); }
+  if(s===4){ buildPlanMail(); refreshSubmit(); }
+  show(s);
+}
+function goDraft(){ buildDraftMail(); show("draft"); }
+
+function renderTrav(){
+  document.getElementById("travChoices").innerHTML=TRAVELLERS.map(function(t){
+    return '<button class="choice'+(st.trav===t.id?" sel":"")+'" onclick="pickTrav(\''+t.id+'\')"><span class="cem">'+t.em+'</span><div class="cmain"><div class="cname">'+esc(t.name)+(t.pill?' <span class="pill'+(t.hot?" hot":"")+'">'+esc(t.pill)+'</span>':'')+'</div><div class="cdesc">'+esc(t.desc)+'</div></div><span class="cgo">→</span></button>';
+  }).join("");
+}
+function pickTrav(id){ st.trav=id; renderTrav(); setTimeout(function(){go(2);},160); }
+function renderAngle(){
+  document.getElementById("angleChoices").innerHTML=ANGLES.map(function(a){
+    return '<button class="choice'+(st.angle===a.id?" sel":"")+'" onclick="pickAngle(\''+a.id+'\')"><span class="cem">'+a.em+'</span><div class="cmain"><div class="cname">'+esc(a.name)+(a.pill?' <span class="pill'+(a.hot?" hot":"")+'">'+esc(a.pill)+'</span>':'')+'</div><div class="cdesc">'+esc(a.desc)+'</div></div><span class="cgo">→</span></button>';
+  }).join("");
+}
+function pickAngle(id){ st.angle=id; renderAngle(); setTimeout(function(){go(3);},160); }
+
+function matchPB(){
+  return PLAYBOOKS.filter(function(p){return p.angle===st.angle&&p.trav.indexOf(st.trav)>=0;})[0]
+      || PLAYBOOKS.filter(function(p){return p.angle===st.angle&&p.trav.indexOf("*")>=0;})[0]
+      || PLAYBOOKS[0];
+}
+function buildPlan(){
+  var p=matchPB(); st.pb=p;
+  var tName=(TRAVELLERS.filter(function(t){return t.id===st.trav;})[0]||{}).name||st.trav;
+  var aName=(ANGLES.filter(function(a){return a.id===st.angle;})[0]||{}).name||st.angle;
+  document.getElementById("planTitle").textContent=p.title;
+  document.getElementById("planSub").innerHTML="For <b>"+esc(tName)+"</b> · <b>"+esc(aName)+"</b>. Here's a plan built for you — tweak the script so it sounds like you, that's all we need.";
+  document.getElementById("planHook").textContent=p.hook;
+  document.getElementById("planBeats").innerHTML=p.beats.map(function(b){return '<div class="beat"><span class="bn">'+esc(b[0])+'</span><span class="bw">'+esc(b[1])+'</span></div>';}).join("");
+  document.getElementById("planExample").textContent=p.example;
+  document.getElementById("planInspo").innerHTML=p.inspo.map(function(i,k){return '<div class="inspo-card"><div class="ih">'+esc(i)+'</div><div class="id">'+["Hook-led · under 60s","Show, don't tell","Keep it natural"][k%3]+'</div></div>';}).join("");
+  var ta=document.getElementById("scriptTa");
+  if(!ta.dataset.touched){ ta.value=p.example; }
+  ta.oninput=function(){ta.dataset.touched="1";};
+  // close accordions
+  ["ex"].forEach(function(k){document.getElementById("accp-"+k).classList.remove("open");});
+}
+function toggleAcc(k){var b=event.currentTarget;var p=document.getElementById("accp-"+k);var open=p.classList.toggle("open");b.classList.toggle("open",open);}
+
+function planMailText(){
+  var tName=(TRAVELLERS.filter(function(t){return t.id===st.trav;})[0]||{}).name||st.trav;
+  var aName=(ANGLES.filter(function(a){return a.id===st.angle;})[0]||{}).name||st.angle;
+  var subject="My Simify content plan — "+tName+" / "+aName;
+  var body="Hi Simify team,\n\nHere's my content plan for the creator programme:\n\nTraveller type: "+tName+"\nAngle: "+aName+"\nVideo idea: "+(st.pb?st.pb.title:"")+"\n\nMy script:\n"+(document.getElementById("scriptTa").value||"")+"\n\nI've signed up to the affiliate programme. Ready to film once I get my voucher + code!\n\nThanks,\n[Your name] — [Your channel]";
+  return {subject:subject,body:body};
+}
+function buildPlanMail(){
+  var m=planMailText();
+  document.getElementById("mpSubject").textContent=m.subject;
+  document.getElementById("mpBody").textContent=m.body;
+  document.getElementById("sendPlanBtn").setAttribute("href","mailto:creators@simify.com?subject="+encodeURIComponent(m.subject)+"&body="+encodeURIComponent(m.body));
+  var tName=(TRAVELLERS.filter(function(t){return t.id===st.trav;})[0]||{}).name||st.trav;
+  var aName=(ANGLES.filter(function(a){return a.id===st.angle;})[0]||{}).name||st.angle;
+  document.getElementById("doneRecap").innerHTML=
+    '<div class="recap-row"><s>Traveller</s><b>'+esc(tName)+'</b></div>'+
+    '<div class="recap-row"><s>Angle</s><b>'+esc(aName)+'</b></div>'+
+    '<div class="recap-row"><s>Idea</s><b>'+esc(st.pb?st.pb.title:"")+'</b></div>';
+}
+function refreshSubmit(){
+  var signed=document.getElementById("signedChk").checked;
+  document.getElementById("gate1").classList.toggle("done",signed);
+}
+function copyPlan(){var m=planMailText();copyText(m.subject+"\n\n"+m.body);toast("Email copied — paste into your mail app");}
+document.getElementById("sendPlanBtn").addEventListener("click",function(){setTimeout(function(){go(5);},400);});
+
+function buildDraftMail(){
+  var url=(document.getElementById("draftUrl")||{}).value||"[paste your video link]";
+  var body="Hi Simify team,\n\nHere's my draft video for review:\n"+url+"\n\nMy discount code + tracking link are in the first line of the description. Let me know if you'd like any changes before I publish!\n\nThanks,\n[Your name] — [Your channel]";
+  document.getElementById("draftBody").textContent=body;
+  document.getElementById("sendDraftBtn").setAttribute("href","mailto:creators@simify.com?subject="+encodeURIComponent("My Simify draft video for review")+"&body="+encodeURIComponent(body));
+}
+function copyDraft(){copyText(document.getElementById("draftBody").textContent);toast("Email copied — paste into your mail app");}
+
+function copyText(t){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).catch(function(){fb(t);});}else{fb(t);}function fb(x){try{var ta=document.createElement("textarea");ta.value=x;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();}catch(e){}}}
+
+setProg(0);
+</script>
+</body>
+</html>

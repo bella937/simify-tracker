@@ -1042,6 +1042,15 @@
   .tick,.cross,.del{min-width:30px;min-height:30px}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+  /* inbox row actions + undo snackbar */
+  .cvacts{display:flex;gap:5px;margin-left:auto;align-self:center;opacity:.4;transition:opacity .12s;flex:none}
+  .cvrow:hover .cvacts{opacity:1}
+  .cvact{border:1px solid var(--line);background:var(--surface);border-radius:7px;width:28px;height:28px;font-size:13px;line-height:1;padding:0;cursor:pointer;color:var(--muted)}
+  .cvact:hover{color:var(--ink);border-color:var(--muted)}
+  .cvact.del:hover{color:var(--bad);border-color:var(--bad)}
+  .ibxundo{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(18px);z-index:10000;background:var(--ink);color:var(--bg);border-radius:10px;padding:11px 16px;display:flex;gap:16px;align-items:center;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;box-shadow:0 8px 28px rgba(0,0,0,.28)}
+  .ibxundo.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+  .ibxundo button{background:none;border:none;color:var(--brand);font-weight:700;cursor:pointer;font-size:13.5px}
 </style>
 
 <div class="modal" id="cmpModal" hidden>
@@ -1525,6 +1534,21 @@ window.SimifyStore=(function(){
   SimifyStore.onExternalChange(function(){ CRM=SimifyStore.get("crm"); if(typeof renderList==="function"){ try{ renderList(); }catch(e){} } });
   function crmFor(email){ return CRM[String(email||"").toLowerCase()]||{}; }
   function crmSet(email,patch){ var k=String(email||"").toLowerCase(); CRM[k]=Object.assign({},CRM[k]||{},patch); crmSave(); }
+  // ---- Inbox archive / remove — LOCAL & reversible; the Gmail draft is never touched ----
+  var IBX=(SimifyStore.get("ui")||{}).inbox||{};
+  function ibxSave(){ var u=SimifyStore.get("ui")||{}; u.inbox=IBX; SimifyStore.set("ui",u); }
+  function ibxState(id){ return IBX[id]||""; }
+  function ibxSet(id,v){ if(v){IBX[id]=v;}else{delete IBX[id];} ibxSave(); }
+  var _undoT=null;
+  function showUndo(msg,fn){
+    var el=document.getElementById("ibxUndo");
+    if(!el){ el=document.createElement("div"); el.id="ibxUndo"; el.className="ibxundo"; el.setAttribute("role","status"); document.body.appendChild(el); }
+    el.innerHTML='<span></span><button type="button">Undo</button>';
+    el.querySelector("span").textContent=msg;
+    el.classList.add("show");
+    el.querySelector("button").onclick=function(){ clearTimeout(_undoT); el.classList.remove("show"); fn(); };
+    clearTimeout(_undoT); _undoT=setTimeout(function(){ el.classList.remove("show"); },6000);
+  }
   var STAGES=["Prospect","Contacted","Interested","Product sent","Content pending","Review","Published","Affiliate active","Completed"];
   function stageFromStatus(l){ return ({"New lead":"Prospect","Ready to draft":"Prospect","Skipped":"Prospect","Declined":"Prospect","Outreached":"Contacted","Replied":"Interested","Negotiating":"Interested","Onboarding":"Product sent","In production":"Content pending","Live":"Published"})[l]||"Prospect"; }
   function stageOf(d){ var c=crmFor(d.to); if(c.stage) return c.stage; return d.cr?stageFromStatus(d.cr.statusLabel):"Prospect"; }
@@ -1535,16 +1559,22 @@ window.SimifyStore=(function(){
 
   function renderStats(){
     if(!statsEl) return;
-    var due=DRAFTS.filter(isFollowDue).length, high=DRAFTS.filter(function(d){return priOf(d)==="high";}).length, pin=DRAFTS.filter(function(d){return crmFor(d.to).pin;}).length;
-    var cards=[["all","To send",DRAFTS.length],["due","Follow-ups due",due],["high","High priority",high],["pin","Pinned",pin]];
+    var vis=DRAFTS.filter(function(d){var s=ibxState(d.id);return s!=="archived"&&s!=="deleted";});
+    var due=vis.filter(isFollowDue).length, high=vis.filter(function(d){return priOf(d)==="high";}).length, pin=vis.filter(function(d){return crmFor(d.to).pin;}).length;
+    var cards=[["all","To send",vis.length],["due","Follow-ups due",due],["high","High priority",high],["pin","Pinned",pin]];
     statsEl.innerHTML=cards.map(function(c){ return '<button class="ibstat'+(activeFilter===c[0]?" on":"")+'" data-f="'+c[0]+'"><span class="ibsn">'+c[2]+'</span><span class="ibsl">'+c[1]+'</span></button>'; }).join("");
   }
   function renderChips(){
     if(!chipsEl) return;
-    var chips=[["all","All"],["due","Follow-up due"],["high","High priority"],["pin","Pinned"]];
+    var arch=DRAFTS.filter(function(d){return ibxState(d.id)==="archived";}).length;
+    var chips=[["all","All"],["due","Follow-up due"],["high","High priority"],["pin","Pinned"],["archived","Archived"+(arch?" ("+arch+")":"")]];
     chipsEl.innerHTML=chips.map(function(c){ return '<button class="ibchip'+(activeFilter===c[0]?" on":"")+'" data-f="'+c[0]+'">'+c[1]+'</button>'; }).join("");
   }
   function matches(d){
+    var _st=ibxState(d.id);
+    if(_st==="deleted") return false;
+    if(activeFilter==="archived") return _st==="archived";
+    if(_st==="archived") return false;
     if(activeFilter==="due"&&!isFollowDue(d)) return false;
     if(activeFilter==="high"&&priOf(d)!=="high") return false;
     if(activeFilter==="pin"&&!crmFor(d.to).pin) return false;
@@ -1560,15 +1590,19 @@ window.SimifyStore=(function(){
     stEl.textContent=list.length+" of "+DRAFTS.length+" conversation"+(DRAFTS.length>1?"s":"");
     if(!list.length){ listEl.innerHTML='<div class="mempty">No conversations match.</div>'; return; }
     listEl.innerHTML=list.map(function(d){
-      var cr=d.cr, pri=priOf(d), pin=crmFor(d.to).pin, due=isFollowDue(d), meta=[];
+      var cr=d.cr, pri=priOf(d), pin=crmFor(d.to).pin, due=isFollowDue(d), meta=[], st=ibxState(d.id);
       if(cr){ if(cr.subs)meta.push(esc(cr.subs)); if(cr.market&&cr.market!=="\u2014")meta.push(esc(cr.market)); }
+      var acts='<div class="cvacts">'+(st==="archived"
+        ? '<button class="cvact" data-act="unarchive" data-id="'+esc(d.id)+'" title="Unarchive" aria-label="Unarchive">\u21a9</button>'
+        : '<button class="cvact" data-act="archive" data-id="'+esc(d.id)+'" title="Archive" aria-label="Archive conversation">\u{1F5C4}</button>')
+        +'<button class="cvact del" data-act="delete" data-id="'+esc(d.id)+'" title="Remove from inbox (keeps the Gmail draft)" aria-label="Remove from inbox">\u{1F5D1}</button></div>';
       return '<div class="cvrow'+(d.id===selId?" active":"")+'" data-id="'+esc(d.id)+'">'+
         '<div class="mav">'+esc(initial(nameOf(d)))+'</div>'+
         '<div class="cvmain"><div class="cvl1"><span class="cvname">'+esc(nameOf(d))+'</span>'+(pin?'<span class="cvpin">\u2605</span>':'')+(pri?'<span class="pdot '+pri+'" title="'+esc(pri)+' priority" aria-label="'+esc(pri)+' priority"></span>':'')+'</div>'+
         '<div class="cvl2">'+(cr?'@'+esc((cr.handle||"").replace(/^@/,""))+(meta.length?' \u00B7 '+meta.join(' \u00B7 '):''):esc(d.to))+'</div>'+
         '<div class="cvl3">'+esc(d.subject||"(no subject)")+'</div>'+
         '<div class="cvl4"><span class="stpill">'+esc(stageOf(d))+'</span>'+(due?'<span class="duebadge">follow-up due</span>':'')+'</div>'+
-        '</div></div>';
+        '</div>'+acts+'</div>';
     }).join("");
   }
 
@@ -1624,7 +1658,16 @@ window.SimifyStore=(function(){
     document.getElementById("edSend").addEventListener("click",function(){ var to=toI.value.trim(); if(to.indexOf("@")<1){ toast("Add a valid recipient first"); return; } if(!confirm("Send this email to "+to+" now?\n\nIt will be sent from your Gmail.")) return; save().then(function(){ stat.textContent="Sending\u2026"; return fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:id})}).then(function(r){return r.json();}); }).then(function(j){ if(j&&j.ok){ DRAFTS=DRAFTS.filter(function(x){return x.id!==id;}); selId=null; renderList(); viewEl.innerHTML=welcome(); toast("Sent to "+to); if(window.simMarkOutreached) window.simMarkOutreached(to); } else { stat.textContent=""; toast("Send failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Send failed"); }); });
   }
 
-  if(listEl) listEl.addEventListener("click",function(e){ var row=e.target.closest(".cvrow"); if(row) openDraft(row.getAttribute("data-id")); });
+  if(listEl) listEl.addEventListener("click",function(e){
+    var act=e.target.closest("[data-act]");
+    if(act){ e.stopPropagation(); var id=act.getAttribute("data-id"), a=act.getAttribute("data-act");
+      if(a==="unarchive"){ ibxSet(id,""); renderList(); return; }
+      if(selId===id){ selId=null; viewEl.innerHTML=welcome(); }
+      if(a==="archive"){ ibxSet(id,"archived"); renderList(); showUndo("Archived",function(){ ibxSet(id,""); renderList(); }); return; }
+      if(a==="delete"){ ibxSet(id,"deleted"); renderList(); showUndo("Removed from inbox — your Gmail draft is kept",function(){ ibxSet(id,""); renderList(); }); return; }
+    }
+    var row=e.target.closest(".cvrow"); if(row) openDraft(row.getAttribute("data-id"));
+  });
   if(statsEl) statsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); renderList(); } });
   if(chipsEl) chipsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); renderList(); } });
   if(searchEl) searchEl.addEventListener("input",function(){ searchTerm=searchEl.value.trim().toLowerCase(); renderList(); });

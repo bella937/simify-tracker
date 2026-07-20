@@ -889,6 +889,76 @@
 </script>
 
 <script>
+/* ============================================================================
+   SimifyStore v1 — unified persistence layer
+   ----------------------------------------------------------------------------
+   One versioned root key in localStorage holds ALL editable app state
+   (triage flags, added creators, daily counter, CRM records, UI prefs).
+   - Auto-saves on every change (debounced) — there is no Save button.
+   - Survives refresh, tab close and full browser restart.
+   - Restores the previous session automatically on load.
+   - One store => every view reads/writes the same data (no cross-view drift).
+   - Migrates the old per-feature keys (simify_triage_v1 / _daily_v1 / _crm_v1)
+     once, so no existing data is lost.
+   - Written behind a tiny driver seam (load/persist): swap in IndexedDB or a
+     Supabase/D1 backend later without touching any call site.
+   ============================================================================ */
+window.SimifyStore=(function(){
+  var ROOT="simify_store_v1";
+  var LEGACY={triage:"simify_triage_v1",daily:"simify_daily_v1",crm:"simify_crm_v1"};
+  function defaults(){ return {triage:{},daily:null,crm:{},creatorsAdded:[],ui:{},_meta:{migrated:false,savedAt:null}}; }
+  var db=load();
+  var timer=null, extCbs=[], savedCbs=[], errCb=null, bc=null;
+  try{ bc=("BroadcastChannel" in window)?new BroadcastChannel("simify_store"):null; }catch(e){ bc=null; }
+
+  function load(){
+    var raw=null; try{ raw=localStorage.getItem(ROOT); }catch(e){}
+    var obj=null; if(raw){ try{ obj=JSON.parse(raw); }catch(e){ obj=null; } }
+    if(!obj||typeof obj!=="object"){ obj=defaults(); }
+    var d=defaults(); for(var k in d){ if(!(k in obj)) obj[k]=d[k]; }
+    if(!obj._meta) obj._meta={migrated:false,savedAt:null};
+    if(!obj._meta.migrated){
+      try{ var t=localStorage.getItem(LEGACY.triage); if(t){ obj.triage=Object.assign(JSON.parse(t)||{},obj.triage); } }catch(e){}
+      try{ var da=localStorage.getItem(LEGACY.daily); if(da&&!obj.daily){ obj.daily=JSON.parse(da); } }catch(e){}
+      try{ var c=localStorage.getItem(LEGACY.crm); if(c){ obj.crm=Object.assign(JSON.parse(c)||{},obj.crm); } }catch(e){}
+      obj._meta.migrated=true;
+    }
+    return obj;
+  }
+  function persist(){
+    db._meta.savedAt=(new Date()).toISOString();
+    try{ localStorage.setItem(ROOT,JSON.stringify(db)); }catch(e){ if(errCb) errCb(e); return false; }
+    return true;
+  }
+  function schedule(){
+    if(timer) return;
+    timer=setTimeout(function(){ timer=null; var ok=persist();
+      if(ok&&bc){ try{ bc.postMessage({t:"changed",at:db._meta.savedAt}); }catch(e){} }
+      savedCbs.forEach(function(fn){ try{ fn(ok); }catch(e){} });
+    },250);
+  }
+  function reloadFromDisk(){ db=load(); extCbs.forEach(function(fn){ try{ fn(); }catch(e){} }); }
+  window.addEventListener("storage",function(e){ if(e.key===ROOT){ reloadFromDisk(); } });
+  if(bc) bc.onmessage=function(e){ if(e&&e.data&&e.data.t==="changed"){ reloadFromDisk(); } };
+
+  persist(); // flush any migrated data immediately
+
+  return {
+    get:function(ns){ return db[ns]; },
+    set:function(ns,val){ db[ns]=val; schedule(); },
+    flush:function(){ if(timer){ clearTimeout(timer); timer=null; } return persist(); },
+    schedule:schedule,
+    onExternalChange:function(fn){ extCbs.push(fn); },
+    onSaved:function(fn){ savedCbs.push(fn); },
+    onSaveError:function(fn){ errCb=fn; },
+    savedAt:function(){ return db._meta&&db._meta.savedAt; },
+    exportJSON:function(){ return JSON.stringify(db,null,2); },
+    importJSON:function(str){ try{ var o=JSON.parse(str); if(o&&typeof o==="object"){ var d=defaults(); for(var k in d){ if(!(k in o)) o[k]=d[k]; } if(!o._meta)o._meta={migrated:true,savedAt:null}; o._meta.migrated=true; db=o; return this.flush(); } }catch(e){} return false; }
+  };
+})();
+</script>
+
+<script>
 (function(){
   var SAMPLE=[];
   var DATA=SAMPLE;
@@ -901,9 +971,9 @@
   var COLS=7;
 
   // ---- Triage state (per-creator, saved in this browser only) ----------------
-  var STATE={}; try{ STATE=JSON.parse(localStorage.getItem("simify_triage_v1")||"{}"); }catch(e){ STATE={}; }
-  function saveState(){ try{ localStorage.setItem("simify_triage_v1", JSON.stringify(STATE)); }catch(e){} }
-  function keyOf(c){ var h=String(c.handle||"").replace(/^@/,"").toLowerCase(); return h||("name:"+String(c.name||"").toLowerCase()); }
+  var STATE=SimifyStore.get("triage");
+  function saveState(){ SimifyStore.set("triage", STATE); }
+  function keyOf(c){ if(c&&c.id) return String(c.id); var h=String(c.handle||"").replace(/^@/,"").toLowerCase(); return h||("name:"+String(c.name||"").toLowerCase()); }
   function stateFor(c){ return STATE[keyOf(c)]||{}; }
   function setStateFor(c,patch){ var k=keyOf(c); STATE[k]=Object.assign({},STATE[k]||{},patch); saveState(); }
   function emailOf(c){ var s=stateFor(c); return (s.email!==undefined?s.email:(c.email||"")); }
@@ -916,8 +986,8 @@
 
   // ---- Daily goal counter ----------------------------------------------------
   var todayStr=(new Date()).toISOString().slice(0,10);
-  var DAILY={date:todayStr,count:0}; try{ var d=JSON.parse(localStorage.getItem("simify_daily_v1")||"null"); if(d&&d.date===todayStr) DAILY=d; }catch(e){}
-  function saveDaily(){ try{ localStorage.setItem("simify_daily_v1", JSON.stringify(DAILY)); }catch(e){} }
+  var DAILY=SimifyStore.get("daily"); if(!DAILY||DAILY.date!==todayStr){ DAILY={date:todayStr,count:0}; SimifyStore.set("daily",DAILY); }
+  function saveDaily(){ SimifyStore.set("daily", DAILY); }
   function bumpDaily(n){ if(DAILY.date!==todayStr){ DAILY={date:todayStr,count:0}; } DAILY.count+=n; saveDaily(); renderGoal(); }
   function renderGoal(){ var el=document.getElementById("goalPill"); if(!el)return; var c=DAILY.date===todayStr?DAILY.count:0; el.textContent=c+" drafted today · goal 30–50"; el.className="goalpill"+(c>=30?" hit":""); }
 
@@ -983,7 +1053,8 @@
       var cur=emailOf(c);
       em.innerHTML='<input class="eminput" type="email" value="'+esc(cur)+'" placeholder="name@example.com">';
       var inp=em.querySelector("input"); inp.focus(); inp.select();
-      function commit(save){ if(save){ setStateFor(c,{email:inp.value.trim()}); } render(); }
+      function commit(save){ if(save){ var oldE=String(emailOf(c)||"").toLowerCase(), nv=inp.value.trim(); setStateFor(c,{email:nv}); var newE=nv.toLowerCase();
+          if(oldE&&newE&&oldE!==newE){ try{ var crm=SimifyStore.get("crm")||{}; if(crm[oldE]){ crm[newE]=Object.assign({},crm[newE]||{},crm[oldE]); delete crm[oldE]; SimifyStore.set("crm",crm); } }catch(e){} } } render(); }
       inp.addEventListener("keydown",function(ev){ if(ev.key==="Enter"){ commit(true);} else if(ev.key==="Escape"){ commit(false);} });
       inp.addEventListener("blur",function(){ commit(true); });
     }
@@ -1019,7 +1090,18 @@
     a.href=url; a.download="simify_creators.csv"; document.body.appendChild(a); a.click();
     setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); },120);
   });
-  window.simAddCreator=function(c){ DATA.push({name:c.name||"New creator",handle:c.handle||"@new",email:c.email||"",market:c.market||"AU",subs:c.subs||0,niche:c.niche||"General",deliv:c.deliv||"1x Short",st:["out","Outreached"],rb:["new","new"]}); render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline(); };
+  function genId(){ return "c_"+Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+  // Merge locally-added creators (persisted in the store) into DATA, deduped by key.
+  function mergeAdded(){ var added=SimifyStore.get("creatorsAdded")||[]; var have={}; DATA.forEach(function(c){ have[keyOf(c)]=1; }); added.forEach(function(c){ if(!have[keyOf(c)]){ DATA.push(c); have[keyOf(c)]=1; } }); }
+  window.simAddCreator=function(c){
+    var rec={id:genId(),name:c.name||"New creator",handle:c.handle||"@new",email:c.email||"",market:c.market||"AU",subs:c.subs||0,niche:c.niche||"General",deliv:c.deliv||"1x Short",st:["dim","New lead"],rb:["new","new"],_added:true};
+    DATA.push(rec);
+    var added=SimifyStore.get("creatorsAdded")||[]; added.push(rec); SimifyStore.set("creatorsAdded",added);
+    render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline();
+  };
+  // Re-read persisted state + re-render (used on cross-tab sync).
+  window.simRerender=function(){ STATE=SimifyStore.get("triage"); DATA=DATA.filter(function(c){return !c._added;}); mergeAdded(); render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline(); };
+  SimifyStore.onExternalChange(function(){ if(window.simRerender) window.simRerender(); });
   // Called by the Inbox when a draft is sent — flags the matching creator Outreached.
   window.simMarkOutreached=function(email){
     email=String(email||"").trim().toLowerCase(); if(!email) return 0;
@@ -1096,8 +1178,9 @@
     var banner=document.getElementById("ovBanner");
     if(banner) banner.textContent=total+" prospects sourced · "+(contacted===0?"none contacted yet":contacted+" contacted");
   }
+  mergeAdded();
   render();renderOverview();renderPipeline();
-  fetch("data/creators.json").then(function(r){return r.ok?r.json():null;}).then(function(j){ if(j&&j.creators&&j.creators.length){ DATA=j.creators; render(); renderOverview(); renderPipeline(); var sub=document.querySelector('#view-creators .sub'); if(sub&&j.updated){ sub.textContent='Sourced roster \u00B7 '+j.count+' creators \u00B7 updated '+j.updated; } } }).catch(function(){});
+  fetch("data/creators.json").then(function(r){return r.ok?r.json():null;}).then(function(j){ if(j&&j.creators&&j.creators.length){ DATA=j.creators; mergeAdded(); render(); renderOverview(); renderPipeline(); var sub=document.querySelector('#view-creators .sub'); if(sub&&j.updated){ sub.textContent='Sourced roster \u00B7 '+j.count+' creators \u00B7 updated '+j.updated; } } }).catch(function(){});
 })();
 </script>
 
@@ -1147,8 +1230,9 @@
   function notConfigured(){ return '<div class="mempty">Mailbox not connected yet \u2014 your Gmail drafts appear here once the site is deployed with your Gmail secret (behind Cloudflare Access).</div>'; }
   function welcome(){ return '<div class="mwelcome"><div class="mwicon">\u2709</div><div class="mwt">Select a conversation</div><div class="mws">Every thread shows the creator, their pipeline stage and your notes \u2014 before you open it.</div></div>'; }
 
-  var CRM={}; try{ CRM=JSON.parse(localStorage.getItem("simify_crm_v1")||"{}"); }catch(e){ CRM={}; }
-  function crmSave(){ try{ localStorage.setItem("simify_crm_v1",JSON.stringify(CRM)); }catch(e){} }
+  var CRM=SimifyStore.get("crm");
+  function crmSave(){ SimifyStore.set("crm",CRM); }
+  SimifyStore.onExternalChange(function(){ CRM=SimifyStore.get("crm"); if(typeof renderList==="function"){ try{ renderList(); }catch(e){} } });
   function crmFor(email){ return CRM[String(email||"").toLowerCase()]||{}; }
   function crmSet(email,patch){ var k=String(email||"").toLowerCase(); CRM[k]=Object.assign({},CRM[k]||{},patch); crmSave(); }
   var STAGES=["Prospect","Contacted","Interested","Product sent","Content pending","Review","Published","Affiliate active","Completed"];
@@ -1418,6 +1502,42 @@
 
   var nav=document.querySelector('.nav[data-view="ci"]');
   if(nav) nav.addEventListener("click",function(){ if(!loaded){ loaded=true; load(); } });
+})();
+</script>
+<script>
+/* Auto-save status pill + one-click backup / restore.
+   Persistence is silent and automatic; this just makes it visible + gives a
+   durable off-device copy (JSON) until a cloud backend is connected. */
+(function(){
+  if(!window.SimifyStore) return;
+  var bar=document.createElement("div");
+  bar.id="simSaveBar";
+  bar.style.cssText="position:fixed;left:14px;bottom:14px;z-index:9998;display:flex;gap:9px;align-items:center;font:600 11px/1.4 ui-sans-serif,-apple-system,Segoe UI,Roboto,sans-serif;color:#5b6b57;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid #e3e7dd;border-radius:999px;padding:6px 12px;box-shadow:0 3px 12px rgba(40,60,35,.08)";
+  bar.innerHTML='<span id="simDot" style="width:7px;height:7px;border-radius:50%;background:#3fae66;display:inline-block;flex:none"></span>'+
+    '<span id="simTxt">All changes saved</span>'+
+    '<span style="opacity:.3">·</span>'+
+    '<button id="simExp" type="button" style="all:unset;cursor:pointer;color:#2f6b46">Backup</button>'+
+    '<button id="simImp" type="button" style="all:unset;cursor:pointer;color:#2f6b46">Restore</button>';
+  document.body.appendChild(bar);
+  var txt=bar.querySelector("#simTxt"), dot=bar.querySelector("#simDot");
+  function fmt(iso){ if(!iso) return ""; try{ return new Date(iso).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}); }catch(e){ return ""; } }
+  function setSaved(){ dot.style.background="#3fae66"; txt.textContent="All changes saved · "+fmt(SimifyStore.savedAt()); }
+  SimifyStore.onSaved(function(ok){ if(ok){ setSaved(); } });
+  SimifyStore.onSaveError(function(){ dot.style.background="#d9534f"; txt.textContent="Couldn't save here — export a backup"; });
+  if(SimifyStore.savedAt()) setSaved();
+  bar.querySelector("#simExp").addEventListener("click",function(){
+    var blob=new Blob([SimifyStore.exportJSON()],{type:"application/json"});
+    var url=URL.createObjectURL(blob), a=document.createElement("a");
+    a.href=url; a.download="simify-tracker-backup-"+(new Date().toISOString().slice(0,10))+".json";
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); },120);
+  });
+  bar.querySelector("#simImp").addEventListener("click",function(){
+    var inp=document.createElement("input"); inp.type="file"; inp.accept="application/json,.json";
+    inp.addEventListener("change",function(){ var f=inp.files&&inp.files[0]; if(!f) return; var r=new FileReader();
+      r.onload=function(){ if(SimifyStore.importJSON(String(r.result))){ alert("Backup restored — reloading."); location.reload(); } else { alert("That file couldn't be read as a Simify backup."); } };
+      r.readAsText(f); });
+    inp.click();
+  });
 })();
 </script>
 </body>

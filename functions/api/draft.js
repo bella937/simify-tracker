@@ -40,7 +40,7 @@ function cleanChannel(name) {
 function subjectLine(name) {
   let label = greetName(name);
   if (!label || label === "there") label = cleanChannel(name);
-  return label + " × Simify - gifted eSIM + 15% 🎁"; // × … 🎁 (plain hyphen)
+  return label + " get paid to travel - Partnership with Simify ✈️"; // plain hyphen, no em dash
 }
 function firstLine(niche) {
   if (niche) {
@@ -53,30 +53,26 @@ function esc(s) {
   return String(s || "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
 }
 function bodyText(first, niche) {
-  return "Hey " + first + ",\n\n" + firstLine(niche) + "\n\n" +
+  return "Hey " + first + "\n\n" + firstLine(niche) + "\n\n" +
     "I'm Bella from Simify - we're a Travel eSIM brand trusted by 1M+ travellers, " +
-    "and we're looking for creators to join our affiliate programme. Here's how it works:\n\n" +
+    "and we're inviting you to join our YouTube affiliate programme. Here's how it works:\n\n" +
     "🎁 We'll gift you a $100 USD eSIM voucher\n" +
     "📱 Share your Simify experience in a YouTube Short or a video integration\n" +
     "💸 Earn 15% commission on every sale through your unique discount code\n" +
     "🚀 We'll also feature your content in our paid campaigns to boost your reach and help you grow your audience\n\n" +
-    "👉 See the offer + build your content plan (3 mins): https://simify-creators.pages.dev\n\n" +
     "Let me know if you're interested and I'll send over all the details!\n\n" +
     "Bella\nPartnerships Manager | Simify\nbella@simify.com";
 }
 function bodyHtml(first, niche, signature) {
   const signoff = signature || "Bella<br>Partnerships Manager | Simify<br>bella@simify.com";
   return '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#111">' +
-    "Hey " + esc(first) + ",<br><br>" + esc(firstLine(niche)) + "<br><br>" +
-    '<a href="https://simify-creators.pages.dev" style="text-decoration:none"><img src="https://simify-creators.pages.dev/teaser.png" alt="Simify Creator Programme" width="520" style="width:100%;max-width:520px;border-radius:14px;display:block;margin:2px 0 16px"></a>' +
+    "Hey " + esc(first) + "<br><br>" + esc(firstLine(niche)) + "<br><br>" +
     "I'm Bella from <b>Simify</b> - we're a Travel eSIM brand trusted by 1M+ travellers, " +
-    "and we're looking for creators to join our <b>affiliate programme</b>. Here's how it works:<br><br>" +
+    "and we're inviting you to join our <b>YouTube affiliate programme</b>. Here's how it works:<br><br>" +
     "🎁 We'll gift you a <b>$100 USD eSIM voucher</b><br>" +
     "📱 Share your Simify experience in a YouTube Short or a video integration<br>" +
     "💸 Earn <b>15% commission</b> on every sale through your unique discount code<br>" +
     "🚀 We'll also feature your content in our paid campaigns to boost your reach and help you grow your audience<br><br>" +
-    "👉 <b>See the offer + build your content plan in 3 minutes:</b> " +
-    '<a href="https://simify-creators.pages.dev">simify-creators.pages.dev</a><br><br>' +
     "Let me know if you're interested and I'll send over all the details!<br><br>" +
     signoff + "</div>";
 }

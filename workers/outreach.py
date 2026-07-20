@@ -56,19 +56,18 @@ def subject_line(name):
     label = greet_name(name)
     if not label or label == "there":
         label = clean_channel(name)
-    return f"{label} × Simify - gifted eSIM + 15% \U0001F381"  # 🎁 (plain hyphen, no em dash)
+    return f"{label} get paid to travel - Partnership with Simify ✈️"  # ✈️ (plain hyphen, no em dash)
 
 def body_text(first, niche):
-    return (f"Hey {first},\n\n"
+    return (f"Hey {first}\n\n"
             f"{first_line(niche)}\n\n"
             "I'm Bella from Simify - we're a Travel eSIM brand trusted by 1M+ travellers, "
-            "and we're looking for creators to join our affiliate programme. Here's how it works:\n\n"
+            "and we're inviting you to join our YouTube affiliate programme. Here's how it works:\n\n"
             "\U0001F381 We'll gift you a $100 USD eSIM voucher\n"
             "\U0001F4F1 Share your Simify experience in a YouTube Short or a video integration\n"
             "\U0001F4B8 Earn 15% commission on every sale through your unique discount code\n"
             "\U0001F680 We'll also feature your content in our paid campaigns to boost your reach "
             "and help you grow your audience\n\n"
-            "\U0001F449 See the offer + build your content plan (3 mins): https://simify-creators.pages.dev\n\n"
             "Let me know if you're interested and I'll send over all the details!\n\n"
             "Bella\nPartnerships Manager | Simify\nbella@simify.com")
 
@@ -82,19 +81,16 @@ def body_html(first, niche, signature=""):
     return (
         '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;'
         'line-height:1.5;color:#111">'
-        f"Hey {fn},<br><br>"
+        f"Hey {fn}<br><br>"
         f"{fl}<br><br>"
-        '<a href="https://simify-creators.pages.dev" style="text-decoration:none"><img src="https://simify-creators.pages.dev/teaser.png" alt="Simify Creator Programme" width="520" style="width:100%;max-width:520px;border-radius:14px;display:block;margin:2px 0 16px"></a>'
         "I'm Bella from <b>Simify</b> - we're a Travel eSIM brand trusted by 1M+ travellers, "
-        "and we're looking for creators to join our <b>affiliate programme</b>. "
+        "and we're inviting you to join our <b>YouTube affiliate programme</b>. "
         "Here's how it works:<br><br>"
         "\U0001F381 We'll gift you a <b>$100 USD eSIM voucher</b><br>"
         "\U0001F4F1 Share your Simify experience in a YouTube Short or a video integration<br>"
         "\U0001F4B8 Earn <b>15% commission</b> on every sale through your unique discount code<br>"
         "\U0001F680 We'll also feature your content in our paid campaigns to boost your reach "
         "and help you grow your audience<br><br>"
-        "\U0001F449 <b>See the offer + build your content plan in 3 minutes:</b> "
-        '<a href="https://simify-creators.pages.dev">simify-creators.pages.dev</a><br><br>'
         "Let me know if you're interested and I'll send over all the details!<br><br>"
         f"{signoff}"
         "</div>")

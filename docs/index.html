@@ -745,6 +745,7 @@
     <button class="nav" data-view="automations"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>Automations<span class="soon">soon</span></button>
     <button class="nav" data-view="pipeline"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="3" y="4" width="4" height="16" rx="1"/><rect x="10" y="4" width="4" height="11" rx="1"/><rect x="17" y="4" width="4" height="7" rx="1"/></svg>Lead Pipeline</button>
     <button class="nav" data-view="campaigns"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 11l16-6v14L3 13z"/><path d="M3 11v3M8 12.5V17a2 2 0 0 0 4 0"/></svg>Campaigns</button>
+     <button class="nav" data-view="content"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="m9 11 3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Content review</button>
     <button class="nav" data-view="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/><circle cx="12" cy="12" r="3.2"/></svg>Creative Intelligence<span class="newbadge">live</span></button>
     <button class="nav" data-view="attribution"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Attribution<span class="soon">soon</span></button>
     <div class="me"><span class="av">B</span><span>Bella Vu<small>YouTube partnerships</small></span></div>
@@ -839,6 +840,13 @@
         <div id="cmpList"></div>
         <div id="cmpDetail" hidden></div>
       </section>
+      <section class="view" id="view-content">
+        <div class="phead">
+          <div><h1>Content review</h1><div class="sub" id="crvSub">Review creator submissions &middot; checklist, approve or request changes</div></div>
+        </div>
+        <div id="crvChips" class="crvchips"></div>
+        <div id="crvList"></div>
+      </section>
       <section class="view" id="view-ci">
         <div class="phead"><div><h1>Creative Intelligence</h1><div class="sub" id="ciSub">What actually performs in your paid ads — so every brief makes better creative</div></div></div>
         <div class="citabs"><button class="citab on" data-ci="intel">📊 Intelligence</button><button class="citab" data-ci="brief">🎬 Brief Builder</button></div>
@@ -915,6 +923,36 @@
   .cmpopt{display:flex;align-items:center;gap:10px;padding:8px 8px;border-radius:9px;cursor:pointer}
   .cmpopt:hover{background:var(--bg)}
   .cmppick{max-height:230px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:4px}
+  /* content review */
+  .crvchips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+  .crvchip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:13px;color:var(--muted);cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:7px}
+  .crvchip .cn{font-family:var(--fm);font-size:11px;background:var(--bg);border-radius:999px;padding:1px 7px;color:var(--ink)}
+  .crvchip.on{border-color:var(--human);color:var(--human);background:color-mix(in srgb,var(--human) 10%,transparent)}
+  .crvcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:14px}
+  .crvhead{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+  .crvname{font-weight:700;font-size:16px;color:var(--ink);line-height:1.2}
+  .crvmeta{font-family:var(--fm);font-size:12px;color:var(--muted);margin-top:3px}
+  .crvcampchip{font-family:var(--fm);font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--brand) 15%,transparent);color:var(--brand);white-space:nowrap}
+  .crvstatus{margin-left:auto;font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .crvstatus.awaiting{color:var(--dim);background:color-mix(in srgb,var(--dim) 14%,transparent)}
+  .crvstatus.submitted{color:var(--warn);background:color-mix(in srgb,var(--warn) 16%,transparent)}
+  .crvstatus.changes{color:var(--bad);background:color-mix(in srgb,var(--bad) 13%,transparent)}
+  .crvstatus.approved{color:var(--auto);background:color-mix(in srgb,var(--auto) 15%,transparent)}
+  .crvstatus.live{color:#fff;background:var(--auto)}
+  .crvbody{display:grid;grid-template-columns:1fr 300px;gap:20px;margin-top:16px}
+  @media(max-width:780px){.crvbody{grid-template-columns:1fr}}
+  .crvurl{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+  .crvurl input{flex:1;font:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+  .crvopen{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;padding:9px 13px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+  .crvcheck{display:flex;flex-direction:column;gap:9px}
+  .crvcheck label{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink);cursor:pointer}
+  .crvcheck input{width:17px;height:17px;accent-color:var(--auto);flex:none}
+  .crvfb{font:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:10px 11px;width:100%;min-height:70px;resize:vertical;line-height:1.5;margin-top:12px}
+  .crvacts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .crvbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;padding:9px 15px;font-size:13.5px;font-weight:600;cursor:pointer}
+  .crvbtn.ok{background:var(--auto);border-color:var(--auto);color:#fff}
+  .crvbtn.warn{background:color-mix(in srgb,var(--bad) 12%,transparent);border-color:transparent;color:var(--bad)}
+  .crvside h4{margin:0 0 9px;font-family:var(--fm);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700}
 </style>
 
 <div class="modal" id="cmpModal" hidden>
@@ -966,7 +1004,7 @@
 window.SimifyStore=(function(){
   var ROOT="simify_store_v1";
   var LEGACY={triage:"simify_triage_v1",daily:"simify_daily_v1",crm:"simify_crm_v1"};
-  function defaults(){ return {triage:{},daily:null,crm:{},creatorsAdded:[],campaigns:[],ui:{},_meta:{migrated:false,savedAt:null}}; }
+  function defaults(){ return {triage:{},daily:null,crm:{},creatorsAdded:[],campaigns:[],deliverables:{},ui:{},_meta:{migrated:false,savedAt:null}}; }
   var db=load();
   var timer=null, extCbs=[], savedCbs=[], errCb=null, bc=null;
   try{ bc=("BroadcastChannel" in window)?new BroadcastChannel("simify_store"):null; }catch(e){ bc=null; }
@@ -1631,11 +1669,11 @@ window.SimifyStore=(function(){
 
   function members(c){ return (c.members||[]).map(function(k){ return window.simCreatorByKey?window.simCreatorByKey(k):null; }).filter(Boolean); }
   function rollup(c){
-    var m=members(c), contacted=0, live=0;
-    m.forEach(function(cr){ var s=window.simEffStatus?window.simEffStatus(cr):cr.st; var lbl=s&&s[1];
-      if(lbl&&["New lead","Ready to draft","Skipped","Declined"].indexOf(lbl)<0) contacted++;
-      if(lbl==="Live") live++; });
-    return {total:(c.members||[]).length, resolved:m.length, contacted:contacted, live:live};
+    var mem=(c.members||[]), d=SimifyStore.get("deliverables")||{}, submitted=0, approved=0;
+    mem.forEach(function(k){ var r=d[c.id+"::"+k]; if(!r) return;
+      if(r.url) submitted++;
+      if(r.status==="Approved"||r.status==="Live") approved++; });
+    return {total:mem.length, submitted:submitted, approved:approved, pct: mem.length?Math.round(approved/mem.length*100):0};
   }
 
   function renderList(){
@@ -1651,13 +1689,13 @@ window.SimifyStore=(function(){
       return;
     }
     listEl.innerHTML='<div class="cmpgrid">'+CAMP.map(function(c){
-      var r=rollup(c), pct=r.total?Math.round(r.live/r.total*100):0, cls=(c.status||"Planning").toLowerCase();
+      var r=rollup(c), pct=r.pct, cls=(c.status||"Planning").toLowerCase();
       return '<button class="cmpcard" data-id="'+esc(c.id)+'">'+
         '<div class="ct"><span class="cname">'+esc(c.name||"Untitled campaign")+'</span><span class="cmpstat '+cls+'">'+esc(c.status||"Planning")+'</span></div>'+
         '<div class="cmpmeta"><span>📍 <b>'+esc(c.market||"—")+'</b></span><span>🗓 '+esc(dateRange(c.startsOn,c.endsOn))+'</span>'+(c.budget?'<span>💰 <b>'+esc(money(c.budget))+'</b></span>':'')+'</div>'+
         '<div class="cmpstats"><div><div class="n">'+r.total+'</div><div class="k">Creators</div></div>'+
-          '<div><div class="n">'+r.contacted+'</div><div class="k">Contacted</div></div>'+
-          '<div><div class="n">'+r.live+'</div><div class="k">Live</div></div>'+
+          '<div><div class="n">'+r.submitted+'</div><div class="k">Submitted</div></div>'+
+          '<div><div class="n">'+r.approved+'</div><div class="k">Approved</div></div>'+
           '<div><div class="n">'+pct+'%</div><div class="k">Complete</div></div></div>'+
         '<div class="cmpprog"><i style="width:'+pct+'%"></i></div>'+
       '</button>';
@@ -1717,12 +1755,14 @@ window.SimifyStore=(function(){
     var box=detEl.querySelector("#cmpMembers"), cnt=detEl.querySelector("#cmpMemCount"); if(!box) return;
     var m=members(c); if(cnt) cnt.textContent=(c.members||[]).length;
     if(!m.length){ box.innerHTML='<div style="color:var(--muted);font-size:13.5px;padding:10px 2px">No creators assigned yet — add some below.</div>'; return; }
+    var d=SimifyStore.get("deliverables")||{};
+    var CST={"Awaiting":"awaiting","Submitted":"submitted","Changes requested":"changes","Approved":"approved","Live":"live"};
     box.innerHTML=m.map(function(cr){
-      var s=window.simEffStatus?window.simEffStatus(cr):(cr.st||["dim","—"]);
       var k=window.simKeyOf?window.simKeyOf(cr):"";
+      var r=d[c.id+"::"+k]||{}, cst=r.status||(r.url?"Submitted":"Awaiting");
       return '<div class="cmpmemrow"><span class="cmpav">'+esc(initial(cr.name))+'</span>'+
         '<div><div class="cmpmemn">'+esc(cr.name)+'</div><div class="cmpmemsub">'+esc(cr.handle||"")+(cr.market?" · "+esc(cr.market):"")+'</div></div>'+
-        '<span class="pillst '+esc(s[0])+'" style="margin-left:auto">'+esc(s[1])+'</span>'+
+        '<span class="crvstatus '+CST[cst]+'">'+esc(cst)+'</span>'+
         '<button class="cmpmemx" data-rm="'+esc(k)+'" title="Remove from campaign">×</button></div>';
     }).join("");
     box.querySelectorAll("[data-rm]").forEach(function(b){ b.addEventListener("click",function(){
@@ -1777,6 +1817,97 @@ window.SimifyStore=(function(){
   // re-render when the Campaigns tab is opened (roster may have loaded since)
   var navBtn=document.querySelector('.nav[data-view="campaigns"]'); if(navBtn) navBtn.addEventListener("click",function(){ if(openId&&byId(openId)) renderDetail(openId); else renderList(); });
   renderList();
+})();
+</script>
+<script>
+/* ============================================================================
+   Content review — creator submissions per campaign: paste link, run the
+   checklist, Approve / Request changes / Mark live. Auto-saved via SimifyStore
+   (deliverables namespace, keyed campaignId::creatorKey). Work-list is derived
+   live from campaign memberships, so it stays in sync with Campaigns.
+   ============================================================================ */
+(function(){
+  if(!window.SimifyStore) return;
+  var listEl=document.getElementById("crvList"), chipsEl=document.getElementById("crvChips"), subEl=document.getElementById("crvSub");
+  if(!listEl) return;
+  var activeFilter="all";
+  var CHECKS=[["disclosure","Paid/gift disclosure present"],["code","Discount code shown on screen"],["brand","Simify mentioned & branded"],["product","eSIM shown in use"]];
+  function deliv(){ return SimifyStore.get("deliverables")||{}; }
+  function saveDeliv(d){ SimifyStore.set("deliverables",d); }
+  function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function initial(s){ return ((String(s).replace(/[^A-Za-z0-9]/g,"")[0])||"?").toUpperCase(); }
+  function keyFor(cid,ck){ return cid+"::"+ck; }
+  function today(){ try{ return (new Date()).toISOString().slice(0,10); }catch(e){ return ""; } }
+
+  function worklist(){
+    var camps=SimifyStore.get("campaigns")||[], d=deliv(), items=[];
+    camps.forEach(function(c){ (c.members||[]).forEach(function(ck){
+      var cr=window.simCreatorByKey?window.simCreatorByKey(ck):null; if(!cr) return;
+      var key=keyFor(c.id,ck), rec=d[key]||{};
+      items.push({key:key,cid:c.id,camp:c,ck:ck,cr:cr,rec:rec});
+    }); });
+    return items;
+  }
+  function statusOf(it){ var r=it.rec; if(r.status) return r.status; if(r.url) return "Submitted"; return "Awaiting"; }
+  function statusCls(s){ return ({"Awaiting":"awaiting","Submitted":"submitted","Changes requested":"changes","Approved":"approved","Live":"live"})[s]||"awaiting"; }
+  function matchFilter(s){ if(activeFilter==="all") return true; if(activeFilter==="review") return s==="Submitted"; if(activeFilter==="changes") return s==="Changes requested"; if(activeFilter==="approved") return s==="Approved"; if(activeFilter==="live") return s==="Live"; return true; }
+
+  function render(){
+    var items=worklist();
+    var counts={all:items.length,review:0,changes:0,approved:0,live:0};
+    items.forEach(function(it){ var s=statusOf(it); if(s==="Submitted")counts.review++; else if(s==="Changes requested")counts.changes++; else if(s==="Approved")counts.approved++; else if(s==="Live")counts.live++; });
+    if(subEl) subEl.textContent=counts.review?(counts.review+" submission"+(counts.review>1?"s":"")+" awaiting your review"):"Review creator submissions · checklist, approve or request changes";
+    var chips=[["all","All",counts.all],["review","Needs review",counts.review],["changes","Changes requested",counts.changes],["approved","Approved",counts.approved],["live","Live",counts.live]];
+    chipsEl.innerHTML=chips.map(function(c){ return '<button class="crvchip'+(activeFilter===c[0]?" on":"")+'" data-f="'+c[0]+'">'+c[1]+' <span class="cn">'+c[2]+'</span></button>'; }).join("");
+
+    if(!items.length){
+      listEl.innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="m9 11 3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><div style="font-weight:600;color:var(--ink);margin:6px 0 6px;">No content to review yet</div><div style="max-width:52ch;margin:0 auto;line-height:1.6;">Assign creators to a campaign, then paste their submitted video links here to review against the checklist.</div></div>';
+      return;
+    }
+    var shown=items.filter(function(it){ return matchFilter(statusOf(it)); });
+    if(!shown.length){ listEl.innerHTML='<div class="empty" style="padding:32px">Nothing in this stage.</div>'; return; }
+    listEl.innerHTML=shown.map(cardHtml).join("");
+    shown.forEach(wireCard);
+  }
+
+  function cardHtml(it){
+    var cr=it.cr, s=statusOf(it), r=it.rec, chk=r.checklist||{};
+    var openBtn=r.url?'<a class="crvopen" href="'+esc(r.url)+'" target="_blank" rel="noopener">▶ Open</a>':'';
+    var checks='<div class="crvside"><h4>Compliance checklist</h4><div class="crvcheck">'+CHECKS.map(function(c){
+      return '<label><input type="checkbox" data-chk="'+c[0]+'"'+(chk[c[0]]?" checked":"")+'>'+esc(c[1])+'</label>'; }).join("")+'</div></div>';
+    var liveBlock=(s==="Approved"||s==="Live")?'<div class="crvurl" style="margin-top:12px"><input data-live="1" placeholder="Live video URL (once published)" value="'+esc(r.liveUrl||"")+'"><button class="crvbtn'+(s==="Live"?"":" ok")+'" data-act="live">'+(s==="Live"?"✓ Live":"Mark live")+'</button></div>':'';
+    return '<div class="crvcard" data-key="'+esc(it.key)+'">'+
+      '<div class="crvhead"><span class="cmpav">'+esc(initial(cr.name))+'</span>'+
+        '<div><div class="crvname">'+esc(cr.name)+'</div><div class="crvmeta">'+esc(cr.handle||"")+(cr.subs?" · "+esc(cr.subs)+" subs":"")+'</div></div>'+
+        '<span class="crvcampchip">'+esc(it.camp.name||"Campaign")+' · '+esc(it.camp.market||"")+'</span>'+
+        '<span class="crvstatus '+statusCls(s)+'">'+esc(s)+'</span></div>'+
+      '<div class="crvbody"><div class="crvmain">'+
+        '<div class="crvurl"><input data-url="1" placeholder="Paste submitted video / Short URL…" value="'+esc(r.url||"")+'">'+openBtn+'</div>'+
+        '<textarea class="crvfb" data-fb="1" placeholder="Feedback to the creator (used when requesting changes)…">'+esc(r.feedback||"")+'</textarea>'+
+        '<div class="crvacts"><button class="crvbtn ok" data-act="approve">✓ Approve</button><button class="crvbtn warn" data-act="changes">↩ Request changes</button></div>'+
+        liveBlock+
+      '</div>'+checks+'</div></div>';
+  }
+
+  function wireCard(it){
+    var el=listEl.querySelector('.crvcard[data-key="'+CSS.escape(it.key)+'"]'); if(!el) return;
+    function upsert(patch,rerender){ var d=deliv(); var r=Object.assign({},d[it.key]||{},patch); d[it.key]=r; saveDeliv(d); it.rec=r; if(rerender) render(); }
+    var urlI=el.querySelector('[data-url]'); if(urlI) urlI.addEventListener("change",function(){ var v=urlI.value.trim(); var patch={url:v}; if(v&&!it.rec.submittedAt) patch.submittedAt=today(); upsert(patch,true); });
+    el.querySelectorAll('[data-chk]').forEach(function(cb){ cb.addEventListener("change",function(){ var chk=Object.assign({},it.rec.checklist||{}); chk[cb.getAttribute("data-chk")]=cb.checked; upsert({checklist:chk},false); }); });
+    var fb=el.querySelector('[data-fb]'); if(fb) fb.addEventListener("input",function(){ upsert({feedback:fb.value},false); });
+    var liveI=el.querySelector('[data-live]'); if(liveI) liveI.addEventListener("change",function(){ upsert({liveUrl:liveI.value.trim()},false); });
+    el.querySelectorAll('[data-act]').forEach(function(b){ b.addEventListener("click",function(){
+      var act=b.getAttribute("data-act");
+      if(act==="approve") upsert({status:"Approved",reviewedAt:today()},true);
+      else if(act==="changes") upsert({status:"Changes requested",reviewedAt:today()},true);
+      else if(act==="live") upsert({status:"Live",liveUrl:(liveI&&liveI.value.trim())||it.rec.liveUrl||""},true);
+    }); });
+  }
+
+  chipsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); render(); } });
+  SimifyStore.onExternalChange(render);
+  var navBtn=document.querySelector('.nav[data-view="content"]'); if(navBtn) navBtn.addEventListener("click",render);
+  render();
 })();
 </script>
 </body>

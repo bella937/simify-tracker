@@ -1064,6 +1064,29 @@
     <div class="modalfoot"><button class="btn2" id="impCancel">Cancel</button><button class="btn pri" id="impDo" disabled>Import</button></div>
   </div>
 </div>
+
+<style>
+  .kbar{position:fixed;inset:0;z-index:9999;background:rgba(20,25,18,.42);display:flex;align-items:flex-start;justify-content:center;padding:12vh 16px 16px}
+  .kbarbox{width:100%;max-width:560px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.35);overflow:hidden;height:fit-content}
+  #kbarInput{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:none;border-bottom:1px solid var(--line);padding:16px 18px;outline:none}
+  .kbarres{max-height:52vh;overflow:auto;padding:6px}
+  .kbaritem{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;cursor:pointer}
+  .kbaritem.sel{background:color-mix(in srgb,var(--human) 13%,transparent)}
+  .kbaritem .kt{font-family:var(--fm);font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 0;border-radius:6px;background:var(--bg);color:var(--muted);flex:none;width:66px;text-align:center}
+  .kbaritem .ktitle{font-weight:600;font-size:14px;color:var(--ink);line-height:1.25}
+  .kbaritem .ksub{font-family:var(--fm);font-size:11.5px;color:var(--muted)}
+  .kbarhint{display:flex;gap:16px;padding:9px 14px;border-top:1px solid var(--line);font-family:var(--fm);font-size:11px;color:var(--muted)}
+  .kbarhint b{color:var(--ink);font-weight:700}
+  .kbarempty{padding:22px;text-align:center;color:var(--muted);font-size:13.5px}
+</style>
+
+<div class="kbar" id="kbar" hidden>
+  <div class="kbarbox" role="dialog" aria-label="Quick search">
+    <input id="kbarInput" type="text" placeholder="Search creators, campaigns, or jump to a page&hellip;" autocomplete="off" aria-label="Search">
+    <div id="kbarResults" class="kbarres"></div>
+    <div class="kbarhint"><span><b>&uarr;&darr;</b> move</span><span><b>&crarr;</b> open</span><span><b>esc</b> close</span></div>
+  </div>
+</div>
 <script>
 (function(){
   function go(view){
@@ -1918,6 +1941,7 @@ window.SimifyStore=(function(){
   SimifyStore.onExternalChange(function(){ CAMP=SimifyStore.get("campaigns")||[]; if(openId&&byId(openId)) renderDetail(openId); else renderList(); });
   // re-render when the Campaigns tab is opened (roster may have loaded since)
   var navBtn=document.querySelector('.nav[data-view="campaigns"]'); if(navBtn) navBtn.addEventListener("click",function(){ if(openId&&byId(openId)) renderDetail(openId); else renderList(); });
+  window.simOpenCampaign=function(id){ if(window.simGo) window.simGo("campaigns"); if(byId(id)) renderDetail(id); else renderList(); };
   renderList();
 })();
 </script>
@@ -2304,6 +2328,55 @@ window.SimifyStore=(function(){
     close(); if(window.simGo) window.simGo("creators");
     toast("Imported "+n+" creator"+(n===1?"":"s")+(parsed.dups?" · "+parsed.dups+" duplicate"+(parsed.dups>1?"s":"")+" skipped":""));
   });
+})();
+</script>
+<script>
+/* ============================================================================
+   Command palette (⌘K / Ctrl-K) — global search + quick-nav across creators,
+   campaigns and every view. Keyboard-driven; jumps straight to a record.
+   ============================================================================ */
+(function(){
+  var bar=document.getElementById("kbar"), input=document.getElementById("kbarInput"), res=document.getElementById("kbarResults");
+  if(!bar||!input) return;
+  var items=[], sel=0;
+  var VIEWS=[["home","Overview"],["creators","Creators"],["campaigns","Campaigns"],["content","Content review"],["attribution","Affiliate & revenue"],["analytics","Analytics"],["approvals","Automated inbox"],["pipeline","Lead Pipeline"],["ci","Creative Intelligence"]];
+  function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+
+  function build(q){
+    q=(q||"").trim().toLowerCase(); var out=[];
+    VIEWS.forEach(function(v){ if(!q||v[1].toLowerCase().indexOf(q)>-1) out.push({type:"Go to",title:v[1],sub:"page",act:function(){ if(window.simGo) window.simGo(v[0]); }}); });
+    if(q){
+      var roster=window.simAllCreators?window.simAllCreators():[];
+      roster.filter(function(c){ return (c.name+" "+c.handle+" "+c.niche+" "+c.market).toLowerCase().indexOf(q)>-1; }).slice(0,6).forEach(function(c){
+        out.push({type:"Creator",title:c.name,sub:(c.handle||"")+(c.market?" · "+c.market:""),act:function(){ if(window.simGo) window.simGo("creators"); var s=document.getElementById("globalSearch"); if(s){ s.value=c.name; s.dispatchEvent(new Event("input")); } }});
+      });
+      (SimifyStore.get("campaigns")||[]).filter(function(c){ return ((c.name||"")+" "+(c.market||"")).toLowerCase().indexOf(q)>-1; }).slice(0,5).forEach(function(c){
+        out.push({type:"Campaign",title:c.name||"Untitled",sub:(c.market||"")+(c.status?" · "+c.status:""),act:function(){ if(window.simOpenCampaign) window.simOpenCampaign(c.id); }});
+      });
+    }
+    return out.slice(0,12);
+  }
+  function render(){
+    if(!items.length){ res.innerHTML='<div class="kbarempty">No matches.</div>'; return; }
+    res.innerHTML=items.map(function(it,i){ return '<div class="kbaritem'+(i===sel?" sel":"")+'" data-i="'+i+'"><span class="kt">'+esc(it.type)+'</span><div><div class="ktitle">'+esc(it.title)+'</div>'+(it.sub?'<div class="ksub">'+esc(it.sub)+'</div>':'')+'</div></div>'; }).join("");
+    var s=res.querySelector(".kbaritem.sel"); if(s&&s.scrollIntoView) s.scrollIntoView({block:"nearest"});
+  }
+  function refresh(){ items=build(input.value); sel=0; render(); }
+  function open(){ bar.hidden=false; input.value=""; refresh(); setTimeout(function(){ input.focus(); },0); }
+  function close(){ bar.hidden=true; }
+  function activate(i){ var it=items[i]; if(!it) return; close(); it.act(); }
+
+  document.addEventListener("keydown",function(e){
+    if((e.metaKey||e.ctrlKey)&&(e.key==="k"||e.key==="K")){ e.preventDefault(); if(bar.hidden) open(); else close(); return; }
+    if(bar.hidden) return;
+    if(e.key==="Escape"){ e.preventDefault(); close(); }
+    else if(e.key==="ArrowDown"){ e.preventDefault(); sel=Math.min(sel+1,items.length-1); render(); }
+    else if(e.key==="ArrowUp"){ e.preventDefault(); sel=Math.max(sel-1,0); render(); }
+    else if(e.key==="Enter"){ e.preventDefault(); activate(sel); }
+  });
+  input.addEventListener("input",refresh);
+  res.addEventListener("click",function(e){ var it=e.target.closest("[data-i]"); if(it) activate(parseInt(it.getAttribute("data-i"),10)); });
+  bar.addEventListener("click",function(e){ if(e.target===bar) close(); });
 })();
 </script>
 </body>

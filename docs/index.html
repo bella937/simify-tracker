@@ -1227,7 +1227,7 @@ window.SimifyStore=(function(){
   function stateFor(c){ return STATE[keyOf(c)]||{}; }
   function setStateFor(c,patch){ var k=keyOf(c); STATE[k]=Object.assign({},STATE[k]||{},patch); saveState(); }
   function emailOf(c){ var s=stateFor(c); return (s.email!==undefined?s.email:(c.email||"")); }
-  function isOutreached(c){ return !!stateFor(c).outreached || (c.st&&c.st[1]==="Outreached"); }
+  function isOutreached(c){ var s=stateFor(c); if(s.outreached!==undefined) return !!s.outreached; return !!(c.st&&c.st[1]==="Outreached"); }
   function effStatus(c){ var s=stateFor(c);
     if(isOutreached(c)) return ["out","Outreached"];
     if(s.flag==="proceed") return ["ready","Ready to draft"];
@@ -1297,10 +1297,9 @@ window.SimifyStore=(function(){
           "<td>"+esc(c.niche)+"</td>"+
           '<td class="tags" data-tagcell="1">'+tagsCell(c)+"</td>"+
           '<td class="act">'+
-            (isOutreached(c)?'<span class="doneflag">drafted &check;</span>':
-              '<button class="tick'+(s.flag==="proceed"?" on":"")+'" data-act="proceed" title="Flag for outreach">&check;</button>'+
-              '<button class="cross'+(s.flag==="skip"?" on":"")+'" data-act="skip" title="Skip — no outreach">&times;</button>'+
-              '<button class="draftone" data-act="draftone" title="Draft email now (creates a Gmail draft in the Inbox)">&#9993;</button>')+
+            '<button class="tick'+(isOutreached(c)?" on":"")+'" data-act="proceed" title="'+(isOutreached(c)?"Outreached — click to undo":"Mark as outreached")+'">&check;</button>'+
+            '<button class="cross'+(s.flag==="skip"?" on":"")+'" data-act="skip" title="Skip — no outreach">&times;</button>'+
+            (isOutreached(c)?'':'<button class="draftone" data-act="draftone" title="Draft email now (creates a Gmail draft in the Inbox)">&#9993;</button>')+
             '<button class="del" data-act="delete" title="Remove from roster">&#128465;</button>'+
           "</td>"+
         "</tr>";
@@ -1328,7 +1327,7 @@ window.SimifyStore=(function(){
     var btn=e.target.closest("button[data-act]");
     if(btn){ var act=btn.getAttribute("data-act");
       if(act==="delete"){ if(confirm('Remove "'+c.name+'" from the roster? You can undo from the count line above.')){ setStateFor(c,{deleted:true}); render(); } return; }
-      if(act==="proceed"){ setStateFor(c,{flag:stateFor(c).flag==="proceed"?null:"proceed"}); render(); return; }
+      if(act==="proceed"){ setStateFor(c,{outreached:!isOutreached(c),flag:null}); render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline(); return; }
       if(act==="skip"){ setStateFor(c,{flag:stateFor(c).flag==="skip"?null:"skip"}); render(); return; }
       if(act==="draftone"){ draftOne(c); return; }
     }
@@ -1454,7 +1453,7 @@ window.SimifyStore=(function(){
     var el=document.getElementById("pipeBoard"); if(!el)return;
     var STAGES=[["Sourced",["New lead"],"var(--dim)"],["Outreached",["Outreached"],"var(--human)"],["In conversation",["Replied","Negotiating"],"var(--ai)"],["Onboarding",["Onboarding","In production"],"var(--auto)"],["Live",["Live"],"var(--auto)"]];
     el.innerHTML=STAGES.map(function(g){
-      var list=DATA.filter(function(c){return g[1].indexOf(c.st[1])>-1;});
+      var list=DATA.filter(function(c){return !stateFor(c).deleted && g[1].indexOf(effStatus(c)[1])>-1;});
       var chips=list.slice(0,7).map(function(c){return '<div class="pchip">'+c.name+'</div>';}).join("");
       var more=list.length>7?'<div class="pmore">+ '+(list.length-7)+' more</div>':(list.length===0?'<div class="pmore">none yet</div>':"");
       return '<div class="pcol"><div class="pcolh"><span class="pdot" style="background:'+g[2]+'"></span><span class="pcolname">'+g[0]+'</span><span class="pcount">'+list.length+'</span></div>'+chips+more+'</div>';
@@ -1472,7 +1471,7 @@ window.SimifyStore=(function(){
     ovSet("ovMarketBars", mrows.map(function(r){return ovBar(r[0],r[1],Math.round(r[1]/mmax*100),"var(--brand)");}).join(""));
     ovText("ovMarketRt", distinct+" markets");
     ovText("ovMarketsCount", String(distinct));
-    var st={}; d.forEach(function(c){var s=(c.st&&c.st[1])||"Unknown"; st[s]=(st[s]||0)+1;});
+    var st={}; d.forEach(function(c){if(stateFor(c).deleted)return; var s=effStatus(c)[1]||"Unknown"; st[s]=(st[s]||0)+1;});
     var skeys=Object.keys(st);
     var smax=Math.max.apply(null,skeys.map(function(k){return st[k];}).concat([1]));
     ovSet("ovStatusBars", skeys.map(function(k){return ovBar(k,st[k],Math.round(st[k]/smax*100),"var(--human)");}).join(""));

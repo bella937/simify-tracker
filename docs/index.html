@@ -744,7 +744,7 @@
     <button class="nav" data-view="approvals"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Automated inbox</button>
     <button class="nav" data-view="automations"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>Automations<span class="soon">soon</span></button>
     <button class="nav" data-view="pipeline"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="3" y="4" width="4" height="16" rx="1"/><rect x="10" y="4" width="4" height="11" rx="1"/><rect x="17" y="4" width="4" height="7" rx="1"/></svg>Lead Pipeline</button>
-    <button class="nav" data-view="forecast"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="m8 16 2.5 2.5L15 14"/></svg>Campaign forecast<span class="soon">soon</span></button>
+    <button class="nav" data-view="campaigns"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 11l16-6v14L3 13z"/><path d="M3 11v3M8 12.5V17a2 2 0 0 0 4 0"/></svg>Campaigns</button>
     <button class="nav" data-view="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/><circle cx="12" cy="12" r="3.2"/></svg>Creative Intelligence<span class="newbadge">live</span></button>
     <button class="nav" data-view="attribution"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Attribution<span class="soon">soon</span></button>
     <div class="me"><span class="av">B</span><span>Bella Vu<small>YouTube partnerships</small></span></div>
@@ -831,13 +831,13 @@
         <div class="phead"><div><h1>Lead Pipeline</h1><div class="sub">Every creator by funnel stage &middot; live from your roster</div></div></div>
         <div class="pipefunnel" id="pipeBoard"></div>
       </section>
-      <section class="view" id="view-forecast">
-        <div class="phead"><div><h1>Campaign forecast</h1><div class="sub">Projected content going live, week by week</div></div></div>
-        <div class="empty">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="m8 16 2.5 2.5L15 14"/></svg>
-          <div style="font-weight:600;color:var(--ink);margin:4px 0 6px;">Not active yet</div>
-          <div style="max-width:58ch;margin:0 auto;line-height:1.6;">Activates once campaigns are scheduled and creators start going live, so you can forecast content volume against targets.</div>
+      <section class="view" id="view-campaigns">
+        <div class="phead">
+          <div><h1>Campaigns</h1><div class="sub" id="cmpSub">Plan and run gifting campaigns &middot; assign creators, track stage &amp; content</div></div>
+          <button class="btn pri" id="cmpNew">+ New campaign</button>
         </div>
+        <div id="cmpList"></div>
+        <div id="cmpDetail" hidden></div>
       </section>
       <section class="view" id="view-ci">
         <div class="phead"><div><h1>Creative Intelligence</h1><div class="sub" id="ciSub">What actually performs in your paid ads — so every brief makes better creative</div></div></div>
@@ -874,6 +874,66 @@
     <div class="modalfoot"><button class="btn2" id="addCancel">Cancel</button><button class="btn pri" id="addSave">Add creator</button></div>
   </div>
 </div>
+
+<style>
+  .cmpgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+  .cmpcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 16px;cursor:pointer;transition:border-color .15s,transform .12s,box-shadow .15s;text-align:left;display:flex;flex-direction:column;gap:12px}
+  .cmpcard:hover{border-color:var(--human);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .cmpcard .ct{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .cmpcard .cname{font-weight:700;font-size:16px;color:var(--ink);line-height:1.25}
+  .cmpstat{font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap;flex:none}
+  .cmpstat.planning{color:var(--ai);background:color-mix(in srgb,var(--ai) 14%,transparent)}
+  .cmpstat.active{color:var(--auto);background:color-mix(in srgb,var(--auto) 15%,transparent)}
+  .cmpstat.paused{color:var(--warn);background:color-mix(in srgb,var(--warn) 16%,transparent)}
+  .cmpstat.completed{color:var(--muted);background:color-mix(in srgb,var(--muted) 14%,transparent)}
+  .cmpmeta{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--fm);font-size:12px;color:var(--muted)}
+  .cmpmeta b{color:var(--ink);font-weight:600}
+  .cmpstats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;border-top:1px solid var(--line);padding-top:12px}
+  .cmpstats .n{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .cmpstats .k{font-family:var(--fm);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+  .cmpprog{height:6px;border-radius:999px;background:color-mix(in srgb,var(--line) 60%,transparent);overflow:hidden}
+  .cmpprog i{display:block;height:100%;background:var(--auto);border-radius:999px}
+  .cmpback{background:none;border:none;color:var(--muted);font-family:var(--fm);font-size:12.5px;cursor:pointer;padding:0;margin-bottom:14px;display:inline-flex;align-items:center;gap:6px}
+  .cmpback:hover{color:var(--ink)}
+  .cmpdetgrid{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
+  @media(max-width:820px){.cmpdetgrid{grid-template-columns:1fr}}
+  .cmppanel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+  .cmppanel h3{margin:0 0 14px;font-size:13px;font-family:var(--fm);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .cmpfield{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+  .cmpfield span{font-family:var(--fm);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .cmpfield input,.cmpfield select,.cmpfield textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:100%}
+  .cmpfield textarea{min-height:88px;resize:vertical;line-height:1.55}
+  .cmprow2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .cmpmemrow{display:flex;align-items:center;gap:11px;padding:10px 2px;border-bottom:1px solid var(--line)}
+  .cmpmemrow:last-child{border-bottom:none}
+  .cmpav{width:32px;height:32px;border-radius:50%;background:color-mix(in srgb,var(--human) 18%,transparent);color:var(--human);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
+  .cmpmemn{font-weight:600;font-size:14px;color:var(--ink);line-height:1.2}
+  .cmpmemsub{font-family:var(--fm);font-size:11.5px;color:var(--muted)}
+  .cmpmemx{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px 6px;border-radius:6px}
+  .cmpmemx:hover{color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+  .cmpsearch{width:100%;font:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:8px}
+  .cmpopt{display:flex;align-items:center;gap:10px;padding:8px 8px;border-radius:9px;cursor:pointer}
+  .cmpopt:hover{background:var(--bg)}
+  .cmppick{max-height:230px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:4px}
+</style>
+
+<div class="modal" id="cmpModal" hidden>
+  <div class="modalcard">
+    <div class="modalhead"><h3 id="cmpModalTitle">New campaign</h3><button class="modalx" id="cmpClose" aria-label="Close">&times;</button></div>
+    <div class="modalbody">
+      <label>Campaign name<input id="cmName" placeholder="e.g. UK Summer 2026" autocomplete="off"></label>
+      <label>Market<select id="cmMarket"><option>AU</option><option>UK</option><option>US</option><option>NZ</option><option>CA</option><option>Global</option></select></label>
+      <label>Status<select id="cmStatus"><option>Planning</option><option>Active</option><option>Paused</option><option>Completed</option></select></label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <label>Starts<input id="cmStart" type="date"></label>
+        <label>Ends<input id="cmEnd" type="date"></label>
+      </div>
+      <label>Budget (AUD)<input id="cmBudget" type="number" min="0" step="100" placeholder="e.g. 5000" autocomplete="off"></label>
+      <label>Brief / goal<textarea id="cmBrief" placeholder="What are we asking creators to make? Angle, deliverables, key message&hellip;" style="min-height:76px;resize:vertical"></textarea></label>
+    </div>
+    <div class="modalfoot"><button class="btn2" id="cmCancel">Cancel</button><button class="btn pri" id="cmSave">Create campaign</button></div>
+  </div>
+</div>
 <script>
 (function(){
   function go(view){
@@ -906,7 +966,7 @@
 window.SimifyStore=(function(){
   var ROOT="simify_store_v1";
   var LEGACY={triage:"simify_triage_v1",daily:"simify_daily_v1",crm:"simify_crm_v1"};
-  function defaults(){ return {triage:{},daily:null,crm:{},creatorsAdded:[],ui:{},_meta:{migrated:false,savedAt:null}}; }
+  function defaults(){ return {triage:{},daily:null,crm:{},creatorsAdded:[],campaigns:[],ui:{},_meta:{migrated:false,savedAt:null}}; }
   var db=load();
   var timer=null, extCbs=[], savedCbs=[], errCb=null, bc=null;
   try{ bc=("BroadcastChannel" in window)?new BroadcastChannel("simify_store"):null; }catch(e){ bc=null; }
@@ -1116,6 +1176,11 @@ window.SimifyStore=(function(){
       return {name:c.name,handle:c.handle,subs:c.subs,market:c.market,niche:c.niche,statusLabel:s[1],statusCls:s[0]}; } }
     return null;
   };
+  // --- Roster access for the Campaigns view (single source = this DATA) ---------
+  window.simAllCreators=function(){ return DATA.filter(function(c){ return !stateFor(c).deleted; }); };
+  window.simKeyOf=keyOf;
+  window.simCreatorByKey=function(k){ return findByKey(k); };
+  window.simEffStatus=function(c){ return effStatus(c); }; // [cls,label]
   function ovParseSubs(s){
     if(s==null) return 0;
     s=String(s).trim().replace(/,/g,"");
@@ -1538,6 +1603,180 @@ window.SimifyStore=(function(){
       r.readAsText(f); });
     inp.click();
   });
+})();
+</script>
+<script>
+/* ============================================================================
+   Campaigns — first-class campaign objects (persisted via SimifyStore).
+   List → detail; inline auto-save; assign creators from the live roster;
+   per-campaign stage + content rollups. No Save button anywhere.
+   ============================================================================ */
+(function(){
+  if(!window.SimifyStore) return;
+  var listEl=document.getElementById("cmpList"), detEl=document.getElementById("cmpDetail"),
+      subEl=document.getElementById("cmpSub"), newBtn=document.getElementById("cmpNew"),
+      modal=document.getElementById("cmpModal");
+  if(!listEl) return;
+  var CAMP=SimifyStore.get("campaigns")||[];
+  function save(){ SimifyStore.set("campaigns",CAMP); }
+  var openId=null;
+
+  function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function genId(){ return "cmp_"+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+  function money(n){ n=Number(n)||0; return "$"+n.toLocaleString(); }
+  function initial(s){ return ((String(s).replace(/[^A-Za-z0-9]/g,"")[0])||"?").toUpperCase(); }
+  function fmtDate(iso){ if(!iso) return ""; try{ var d=new Date(iso+"T00:00:00"); return d.toLocaleDateString([], {day:"numeric",month:"short"}); }catch(e){ return iso; } }
+  function dateRange(a,b){ if(!a&&!b) return "No dates set"; if(a&&b) return fmtDate(a)+" – "+fmtDate(b); return "from "+fmtDate(a||b); }
+  function byId(id){ for(var i=0;i<CAMP.length;i++){ if(CAMP[i].id===id) return CAMP[i]; } return null; }
+
+  function members(c){ return (c.members||[]).map(function(k){ return window.simCreatorByKey?window.simCreatorByKey(k):null; }).filter(Boolean); }
+  function rollup(c){
+    var m=members(c), contacted=0, live=0;
+    m.forEach(function(cr){ var s=window.simEffStatus?window.simEffStatus(cr):cr.st; var lbl=s&&s[1];
+      if(lbl&&["New lead","Ready to draft","Skipped","Declined"].indexOf(lbl)<0) contacted++;
+      if(lbl==="Live") live++; });
+    return {total:(c.members||[]).length, resolved:m.length, contacted:contacted, live:live};
+  }
+
+  function renderList(){
+    openId=null; detEl.hidden=true; listEl.hidden=false;
+    var active=CAMP.filter(function(c){return c.status==="Active";}).length;
+    if(subEl) subEl.textContent=CAMP.length? (CAMP.length+" campaign"+(CAMP.length>1?"s":"")+" · "+active+" active") : "Plan and run gifting campaigns · assign creators, track stage & content";
+    if(!CAMP.length){
+      listEl.innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 11l16-6v14L3 13z"/><path d="M3 11v3M8 12.5V17a2 2 0 0 0 4 0"/></svg>'+
+        '<div style="font-weight:600;color:var(--ink);margin:6px 0 6px;">No campaigns yet</div>'+
+        '<div style="max-width:52ch;margin:0 auto 16px;line-height:1.6;">Create your first campaign — say <b>UK Summer 2026</b> — then assign creators from your roster and track every one through the pipeline.</div>'+
+        '<button class="btn pri" id="cmpEmptyNew">+ New campaign</button></div>';
+      var b=document.getElementById("cmpEmptyNew"); if(b) b.addEventListener("click",openCreate);
+      return;
+    }
+    listEl.innerHTML='<div class="cmpgrid">'+CAMP.map(function(c){
+      var r=rollup(c), pct=r.total?Math.round(r.live/r.total*100):0, cls=(c.status||"Planning").toLowerCase();
+      return '<button class="cmpcard" data-id="'+esc(c.id)+'">'+
+        '<div class="ct"><span class="cname">'+esc(c.name||"Untitled campaign")+'</span><span class="cmpstat '+cls+'">'+esc(c.status||"Planning")+'</span></div>'+
+        '<div class="cmpmeta"><span>📍 <b>'+esc(c.market||"—")+'</b></span><span>🗓 '+esc(dateRange(c.startsOn,c.endsOn))+'</span>'+(c.budget?'<span>💰 <b>'+esc(money(c.budget))+'</b></span>':'')+'</div>'+
+        '<div class="cmpstats"><div><div class="n">'+r.total+'</div><div class="k">Creators</div></div>'+
+          '<div><div class="n">'+r.contacted+'</div><div class="k">Contacted</div></div>'+
+          '<div><div class="n">'+r.live+'</div><div class="k">Live</div></div>'+
+          '<div><div class="n">'+pct+'%</div><div class="k">Complete</div></div></div>'+
+        '<div class="cmpprog"><i style="width:'+pct+'%"></i></div>'+
+      '</button>';
+    }).join("")+'</div>';
+  }
+
+  function renderDetail(id){
+    var c=byId(id); if(!c){ renderList(); return; }
+    openId=id; listEl.hidden=true; detEl.hidden=false;
+    if(subEl) subEl.textContent="Editing "+(c.name||"campaign")+" · changes save automatically";
+    var cls=(c.status||"Planning").toLowerCase();
+    detEl.innerHTML=''+
+      '<button class="cmpback" id="cmpBack">← All campaigns</button>'+
+      '<div class="cmpdetgrid">'+
+        '<div class="cmppanel">'+
+          '<h3>Campaign details</h3>'+
+          '<div class="cmpfield"><span>Name</span><input data-f="name" value="'+esc(c.name||"")+'"></div>'+
+          '<div class="cmprow2">'+
+            '<div class="cmpfield"><span>Market</span><select data-f="market">'+["AU","UK","US","NZ","CA","Global"].map(function(m){return '<option'+(c.market===m?" selected":"")+'>'+m+'</option>';}).join("")+'</select></div>'+
+            '<div class="cmpfield"><span>Status</span><select data-f="status">'+["Planning","Active","Paused","Completed"].map(function(s){return '<option'+(c.status===s?" selected":"")+'>'+s+'</option>';}).join("")+'</select></div>'+
+          '</div>'+
+          '<div class="cmprow2">'+
+            '<div class="cmpfield"><span>Starts</span><input type="date" data-f="startsOn" value="'+esc(c.startsOn||"")+'"></div>'+
+            '<div class="cmpfield"><span>Ends</span><input type="date" data-f="endsOn" value="'+esc(c.endsOn||"")+'"></div>'+
+          '</div>'+
+          '<div class="cmpfield"><span>Budget (AUD)</span><input type="number" min="0" step="100" data-f="budget" value="'+esc(c.budget||"")+'"></div>'+
+          '<div class="cmpfield"><span>Brief / goal</span><textarea data-f="brief">'+esc(c.brief||"")+'</textarea></div>'+
+          '<button class="cmpback" id="cmpDelete" style="color:var(--bad);margin:6px 0 0">🗑 Delete campaign</button>'+
+        '</div>'+
+        '<div class="cmppanel">'+
+          '<h3>Creators (<span id="cmpMemCount">0</span>)</h3>'+
+          '<div id="cmpMembers"></div>'+
+          '<div style="margin-top:16px"><h3>Add creators</h3>'+
+            '<input class="cmpsearch" id="cmpAddSearch" placeholder="Search your roster by name, handle or niche…">'+
+            '<div class="cmppick" id="cmpPick"></div></div>'+
+        '</div>'+
+      '</div>';
+
+    detEl.querySelector("#cmpBack").addEventListener("click",renderList);
+    detEl.querySelector("#cmpDelete").addEventListener("click",function(){
+      if(confirm('Delete "'+(c.name||"this campaign")+'"? This removes the campaign and its creator assignments (creators stay in your roster).')){
+        CAMP=CAMP.filter(function(x){return x.id!==id;}); save(); renderList();
+      }
+    });
+    detEl.querySelectorAll("[data-f]").forEach(function(el){
+      var ev=(el.tagName==="SELECT")?"change":"input";
+      el.addEventListener(ev,function(){
+        var f=el.getAttribute("data-f"); c[f]=(f==="budget")?(parseInt(el.value,10)||0):el.value; save();
+        if(subEl&&f==="name") subEl.textContent="Editing "+(c.name||"campaign")+" · changes save automatically";
+      });
+    });
+    renderMembers(c); renderPicker(c,"");
+    var srch=detEl.querySelector("#cmpAddSearch"); if(srch) srch.addEventListener("input",function(){ renderPicker(c,srch.value); });
+  }
+
+  function renderMembers(c){
+    var box=detEl.querySelector("#cmpMembers"), cnt=detEl.querySelector("#cmpMemCount"); if(!box) return;
+    var m=members(c); if(cnt) cnt.textContent=(c.members||[]).length;
+    if(!m.length){ box.innerHTML='<div style="color:var(--muted);font-size:13.5px;padding:10px 2px">No creators assigned yet — add some below.</div>'; return; }
+    box.innerHTML=m.map(function(cr){
+      var s=window.simEffStatus?window.simEffStatus(cr):(cr.st||["dim","—"]);
+      var k=window.simKeyOf?window.simKeyOf(cr):"";
+      return '<div class="cmpmemrow"><span class="cmpav">'+esc(initial(cr.name))+'</span>'+
+        '<div><div class="cmpmemn">'+esc(cr.name)+'</div><div class="cmpmemsub">'+esc(cr.handle||"")+(cr.market?" · "+esc(cr.market):"")+'</div></div>'+
+        '<span class="pillst '+esc(s[0])+'" style="margin-left:auto">'+esc(s[1])+'</span>'+
+        '<button class="cmpmemx" data-rm="'+esc(k)+'" title="Remove from campaign">×</button></div>';
+    }).join("");
+    box.querySelectorAll("[data-rm]").forEach(function(b){ b.addEventListener("click",function(){
+      var k=b.getAttribute("data-rm"); c.members=(c.members||[]).filter(function(x){return x!==k;}); save(); renderMembers(c); renderPicker(c,(detEl.querySelector("#cmpAddSearch")||{}).value||"");
+    }); });
+  }
+
+  function renderPicker(c,term){
+    var box=detEl.querySelector("#cmpPick"); if(!box) return;
+    var roster=window.simAllCreators?window.simAllCreators():[];
+    var have={}; (c.members||[]).forEach(function(k){ have[k]=1; });
+    term=(term||"").toLowerCase().trim();
+    var opts=roster.filter(function(cr){ var k=window.simKeyOf(cr); if(have[k]) return false;
+      if(term){ if((cr.name+" "+cr.handle+" "+cr.niche+" "+cr.market).toLowerCase().indexOf(term)<0) return false; } return true; });
+    if(!opts.length){ box.innerHTML='<div style="color:var(--muted);font-size:13px;padding:10px">'+(term?"No matches.":"Everyone's already assigned.")+'</div>'; return; }
+    box.innerHTML=opts.slice(0,40).map(function(cr){
+      var k=window.simKeyOf(cr);
+      return '<div class="cmpopt" data-add="'+esc(k)+'"><span class="cmpav" style="width:26px;height:26px;font-size:11px">'+esc(initial(cr.name))+'</span>'+
+        '<div><div class="cmpmemn" style="font-size:13.5px">'+esc(cr.name)+'</div><div class="cmpmemsub">'+esc(cr.handle||"")+(cr.niche?" · "+esc(cr.niche):"")+'</div></div>'+
+        '<span style="margin-left:auto;color:var(--human);font-weight:700;font-size:18px">+</span></div>';
+    }).join("")+(opts.length>40?'<div style="color:var(--muted);font-size:12px;padding:8px 10px">+ '+(opts.length-40)+' more — keep typing to narrow</div>':"");
+    box.querySelectorAll("[data-add]").forEach(function(el){ el.addEventListener("click",function(){
+      var k=el.getAttribute("data-add"); c.members=c.members||[]; if(c.members.indexOf(k)<0) c.members.push(k);
+      // light CRM bridge: tag the creator's inbox record with this campaign name
+      try{ var cr=window.simCreatorByKey(k); var em=cr&&(cr.email||"").toLowerCase();
+        if(em&&em.indexOf("@")>0){ var crm=SimifyStore.get("crm")||{}; crm[em]=Object.assign({},crm[em]||{},{campaign:c.name||""}); SimifyStore.set("crm",crm); } }catch(e){}
+      save(); renderMembers(c); renderPicker(c,term);
+    }); });
+  }
+
+  // ---- create modal ----
+  function openCreate(){ if(!modal) return; ["cmName","cmStart","cmEnd","cmBudget","cmBrief"].forEach(function(id){var e=document.getElementById(id); if(e)e.value="";}); document.getElementById("cmMarket").value="AU"; document.getElementById("cmStatus").value="Planning"; modal.hidden=false; var n=document.getElementById("cmName"); if(n) n.focus(); }
+  function closeCreate(){ if(modal) modal.hidden=true; }
+  if(newBtn) newBtn.addEventListener("click",openCreate);
+  var cmClose=document.getElementById("cmpClose"), cmCancel=document.getElementById("cmCancel"), cmSave=document.getElementById("cmSave");
+  if(cmClose) cmClose.addEventListener("click",closeCreate);
+  if(cmCancel) cmCancel.addEventListener("click",closeCreate);
+  if(modal) modal.addEventListener("click",function(e){ if(e.target===modal) closeCreate(); });
+  if(cmSave) cmSave.addEventListener("click",function(){
+    var name=(document.getElementById("cmName").value||"").trim()||"Untitled campaign";
+    var c={id:genId(),name:name,market:document.getElementById("cmMarket").value,status:document.getElementById("cmStatus").value,
+      startsOn:document.getElementById("cmStart").value,endsOn:document.getElementById("cmEnd").value,
+      budget:parseInt(document.getElementById("cmBudget").value,10)||0,brief:document.getElementById("cmBrief").value||"",
+      members:[],createdAt:(new Date()).toISOString()};
+    CAMP.push(c); save(); closeCreate(); renderDetail(c.id);
+  });
+
+  listEl.addEventListener("click",function(e){ var card=e.target.closest("[data-id]"); if(card) renderDetail(card.getAttribute("data-id")); });
+
+  // cross-tab / external store change → refresh whichever screen is showing
+  SimifyStore.onExternalChange(function(){ CAMP=SimifyStore.get("campaigns")||[]; if(openId&&byId(openId)) renderDetail(openId); else renderList(); });
+  // re-render when the Campaigns tab is opened (roster may have loaded since)
+  var navBtn=document.querySelector('.nav[data-view="campaigns"]'); if(navBtn) navBtn.addEventListener("click",function(){ if(openId&&byId(openId)) renderDetail(openId); else renderList(); });
+  renderList();
 })();
 </script>
 </body>

@@ -747,7 +747,7 @@
     <button class="nav" data-view="campaigns"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 11l16-6v14L3 13z"/><path d="M3 11v3M8 12.5V17a2 2 0 0 0 4 0"/></svg>Campaigns</button>
      <button class="nav" data-view="content"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="m9 11 3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Content review</button>
     <button class="nav" data-view="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/><circle cx="12" cy="12" r="3.2"/></svg>Creative Intelligence<span class="newbadge">live</span></button>
-    <button class="nav" data-view="attribution"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Attribution<span class="soon">soon</span></button>
+    <button class="nav" data-view="attribution"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Affiliate &amp; revenue</button>
     <div class="me"><span class="av">B</span><span>Bella Vu<small>YouTube partnerships</small></span></div>
   </aside>
 
@@ -854,12 +854,10 @@
         <div id="ciBrief" hidden></div>
       </section>
       <section class="view" id="view-attribution">
-        <div class="phead"><div><h1>Attribution</h1><div class="sub">Revenue, clicks and code redemptions per creator</div></div></div>
-        <div class="empty">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
-          <div style="font-weight:600;color:var(--ink);margin:4px 0 6px;">Not active yet</div>
-          <div style="max-width:58ch;margin:0 auto;line-height:1.6;">Activates once creators go live and the Shopify + Impact.com integrations are connected. These aren&rsquo;t built yet &mdash; it&rsquo;s the next phase of work.</div>
-        </div>
+        <div class="phead"><div><h1>Affiliate &amp; revenue</h1><div class="sub" id="affSub">Revenue, redemptions &amp; commission per creator code</div></div></div>
+        <div id="affBanner" class="affbanner">Manual entry for now — <b>connect Shopify + Impact.com</b> to sync clicks, redemptions &amp; revenue automatically (roadmap). Commission defaults to your 15% programme rate.</div>
+        <div id="affKpis" class="affkpis"></div>
+        <div id="affBody"></div>
       </section>
 
     </div>
@@ -953,6 +951,28 @@
   .crvbtn.ok{background:var(--auto);border-color:var(--auto);color:#fff}
   .crvbtn.warn{background:color-mix(in srgb,var(--bad) 12%,transparent);border-color:transparent;color:var(--bad)}
   .crvside h4{margin:0 0 9px;font-family:var(--fm);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  /* affiliate & revenue */
+  .affbanner{background:color-mix(in srgb,var(--brand) 9%,transparent);border:1px solid color-mix(in srgb,var(--brand) 30%,transparent);color:var(--ink);border-radius:11px;padding:11px 15px;font-size:13px;margin-bottom:18px}
+  .affkpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+  @media(max-width:720px){.affkpis{grid-template-columns:repeat(2,1fr)}}
+  .affkpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+  .affkpi .n{font-size:26px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .affkpi .k{font-family:var(--fm);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-top:7px}
+  .affkpi.rev{border-color:color-mix(in srgb,var(--auto) 45%,var(--line))}
+  .affkpi.rev .n{color:var(--auto)}
+  .afftable{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+  .afftable table{border-collapse:collapse;width:100%;min-width:860px;font-size:13.5px}
+  .afftable th{font-family:var(--fm);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);background:var(--bg)}
+  .afftable td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+  .afftable tr:last-child td{border-bottom:none}
+  .afftable .num{text-align:right;font-variant-numeric:tabular-nums}
+  .affcname{font-weight:650;color:var(--ink)}
+  .affcamp{font-family:var(--fm);font-size:11px;color:var(--muted)}
+  .affinput{width:100%;font:inherit;font-size:13px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:6px 8px;text-align:right;font-variant-numeric:tabular-nums}
+  .affcode{width:100%;font-family:var(--fm);font-size:12.5px;font-weight:700;color:var(--human);background:color-mix(in srgb,var(--human) 9%,transparent);border:1px solid color-mix(in srgb,var(--human) 30%,transparent);border-radius:7px;padding:6px 9px;letter-spacing:.03em;text-transform:uppercase}
+  .affgen{border:1px dashed var(--line);background:none;color:var(--brand);border-radius:7px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .affcomm{font-weight:700;color:var(--auto);font-variant-numeric:tabular-nums}
+  .affstat{font:inherit;font-size:12.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:6px 8px}
 </style>
 
 <div class="modal" id="cmpModal" hidden>
@@ -1004,7 +1024,7 @@
 window.SimifyStore=(function(){
   var ROOT="simify_store_v1";
   var LEGACY={triage:"simify_triage_v1",daily:"simify_daily_v1",crm:"simify_crm_v1"};
-  function defaults(){ return {triage:{},daily:null,crm:{},creatorsAdded:[],campaigns:[],deliverables:{},ui:{},_meta:{migrated:false,savedAt:null}}; }
+  function defaults(){ return {triage:{},daily:null,crm:{},creatorsAdded:[],campaigns:[],deliverables:{},affiliate:{},ui:{},_meta:{migrated:false,savedAt:null}}; }
   var db=load();
   var timer=null, extCbs=[], savedCbs=[], errCb=null, bc=null;
   try{ bc=("BroadcastChannel" in window)?new BroadcastChannel("simify_store"):null; }catch(e){ bc=null; }
@@ -1907,6 +1927,100 @@ window.SimifyStore=(function(){
   chipsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); render(); } });
   SimifyStore.onExternalChange(render);
   var navBtn=document.querySelector('.nav[data-view="content"]'); if(navBtn) navBtn.addEventListener("click",render);
+  render();
+})();
+</script>
+<script>
+/* ============================================================================
+   Affiliate & revenue — unique code, clicks, redemptions, revenue & commission
+   per creator per campaign. Persisted via SimifyStore (affiliate namespace,
+   keyed campaignId::creatorKey). Manual entry now; structured so a Shopify +
+   Impact.com sync can populate the same records later.
+   ============================================================================ */
+(function(){
+  if(!window.SimifyStore) return;
+  var kpisEl=document.getElementById("affKpis"), bodyEl=document.getElementById("affBody"), subEl=document.getElementById("affSub");
+  if(!bodyEl) return;
+  var DEFAULT_RATE=15;
+  function aff(){ return SimifyStore.get("affiliate")||{}; }
+  function saveAff(a){ SimifyStore.set("affiliate",a); }
+  function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function money(n){ n=Number(n)||0; return "$"+n.toLocaleString(undefined,{maximumFractionDigits:0}); }
+  function keyFor(cid,ck){ return cid+"::"+ck; }
+  function num(v){ var n=parseFloat(v); return isNaN(n)?0:n; }
+  function commissionOf(r){ return num(r.revenue)*(r.rate==null?DEFAULT_RATE:num(r.rate))/100; }
+  function codeFrom(cr){ return String(cr.handle||cr.name||"code").replace(/[^A-Za-z0-9]/g,"").toUpperCase().slice(0,14); }
+
+  function worklist(){
+    var camps=SimifyStore.get("campaigns")||[], a=aff(), items=[];
+    camps.forEach(function(c){ (c.members||[]).forEach(function(ck){
+      var cr=window.simCreatorByKey?window.simCreatorByKey(ck):null; if(!cr) return;
+      var key=keyFor(c.id,ck);
+      items.push({key:key,camp:c,cr:cr,rec:a[key]||{}});
+    }); });
+    items.sort(function(x,y){ return num(y.rec.revenue)-num(x.rec.revenue); });
+    return items;
+  }
+
+  function renderKpis(items){
+    items=items||worklist();
+    var rev=0,comm=0,red=0,active=0;
+    items.forEach(function(it){ var r=it.rec; rev+=num(r.revenue); red+=num(r.redemptions);
+      if(r.status!=="Paid") comm+=commissionOf(r); if(r.status==="Active") active++; });
+    if(subEl) subEl.textContent=rev>0?(money(rev)+" tracked revenue · "+money(comm)+" commission owed"):"Revenue, redemptions & commission per creator code";
+    var cards=[["rev",money(rev),"Tracked revenue"],["",money(comm),"Commission owed"],["",red.toLocaleString(),"Redemptions"],["",String(active),"Active codes"]];
+    kpisEl.innerHTML=cards.map(function(c){ return '<div class="affkpi '+c[0]+'"><div class="n">'+c[1]+'</div><div class="k">'+c[2]+'</div></div>'; }).join("");
+  }
+
+  function render(){
+    var items=worklist();
+    renderKpis(items);
+    if(!items.length){
+      bodyEl.innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg><div style="font-weight:600;color:var(--ink);margin:6px 0 6px;">No affiliate data yet</div><div style="max-width:52ch;margin:0 auto;line-height:1.6;">Assign creators to a campaign, then give each a code here to start tracking redemptions, revenue and commission.</div></div>';
+      return;
+    }
+    var rows=items.map(function(it){
+      var r=it.rec, cr=it.cr;
+      var codeCell=r.code?'<input class="affcode" data-f="code" value="'+esc(r.code)+'">':'<button class="affgen">+ Generate</button>';
+      return '<tr data-key="'+esc(it.key)+'">'+
+        '<td><div class="affcname">'+esc(cr.name)+'</div><div class="affcamp">'+esc(cr.handle||"")+'</div></td>'+
+        '<td><span class="affcamp">'+esc(it.camp.name||"")+' · '+esc(it.camp.market||"")+'</span></td>'+
+        '<td style="min-width:150px">'+codeCell+'</td>'+
+        '<td class="num" style="width:90px"><input class="affinput" type="number" min="0" data-f="clicks" value="'+esc(r.clicks||"")+'"></td>'+
+        '<td class="num" style="width:100px"><input class="affinput" type="number" min="0" data-f="redemptions" value="'+esc(r.redemptions||"")+'"></td>'+
+        '<td class="num" style="width:120px"><input class="affinput" type="number" min="0" data-f="revenue" value="'+esc(r.revenue||"")+'"></td>'+
+        '<td class="num" style="width:78px"><input class="affinput" type="number" min="0" max="100" data-f="rate" value="'+esc(r.rate==null?DEFAULT_RATE:r.rate)+'"></td>'+
+        '<td class="num affcommcell"><span class="affcomm">'+money(commissionOf(r))+'</span></td>'+
+        '<td><select class="affstat" data-f="status"><option'+(!r.status||r.status==="Code sent"?" selected":"")+'>Code sent</option><option'+(r.status==="Active"?" selected":"")+'>Active</option><option'+(r.status==="Paid"?" selected":"")+'>Paid</option></select></td>'+
+      '</tr>';
+    }).join("");
+    bodyEl.innerHTML='<div class="afftable"><table><thead><tr>'+
+      '<th>Creator</th><th>Campaign</th><th>Code</th><th class="num">Clicks</th><th class="num">Redemptions</th><th class="num">Revenue (AUD)</th><th class="num">Rate %</th><th class="num">Commission</th><th>Status</th>'+
+      '</tr></thead><tbody>'+rows+'</tbody></table></div>';
+    wire();
+  }
+
+  function wire(){
+    bodyEl.querySelectorAll("tr[data-key]").forEach(function(tr){
+      var key=tr.getAttribute("data-key");
+      function upsert(patch){ var a=aff(); a[key]=Object.assign({},a[key]||{},patch); saveAff(a); return a[key]; }
+      var gen=tr.querySelector(".affgen");
+      if(gen) gen.addEventListener("click",function(){ var cr=window.simCreatorByKey?window.simCreatorByKey(key.split("::")[1]):null; upsert({code:cr?codeFrom(cr):"CODE",status:"Code sent"}); render(); });
+      tr.querySelectorAll("[data-f]").forEach(function(el){
+        var ev=(el.tagName==="SELECT")?"change":(el.getAttribute("data-f")==="code"?"change":"input");
+        el.addEventListener(ev,function(){
+          var f=el.getAttribute("data-f"), v=(el.type==="number")?num(el.value):el.value;
+          var rec=upsert(defObj(f,v));
+          if(f==="revenue"||f==="rate"){ var cell=tr.querySelector(".affcomm"); if(cell) cell.textContent=money(commissionOf(rec)); }
+          renderKpis();
+        });
+      });
+    });
+  }
+  function defObj(k,v){ var o={}; o[k]=v; return o; }
+
+  SimifyStore.onExternalChange(render);
+  var navBtn=document.querySelector('.nav[data-view="attribution"]'); if(navBtn) navBtn.addEventListener("click",render);
   render();
 })();
 </script>

@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "note": "Creator playbooks — proven, ready-to-shoot briefs grounded in Simify's real paid-ad winners (Motion) and prioritised for the traveller types + education formats that convert. Send one to a creator and they can film it the same day.",
+    "offer": "Gift: $100 USD eSIM voucher · 15% commission via unique code · content featured in paid campaigns"
+  },
+  "travellerTypes": ["Family", "Digital Nomad", "Holiday Maker", "Solo Traveller", "Budget Traveller"],
+  "angles": ["Education / How-To", "Problem - Solution", "Itinerary / Travel Plan", "My Tips & Tricks"],
+  "playbooks": [
+    {
+      "id": "edu-setup",
+      "title": "How to set up travel data in 60 seconds (no SIM swap)",
+      "angle": "Education / How-To",
+      "traveller": ["Digital Nomad", "Holiday Maker"],
+      "youtube": true,
+      "priority": true,
+      "hookStyle": "Educational / Listicle",
+      "hookExample": "\"Before your next trip, do THIS so you land with internet already working.\"",
+      "structure": [
+        {"beat": "Hook (0-3s)", "what": "State the outcome + a number. “3 steps to have data the second you land.” Show phone screen."},
+        {"beat": "Value (3-40s)", "what": "Screen-record the actual setup: scan QR → install eSIM → toggle on. Talk through each step plainly."},
+        {"beat": "CTA (40-55s)", "what": "“It cost me nothing thanks to a voucher — code below gets you 15% off.” Show the code on screen."}
+      ],
+      "example": "\"Okay if you're travelling soon, save this. Step one, before you fly, you order a Simify eSIM — no post office, no physical SIM. Step two, you scan this QR code and it installs in about 20 seconds. Step three, you land, flip it on, and you've got unlimited data instantly. I did this in Bali and had Maps working before I left the airport. Code's below for 15% off.\"",
+      "shotList": ["Talking head to camera (hook)", "Screen recording of eSIM install", "B-roll: stepping off plane / airport", "Phone showing full signal + Maps open", "Close-up of discount code on screen"],
+      "cta": "\"Use code {{CODE}} for 15% off your first Simify eSIM — link in bio / description.\"",
+      "why": "Screen-recording + listicle hooks drive your highest thumbstop (19-21%). Education/how-to is exactly what YouTube rewards, and 'setup' content answers the #1 customer question."
+    },
+    {
+      "id": "edu-country",
+      "title": "How to stay connected in [country] — the complete guide",
+      "angle": "Education / How-To",
+      "traveller": ["Holiday Maker", "Solo Traveller"],
+      "youtube": true,
+      "priority": true,
+      "hookStyle": "Educational / Destination",
+      "hookExample": "\"Going to Japan? Here's exactly how to have internet everywhere — without paying $15 a day in roaming.\"",
+      "structure": [
+        {"beat": "Hook (0-3s)", "what": "Name the destination + the pain (roaming cost). Destination B-roll."},
+        {"beat": "Value (3-60s)", "what": "Walk through connectivity in that country: coverage, how much data you actually need, how to set it up. Genuinely useful."},
+        {"beat": "CTA", "what": "“I used Simify the whole trip — code below.”"}
+      ],
+      "example": "\"If you're heading to Japan, watch this first. Roaming with my normal carrier was going to be $15 a day — that's over $100 for the trip. Instead I got a Simify eSIM: unlimited data, worked from Tokyo to the countryside, set up in a minute. Here's how much data you actually need and how to get it running...\"",
+      "shotList": ["Destination establishing shot", "Creator using phone in-country (Maps, translate, rideshare)", "Screen: coverage / speed test", "Close-up of code"],
+      "cta": "\"Grab yours with code {{CODE}} — 15% off. Perfect for {{COUNTRY}}.\"",
+      "why": "Destination-specific education ranks and gets saved on YouTube. Bali & Europe are your proven converting destinations — make these first, then expand to new markets (UK/NZ)."
+    },
+    {
+      "id": "fam-noroaming",
+      "title": "Keeping the whole family online abroad — without bill shock",
+      "angle": "Problem - Solution",
+      "traveller": ["Family"],
+      "youtube": true,
+      "priority": true,
+      "hookStyle": "Warning / Problem",
+      "hookExample": "\"Taking the kids overseas? One roaming bill nearly ruined our trip — here's what we do now.\"",
+      "structure": [
+        {"beat": "Hook (0-3s)", "what": "Relatable family-travel pain: kids need wifi, roaming for 4 phones = huge bill. Chaos B-roll (kids, airport)."},
+        {"beat": "Value (3-45s)", "what": "Show the fix: an eSIM per device / hotspot for the family, kids streaming on the go, parents using Maps. Real family moments."},
+        {"beat": "CTA", "what": "“Sorted all our devices for less than one day of roaming.” Code on screen."}
+      ],
+      "example": "\"Travelling with kids is chaos — the last thing you need is a $400 roaming bill because they watched YouTube in the taxi. So now, before every trip, I set up a Simify eSIM. The kids have data in the car, I've got Maps, and it cost less than a single day of roaming for the whole family. Game changer.\"",
+      "shotList": ["Family at airport / in taxi", "Kid watching phone happily", "Parent navigating with Maps", "Screen: eSIM active on multiple devices", "Code close-up"],
+      "cta": "\"Code {{CODE}} — 15% off. Set the whole family up before you fly.\"",
+      "why": "PRIORITY GAP: you have zero Family-persona creatives in your top ads, yet families are high-intent and high-LTV (multiple devices). Problem-Solution is your #1 converting angle (1.87x ROAS)."
+    },
+    {
+      "id": "nomad-workflow",
+      "title": "How I stay connected working from anywhere",
+      "angle": "Education / How-To",
+      "traveller": ["Digital Nomad"],
+      "youtube": true,
+      "priority": true,
+      "hookStyle": "Listicle / Authority",
+      "hookExample": "\"I've worked from 12 countries this year. Here's the one thing I never travel without.\"",
+      "structure": [
+        {"beat": "Hook (0-3s)", "what": "Establish nomad credibility + tease the tool. Fast montage of workspaces."},
+        {"beat": "Value (3-50s)", "what": "Show the real workflow: landing, joining a call from the airport, working from a café / beach. Emphasise reliability for work."},
+        {"beat": "CTA", "what": "“If your income depends on being online, don't gamble on hotel wifi.” Code."}
+      ],
+      "example": "\"I run my whole business from my laptop and I've worked from 12 countries this year. The one thing I never travel without? A Simify eSIM. I landed in Lisbon and took a client call from the airport. Unlimited data means I'm never hunting for café wifi or missing a deadline. This is non-negotiable for remote work.\"",
+      "shotList": ["Montage of workspaces (café, beach, apartment)", "Taking a video call outdoors", "Screen: speed test / call quality", "Laptop + phone hotspot", "Code close-up"],
+      "cta": "\"Code {{CODE}} for 15% off — the connectivity insurance every nomad needs.\"",
+      "why": "PRIORITY GAP: no Digital Nomad creatives in your top ads. Nomads convert on reliability + are repeat/affiliate-friendly. Authority + listicle hooks perform well for you."
+    },
+    {
+      "id": "ps-airport",
+      "title": "Don't get caught without data the moment you land",
+      "angle": "Problem - Solution",
+      "traveller": ["Holiday Maker", "Solo Traveller"],
+      "youtube": false,
+      "priority": false,
+      "hookStyle": "Warning",
+      "hookExample": "\"The worst travel mistake? Landing in a new country with no internet.\"",
+      "structure": [
+        {"beat": "Hook (0-3s)", "what": "The panic moment — no signal, can't get a taxi, can't find the hotel. Airport B-roll."},
+        {"beat": "Value (3-35s)", "what": "The fix: eSIM set up before you fly, working instantly on arrival. Show it live."},
+        {"beat": "CTA", "what": "“Never again.” Code."}
+      ],
+      "example": "\"The worst feeling when you travel? Landing, turning off airplane mode, and... nothing. No Maps, no taxi app, no messages home. I got stranded outside Bali airport for an hour once. Now I set up a Simify eSIM before I fly — I land, flip it on, and everything just works.\"",
+      "shotList": ["Airport arrival", "Frustrated 'no signal' moment (reenacted)", "Phone connecting + relief", "Taxi app / Maps working", "Code"],
+      "cta": "\"Code {{CODE}} — 15% off. Set it up before your next flight.\"",
+      "why": "Your single best performer (nicole_quinn, 1.87x ROAS) used a Problem-Solution 'Warning' hook set in Bali. This is your proven money formula — replicate it with new creators."
+    },
+    {
+      "id": "itin-daybyday",
+      "title": "My [destination] itinerary — with the travel hack that made it easy",
+      "angle": "Itinerary / Travel Plan",
+      "traveller": ["Holiday Maker", "Solo Traveller"],
+      "youtube": true,
+      "priority": false,
+      "hookStyle": "Listicle / Itinerary",
+      "hookExample": "\"My exact 5-day Bali itinerary — and the one thing that made getting around effortless.\"",
+      "structure": [
+        {"beat": "Hook (0-3s)", "what": "Tease the itinerary + a number of days. Gorgeous destination hook shot."},
+        {"beat": "Value (3-60s)", "what": "Day-by-day highlights. Naturally weave in relying on data (booking, Maps, rideshare, sharing) throughout — not a hard sell."},
+        {"beat": "CTA", "what": "Soft: “Data sorted the whole trip with Simify — code below.”"}
+      ],
+      "example": "\"Here's my exact 5 days in Bali. Day one, Canggu cafés — I booked everything on the go. Day two, Ubud rice terraces, found it all with Maps. The thing that made this effortless? Having unlimited data the whole time with Simify, so I was never lost or offline...\"",
+      "shotList": ["Destination hero shot", "Day-by-day vlog clips", "Phone in-use naturally (booking, Maps)", "Code at end"],
+      "cta": "\"Code {{CODE}} — 15% off your eSIM for your own trip.\"",
+      "why": "Itinerary is your 2nd-best angle (1.11x ROAS) and performs long-form on YouTube. Works best when connectivity is shown naturally through the trip, not bolted on."
+    },
+    {
+      "id": "tips-listicle",
+      "title": "5 things I wish I knew before travelling",
+      "angle": "My Tips & Tricks",
+      "traveller": ["Budget Traveller", "Solo Traveller"],
+      "youtube": true,
+      "priority": false,
+      "hookStyle": "Listicle",
+      "hookExample": "\"5 travel tips that'll save you money — number 3 saved me $100.\"",
+      "structure": [
+        {"beat": "Hook (0-3s)", "what": "Number + benefit + curiosity gap ('number 3 saved me $100')."},
+        {"beat": "Value (3-50s)", "what": "Rapid-fire tips. Make the Simify/data tip the standout one with a real saving."},
+        {"beat": "CTA", "what": "Code on the standout tip."}
+      ],
+      "example": "\"5 things I wish I knew before I started travelling. One, pack packing cubes. Two, always carry cash. Three — this one saved me over $100 — ditch roaming and get an eSIM. I use Simify, unlimited data, set up before I fly. Four...\"",
+      "shotList": ["Talking head (hook)", "Quick cutaways per tip", "Screen: eSIM tip with code", "Outro"],
+      "cta": "\"Code {{CODE}} for 15% off — tip #3 sorted.\"",
+      "why": "Listicle is your workhorse hook (highest volume, strong thumbstop). Good for reach — but pair with Problem-Solution/Education angles, which convert better than generic tips (0.91x)."
+    }
+  ]
+}

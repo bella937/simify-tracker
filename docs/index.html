@@ -684,6 +684,41 @@
   .cvverdict.warn{color:#c8891a;background:#fdf3e3;}
   .cvverdict.muted{color:#8a8172;background:#efece7;}
   .cifoot{font-family:var(--fm);font-size:11px;color:var(--muted);margin-top:14px;line-height:1.5;}
+  /* --- CI sub-tabs + Brief Builder --- */
+  .citabs{display:inline-flex;gap:4px;background:var(--surface-2,#f1efe9);border:1px solid var(--line);border-radius:11px;padding:4px;margin-bottom:16px;}
+  .citab{border:none;background:transparent;font:inherit;font-size:13px;font-weight:600;color:var(--muted);padding:7px 16px;border-radius:8px;cursor:pointer;}
+  .citab.on{background:var(--surface,#fff);color:var(--ink);box-shadow:0 1px 3px rgba(23,21,18,.1);}
+  .brintro{font-size:13.5px;color:var(--muted);line-height:1.6;background:linear-gradient(120deg,#fff6e9,#fdfcf9);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:14px;}
+  .brfilters{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+  .brfl{font-family:var(--fm);font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--dim);width:64px;flex:0 0 auto;}
+  .brchip{font-family:var(--fm);font-size:12px;color:var(--muted);background:var(--surface,#fff);border:1px solid var(--line);border-radius:20px;padding:5px 12px;cursor:pointer;}
+  .brchip:hover{border-color:var(--ink);color:var(--ink);}
+  .brchip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .brgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-top:14px;}
+  .brcard{background:var(--surface,#fff);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow,0 1px 3px rgba(23,21,18,.05));display:flex;flex-direction:column;}
+  .brcard.prio{border-color:var(--brand,#f0a02a);box-shadow:0 0 0 1px var(--brand,#f0a02a),0 2px 10px rgba(240,160,42,.12);}
+  .brhead{display:flex;flex-direction:column;gap:8px;margin-bottom:8px;}
+  .brtitle{font-size:15.5px;font-weight:700;color:var(--ink);line-height:1.3;}
+  .brbadges{display:flex;flex-wrap:wrap;gap:5px;}
+  .brbadge{font-family:var(--fm);font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;border-radius:6px;padding:2px 7px;}
+  .brbadge.yt{color:#c4302b;background:#fdeceb;}
+  .brbadge.ang{color:var(--ink);background:var(--surface-2,#f1efe9);}
+  .brbadge.pri{color:#c8891a;background:#fdf3e3;}
+  .brtravs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+  .brtrav{font-family:var(--fm);font-size:11px;color:#137a3f;background:#eafaf0;border:1px solid #137a3f22;border-radius:20px;padding:2px 9px;}
+  .brsec{margin-bottom:11px;}
+  .brlbl{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--dim);margin-bottom:4px;}
+  .brhook{font-size:14px;font-style:italic;color:var(--ink);line-height:1.45;border-left:3px solid var(--brand,#f0a02a);padding-left:10px;}
+  .brbeat{display:flex;gap:9px;margin-bottom:5px;font-size:12.5px;line-height:1.45;}
+  .brbn{flex:0 0 88px;font-family:var(--fm);font-size:11px;color:var(--brand,#c8891a);font-weight:600;}
+  .brbw{color:var(--muted);flex:1;}
+  .brscript{font-size:13px;color:var(--ink);line-height:1.55;background:#fffdf9;border:1px solid var(--line);border-radius:9px;padding:10px 12px;}
+  .brshots{margin:0;padding-left:18px;font-size:12.5px;color:var(--muted);line-height:1.6;}
+  .brcta{font-size:13px;color:var(--ink);background:var(--surface-2,#f1efe9);border-radius:8px;padding:8px 11px;font-family:var(--fm);}
+  .brwhy{font-size:12px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line);padding-top:10px;margin-top:4px;}
+  .brwhy b{color:var(--ink);}
+  .bractions{display:flex;align-items:center;gap:10px;margin-top:12px;}
+  .brcopied{font-family:var(--fm);font-size:11.5px;color:#137a3f;}
   .alist{display:flex;flex-direction:column;gap:12px;}
   .acard{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow,0 1px 3px rgba(23,21,18,.07));padding:16px 18px;display:flex;flex-direction:column;gap:10px;}
   .acardhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
@@ -806,7 +841,9 @@
       </section>
       <section class="view" id="view-ci">
         <div class="phead"><div><h1>Creative Intelligence</h1><div class="sub" id="ciSub">What actually performs in your paid ads — so every brief makes better creative</div></div></div>
+        <div class="citabs"><button class="citab on" data-ci="intel">📊 Intelligence</button><button class="citab" data-ci="brief">🎬 Brief Builder</button></div>
         <div id="ciBody"><div class="empty" style="border-style:solid"><div style="font-weight:600;color:var(--ink);margin-bottom:6px;">Loading your Motion data…</div></div></div>
+        <div id="ciBrief" hidden></div>
       </section>
       <section class="view" id="view-attribution">
         <div class="phead"><div><h1>Attribution</h1><div class="sub">Revenue, clicks and code redemptions per creator</div></div></div>
@@ -1305,6 +1342,80 @@
       if(j){ CI=j; render(); } else { body.innerHTML='<div class="empty" style="border-style:solid"><div style="font-weight:600;color:var(--ink);margin-bottom:6px;">No snapshot yet</div><div style="max-width:60ch;margin:0 auto;line-height:1.6;">Ask Claude to refresh the creative intelligence from Motion.</div></div>'; }
     }).catch(function(){ body.innerHTML='<div class="empty" style="border-style:solid">Could not load the snapshot.</div>'; });
   }
+  // ---- Brief Builder ----
+  var BRIEFS=null, briefsLoaded=false, briefEl=document.getElementById("ciBrief");
+  var bFilterT="all", bFilterA="all", BOFFER="";
+  function loadBriefs(){
+    fetch("data/briefs.json").then(function(r){return r.ok?r.json():null;}).then(function(j){
+      if(!j){ briefEl.innerHTML='<div class="empty" style="border-style:solid">No playbooks yet.</div>'; return; }
+      BRIEFS=j; BOFFER=(j.meta&&j.meta.offer)||""; renderBriefs();
+    }).catch(function(){ briefEl.innerHTML='<div class="empty" style="border-style:solid">Could not load playbooks.</div>'; });
+  }
+  function renderBriefs(){
+    var pbs=BRIEFS.playbooks.slice().sort(function(a,b){return (b.priority?1:0)-(a.priority?1:0);});
+    var tchips=["all"].concat(BRIEFS.travellerTypes), achips=["all"].concat(BRIEFS.angles);
+    var filt=pbs.filter(function(p){
+      if(bFilterT!=="all"&&(p.traveller||[]).indexOf(bFilterT)<0) return false;
+      if(bFilterA!=="all"&&p.angle!==bFilterA) return false; return true;
+    });
+    briefEl.innerHTML=
+      '<div class="brintro">Proven, ready-to-shoot briefs — grounded in what wins in your paid ads. '+
+      '<b>Family</b> &amp; <b>Digital Nomad</b> and <b>education-style YouTube</b> formats are prioritised (⭐). Hit <b>Copy brief</b> and send it straight to a creator.</div>'+
+      '<div class="brfilters"><div class="brfl">Traveller</div>'+tchips.map(function(t){return '<button class="brchip'+(bFilterT===t?" on":"")+'" data-bt="'+esc(t)+'">'+(t==="all"?"All":esc(t))+'</button>';}).join("")+'</div>'+
+      '<div class="brfilters"><div class="brfl">Angle</div>'+achips.map(function(a){return '<button class="brchip'+(bFilterA===a?" on":"")+'" data-ba="'+esc(a)+'">'+(a==="all"?"All":esc(a))+'</button>';}).join("")+'</div>'+
+      '<div class="brgrid">'+filt.map(playbookCard).join("")+'</div>'+
+      (filt.length?"":'<div class="mempty">No playbooks match. Clear the filters.</div>');
+  }
+  function playbookCard(p){
+    var badges=(p.youtube?'<span class="brbadge yt">YouTube</span>':'')+'<span class="brbadge ang">'+esc(p.angle)+'</span>'+(p.priority?'<span class="brbadge pri">⭐ Priority gap</span>':'');
+    var trav=(p.traveller||[]).map(function(t){return '<span class="brtrav">'+esc(t)+'</span>';}).join("");
+    var struct=(p.structure||[]).map(function(s){return '<div class="brbeat"><span class="brbn">'+esc(s.beat)+'</span><span class="brbw">'+esc(s.what)+'</span></div>';}).join("");
+    var shots=(p.shotList||[]).map(function(s){return '<li>'+esc(s)+'</li>';}).join("");
+    return '<div class="brcard'+(p.priority?" prio":"")+'" data-id="'+esc(p.id)+'">'+
+      '<div class="brhead"><div class="brtitle">'+esc(p.title)+'</div><div class="brbadges">'+badges+'</div></div>'+
+      '<div class="brtravs">'+trav+'</div>'+
+      '<div class="brsec"><div class="brlbl">Hook · '+esc(p.hookStyle)+'</div><div class="brhook">'+esc(p.hookExample)+'</div></div>'+
+      '<div class="brsec"><div class="brlbl">Structure</div>'+struct+'</div>'+
+      '<div class="brsec"><div class="brlbl">Example script</div><div class="brscript">'+esc(p.example)+'</div></div>'+
+      '<div class="brsec"><div class="brlbl">Shot list</div><ul class="brshots">'+shots+'</ul></div>'+
+      '<div class="brsec"><div class="brlbl">Call to action</div><div class="brcta">'+esc(p.cta)+'</div></div>'+
+      '<div class="brwhy"><b>Why it works:</b> '+esc(p.why)+'</div>'+
+      '<div class="bractions"><button class="btn pri brcopy" data-id="'+esc(p.id)+'">Copy brief</button><span class="brcopied" id="brc-'+esc(p.id)+'"></span></div>'+
+    '</div>';
+  }
+  function briefText(p){
+    var lines=["SIMIFY — CREATOR BRIEF","",p.title,"Best for: "+(p.traveller||[]).join(", "),"Angle: "+p.angle+(p.youtube?"  (great for YouTube)":""),"",
+      "HOOK ("+p.hookStyle+"):",p.hookExample,"","STRUCTURE:"];
+    (p.structure||[]).forEach(function(s,i){ lines.push((i+1)+". "+s.beat+" — "+s.what); });
+    lines.push("","EXAMPLE SCRIPT:",p.example,"","SHOT LIST:");
+    (p.shotList||[]).forEach(function(s){ lines.push("- "+s); });
+    lines.push("","CALL TO ACTION:",p.cta,"");
+    if(BOFFER) lines.push("YOUR OFFER: "+BOFFER);
+    lines.push("","(Tip: keep it authentic — film how you'd normally talk to your audience.)");
+    return lines.join("\n");
+  }
+  if(briefEl) briefEl.addEventListener("click",function(e){
+    var t=e.target.closest("[data-bt]"); if(t){ bFilterT=t.getAttribute("data-bt"); renderBriefs(); return; }
+    var a=e.target.closest("[data-ba]"); if(a){ bFilterA=a.getAttribute("data-ba"); renderBriefs(); return; }
+    var cp=e.target.closest(".brcopy"); if(cp){ var id=cp.getAttribute("data-id"); var p=BRIEFS.playbooks.filter(function(x){return x.id===id;})[0]; if(!p)return;
+      var txt=briefText(p), done=document.getElementById("brc-"+id);
+      var ok=function(){ if(done){done.textContent="Copied ✓ — paste into an email or DM"; setTimeout(function(){done.textContent="";},2600);} };
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok,function(){ fallbackCopy(txt); ok(); }); }
+      else { fallbackCopy(txt); ok(); }
+    }
+  });
+  function fallbackCopy(txt){ try{ var ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); }catch(e){} }
+
+  // sub-tab toggle
+  var citabs=document.querySelector("#view-ci .citabs");
+  if(citabs) citabs.addEventListener("click",function(e){ var b=e.target.closest("[data-ci]"); if(!b)return;
+    citabs.querySelectorAll(".citab").forEach(function(x){x.classList.remove("on");}); b.classList.add("on");
+    var mode=b.getAttribute("data-ci");
+    document.getElementById("ciBody").hidden=(mode!=="intel");
+    briefEl.hidden=(mode!=="brief");
+    if(mode==="brief"&&!briefsLoaded){ briefsLoaded=true; loadBriefs(); }
+  });
+
   var nav=document.querySelector('.nav[data-view="ci"]');
   if(nav) nav.addEventListener("click",function(){ if(!loaded){ loaded=true; load(); } });
 })();

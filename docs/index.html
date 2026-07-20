@@ -796,6 +796,7 @@
           <span class="goalpill" id="goalPill" title="Drafts you've created today"></span>
           <label class="hideskip"><input type="checkbox" id="hideSkip"> Hide skipped</label>
           <span style="flex:1"></span>
+          <button class="btn2" id="crImport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21V9m0 0 4 4m-4-4-4 4"/><path d="M5 4h14"/></svg>Import CSV</button>
           <button class="btn2" id="crExport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg>Export CSV</button>
           <button class="btn pri" id="crDraft" disabled>Draft flagged (0)</button>
         </div>
@@ -1038,6 +1039,31 @@
     <div class="modalfoot"><button class="btn2" id="cmCancel">Cancel</button><button class="btn pri" id="cmSave">Create campaign</button></div>
   </div>
 </div>
+
+<style>
+  .impdek{font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.55}
+  .impfile{display:block;width:100%;font:inherit;font-size:13px;margin-bottom:10px;color:var(--ink)}
+  .imparea{width:100%;min-height:120px;font-family:var(--fm);font-size:12.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:10px;resize:vertical;line-height:1.5}
+  .imppreview{margin-top:12px;font-size:13px}
+  .imppreview .pill2{display:inline-block;font-family:var(--fm);font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;margin-right:8px}
+  .imppreview .new{color:var(--auto);background:color-mix(in srgb,var(--auto) 14%,transparent)}
+  .imppreview .dup{color:var(--muted);background:color-mix(in srgb,var(--muted) 14%,transparent)}
+  .imppreview .bad{color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+  .imppreview .sample{margin-top:10px;color:var(--muted);font-family:var(--fm);font-size:11.5px;max-height:96px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:8px}
+</style>
+
+<div class="modal" id="impModal" hidden>
+  <div class="modalcard" style="max-width:580px">
+    <div class="modalhead"><h3>Import creators from CSV</h3><button class="modalx" id="impClose" aria-label="Close">&times;</button></div>
+    <div class="modalbody">
+      <p class="impdek">Paste rows or choose a <b>.csv</b> file. Include a header row — columns <b>name, handle, email, market, subs, niche</b> are matched automatically (order doesn't matter). Creators already on your roster (matching handle, email or name) are skipped.</p>
+      <input type="file" id="impFile" accept=".csv,text/csv" class="impfile">
+      <textarea id="impText" class="imparea" placeholder="name,handle,email,market,subs,niche&#10;Jordan Rivers,@jordanrivers,jordan@example.com,UK,34200,Adventure travel"></textarea>
+      <div id="impPreview" class="imppreview"></div>
+    </div>
+    <div class="modalfoot"><button class="btn2" id="impCancel">Cancel</button><button class="btn pri" id="impDo" disabled>Import</button></div>
+  </div>
+</div>
 <script>
 (function(){
   function go(view){
@@ -1262,6 +1288,16 @@ window.SimifyStore=(function(){
     DATA.push(rec);
     var added=SimifyStore.get("creatorsAdded")||[]; added.push(rec); SimifyStore.set("creatorsAdded",added);
     render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline();
+  };
+  // Bulk add (CSV import) — persists + renders once for the whole batch.
+  window.simAddCreators=function(list){
+    if(!list||!list.length) return 0;
+    var added=SimifyStore.get("creatorsAdded")||[];
+    list.forEach(function(c){ added.push({id:genId(),name:c.name||"New creator",handle:c.handle||"@new",email:c.email||"",market:c.market||"AU",subs:c.subs||0,niche:c.niche||"General",deliv:c.deliv||"1x Short",st:["dim","New lead"],rb:["new","new"],_added:true}); });
+    SimifyStore.set("creatorsAdded",added);
+    DATA=DATA.filter(function(c){return !c._added;}); mergeAdded();
+    render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline();
+    return list.length;
   };
   // Re-read persisted state + re-render (used on cross-tab sync).
   window.simRerender=function(){ STATE=SimifyStore.get("triage"); DATA=DATA.filter(function(c){return !c._added;}); mergeAdded(); render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline(); };
@@ -2195,6 +2231,79 @@ window.SimifyStore=(function(){
   render();
   // roster + drafts load async — refresh once they're likely in
   setTimeout(render,1200);
+})();
+</script>
+<script>
+/* ============================================================================
+   CSV import — bulk-onboard creators from a pasted CSV or file, with header
+   auto-mapping and duplicate detection (by handle / email / name) against the
+   existing roster and within the file. Adds via the persisted bulk path.
+   ============================================================================ */
+(function(){
+  var modal=document.getElementById("impModal"), openBtn=document.getElementById("crImport");
+  if(!modal||!openBtn) return;
+  var txt=document.getElementById("impText"), file=document.getElementById("impFile"),
+      prev=document.getElementById("impPreview"), doBtn=document.getElementById("impDo");
+  var parsed=null;
+  function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function toast(m){ var t=document.getElementById("toast"),ts=document.getElementById("toastMsg"); if(t&&ts){ts.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2600);} }
+
+  function parseCSV(text){
+    var rows=[],row=[],cur="",i=0,q=false,ch; text=text.replace(/\r\n?/g,"\n");
+    while(i<text.length){ ch=text[i];
+      if(q){ if(ch==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=ch; }
+      else { if(ch==='"')q=true; else if(ch===','){row.push(cur);cur="";} else if(ch==='\n'){row.push(cur);rows.push(row);row=[];cur="";} else cur+=ch; }
+      i++;
+    }
+    if(cur!==""||row.length){ row.push(cur); rows.push(row); }
+    return rows.filter(function(r){ return r.some(function(c){ return String(c).trim()!==""; }); });
+  }
+  var SYN={name:["name","creator","creator name","full name","channel name","channel"],handle:["handle","username","youtube","youtube handle","channel handle","@"],email:["email","e-mail","mail","contact","contact email"],market:["market","country","region","location"],subs:["subs","subscribers","subscriber count","followers","sub count"],niche:["niche","category","type","vertical","genre","content"]};
+  function mapHeaders(hdr){ var map={}; hdr.forEach(function(h,idx){ var hn=String(h).trim().toLowerCase(); Object.keys(SYN).forEach(function(f){ if(map[f]==null && SYN[f].indexOf(hn)>-1) map[f]=idx; }); }); return map; }
+
+  function analyze(text){
+    var rows=parseCSV(text); if(rows.length<2) return {err:"Add a header row plus at least one data row."};
+    var map=mapHeaders(rows[0]);
+    if(map.name==null && map.handle==null) return {err:"Couldn't find a “name” or “handle” column in the header row."};
+    var existing=window.simAllCreators?window.simAllCreators():[], have={h:{},e:{},n:{}};
+    existing.forEach(function(c){ var h=String(c.handle||"").replace(/^@/,"").toLowerCase(); if(h)have.h[h]=1; var e=String(c.email||"").toLowerCase(); if(e)have.e[e]=1; var n=String(c.name||"").trim().toLowerCase(); if(n)have.n[n]=1; });
+    var out=[],dups=0,seen={h:{},e:{},n:{}};
+    for(var i=1;i<rows.length;i++){ var r=rows[i];
+      function g(f){ return map[f]!=null?String(r[map[f]]||"").trim():""; }
+      var name=g("name"),handle=g("handle"); if(!name && !handle) continue;
+      var h=handle.replace(/^@/,"").toLowerCase(),e=g("email").toLowerCase(),n=name.toLowerCase();
+      if((h&&(have.h[h]||seen.h[h]))||(e&&(have.e[e]||seen.e[e]))||(n&&(have.n[n]||seen.n[n]))){ dups++; continue; }
+      if(h)seen.h[h]=1; if(e)seen.e[e]=1; if(n)seen.n[n]=1;
+      var subs=parseInt(String(g("subs")).replace(/[^0-9]/g,""),10); if(isNaN(subs))subs=0;
+      out.push({name:name||handle,handle:handle?(handle.charAt(0)==="@"?handle:"@"+handle):"",email:g("email"),market:g("market")||"AU",subs:subs,niche:g("niche")||"General"});
+    }
+    return {newRows:out,dups:dups};
+  }
+
+  function preview(){
+    var text=(txt.value||"").trim();
+    if(!text){ prev.innerHTML=""; doBtn.disabled=true; parsed=null; return; }
+    var a=analyze(text); parsed=a;
+    if(a.err){ prev.innerHTML='<span class="pill2 bad">'+esc(a.err)+'</span>'; doBtn.disabled=true; return; }
+    var html='<span class="pill2 new">'+a.newRows.length+' new</span>'+(a.dups?'<span class="pill2 dup">'+a.dups+' duplicate'+(a.dups>1?"s":"")+' skipped</span>':'');
+    if(a.newRows.length) html+='<div class="sample">'+a.newRows.slice(0,5).map(function(c){ return esc(c.name)+' &middot; '+esc(c.handle||"—")+' &middot; '+esc(c.market)+' &middot; '+(c.subs?c.subs.toLocaleString():"—"); }).join("<br>")+(a.newRows.length>5?'<br>+ '+(a.newRows.length-5)+' more…':'')+'</div>';
+    prev.innerHTML=html; doBtn.disabled=a.newRows.length===0;
+  }
+
+  function open(){ txt.value=""; file.value=""; prev.innerHTML=""; doBtn.disabled=true; parsed=null; modal.hidden=false; txt.focus(); }
+  function close(){ modal.hidden=true; }
+  openBtn.addEventListener("click",open);
+  document.getElementById("impClose").addEventListener("click",close);
+  document.getElementById("impCancel").addEventListener("click",close);
+  modal.addEventListener("click",function(e){ if(e.target===modal) close(); });
+  txt.addEventListener("input",preview);
+  file.addEventListener("change",function(){ var f=file.files&&file.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ txt.value=String(r.result); preview(); }; r.readAsText(f); });
+  doBtn.addEventListener("click",function(){
+    if(!parsed||!parsed.newRows||!parsed.newRows.length) return;
+    var n=window.simAddCreators?window.simAddCreators(parsed.newRows):0;
+    close(); if(window.simGo) window.simGo("creators");
+    toast("Imported "+n+" creator"+(n===1?"":"s")+(parsed.dups?" · "+parsed.dups+" duplicate"+(parsed.dups>1?"s":"")+" skipped":""));
+  });
 })();
 </script>
 </body>

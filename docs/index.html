@@ -813,7 +813,7 @@
       </section>
 
       <section class="view" id="view-approvals">
-        <div class="phead"><div><h1>Inbox</h1><div class="sub">Built for creator partnerships &mdash; full context on every thread, nothing sends without your click.</div></div></div>
+        <div class="phead"><div><h1>Inbox</h1><div class="sub">Built for creator partnerships &mdash; full context on every thread, nothing sends without your click.</div></div><button class="btn pri" id="ibCompose">+ New email</button></div>
         <div class="ibstats" id="ibStats"></div>
         <div class="ibtools">
           <div class="ibsearch"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg><input id="ibSearch" type="text" placeholder="Search creator, email, niche, country, stage&hellip;" autocomplete="off"></div>
@@ -1053,6 +1053,9 @@
   .ibxundo button{background:none;border:none;color:var(--brand);font-weight:700;cursor:pointer;font-size:13.5px}
   .sentbadge{font-family:var(--fm);font-size:11px;color:var(--auto);background:color-mix(in srgb,var(--auto) 13%,transparent);border-radius:6px;padding:2px 8px;font-weight:700;white-space:nowrap}
   .sentfield{font-size:14px;color:var(--ink);padding:4px 0}
+  .draftone{cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:6px;color:var(--muted);min-width:30px;min-height:30px;font-size:13px}
+  .draftone:hover{color:var(--human);border-color:var(--human)}
+  .edbody[data-placeholder]:empty::before{content:attr(data-placeholder);color:var(--muted)}
 </style>
 
 <div class="modal" id="cmpModal" hidden>
@@ -1296,7 +1299,8 @@ window.SimifyStore=(function(){
           '<td class="act">'+
             (isOutreached(c)?'<span class="doneflag">drafted &check;</span>':
               '<button class="tick'+(s.flag==="proceed"?" on":"")+'" data-act="proceed" title="Flag for outreach">&check;</button>'+
-              '<button class="cross'+(s.flag==="skip"?" on":"")+'" data-act="skip" title="Skip — no outreach">&times;</button>')+
+              '<button class="cross'+(s.flag==="skip"?" on":"")+'" data-act="skip" title="Skip — no outreach">&times;</button>'+
+              '<button class="draftone" data-act="draftone" title="Draft email now (creates a Gmail draft in the Inbox)">&#9993;</button>')+
             '<button class="del" data-act="delete" title="Remove from roster">&#128465;</button>'+
           "</td>"+
         "</tr>";
@@ -1306,6 +1310,17 @@ window.SimifyStore=(function(){
     renderTagBar();
   }
   function findByKey(k){ k=decodeURIComponent(k); for(var i=0;i<DATA.length;i++){ if(keyOf(DATA[i])===k) return DATA[i]; } return null; }
+  // Draft a single creator on the spot → one Gmail draft, appears in the Inbox.
+  function draftOne(c){
+    var to=emailOf(c);
+    if(String(to).indexOf("@")<1){ toastMsg2("Add an email for "+c.name+" first — click the email cell"); return; }
+    if(!confirm('Create a Gmail draft to "'+c.name+'"? Nothing sends — review and send it from the Inbox tab.')) return;
+    fetch("/api/draft",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({creators:[{to:to,name:c.name,niche:c.niche}]})})
+      .then(function(r){return r.json();}).then(function(j){
+        if(j&&j.ok&&j.created){ setStateFor(c,{outreached:true,flag:null}); bumpDaily(j.created||0); render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline(); toastMsg2("Draft created for "+c.name+" — see the Inbox tab"); }
+        else { toastMsg2("Couldn't draft: "+((j&&j.error)||"backend not connected")); }
+      }).catch(function(){ toastMsg2("Backend not connected (drafting works on the live site)"); });
+  }
   // action buttons + email editing (event delegation)
   body.addEventListener("click",function(e){
     var undo=e.target.closest("#undoDel"); if(undo){ e.preventDefault(); DATA.forEach(function(c){ if(stateFor(c).deleted) setStateFor(c,{deleted:false}); }); render(); return; }
@@ -1315,6 +1330,7 @@ window.SimifyStore=(function(){
       if(act==="delete"){ if(confirm('Remove "'+c.name+'" from the roster? You can undo from the count line above.')){ setStateFor(c,{deleted:true}); render(); } return; }
       if(act==="proceed"){ setStateFor(c,{flag:stateFor(c).flag==="proceed"?null:"proceed"}); render(); return; }
       if(act==="skip"){ setStateFor(c,{flag:stateFor(c).flag==="skip"?null:"skip"}); render(); return; }
+      if(act==="draftone"){ draftOne(c); return; }
     }
     var trm=e.target.closest("[data-tagrm]"); if(trm){ var tg=trm.getAttribute("data-tagrm"); setStateFor(c,{tags:tagsOf(c).filter(function(x){return x!==tg;})}); render(); return; }
     var tadd=e.target.closest("[data-tagadd]"); if(tadd){ var cell=tadd.closest("td.tags"); if(cell&&!cell.querySelector("input")){ tadd.remove();
@@ -1590,7 +1606,7 @@ window.SimifyStore=(function(){
   function sortDrafts(a,b){ var pa=crmFor(a.to).pin?0:1,pb=crmFor(b.to).pin?0:1; if(pa!==pb)return pa-pb; return (isFollowDue(a)?0:1)-(isFollowDue(b)?0:1); }
 
   function renderSent(){
-    if(!SENT.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">No sent emails yet \u2014 when you send from a draft, it moves here.</div>'; viewEl.innerHTML=welcome(); return; }
+    if(!SENT.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">No sent emails yet \u2014 when you send from a draft, it moves here.</div>'; if(!composing)viewEl.innerHTML=welcome(); return; }
     stEl.textContent=SENT.length+" sent";
     listEl.innerHTML=SENT.map(function(s,i){ var nm=s.name||s.to;
       return '<div class="cvrow'+(("sent:"+i)===selId?" active":"")+'" data-sent="'+i+'">'+
@@ -1602,7 +1618,7 @@ window.SimifyStore=(function(){
         '</div></div>';
     }).join("");
   }
-  function openSent(i){ var s=SENT[i]; if(!s) return; selId="sent:"+i; renderList();
+  function openSent(i){ var s=SENT[i]; if(!s) return; composing=false; selId="sent:"+i; renderList();
     var body=s.html||('<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px">'+esc(s.text||"").replace(/\n/g,"<br>")+'</div>');
     viewEl.innerHTML='<div class="thread"><div class="crhead"><div class="mav big">'+esc(initial(s.name||s.to))+'</div>'+
       '<div class="crhinfo"><div class="crhname">'+esc(s.name||s.to)+'</div><div class="crhmeta">To '+esc(s.to)+(s.sentAt?' \u00b7 sent '+esc(s.sentAt):'')+'</div></div>'+
@@ -1614,7 +1630,7 @@ window.SimifyStore=(function(){
   function renderList(){
     renderStats(); renderChips();
     if(activeFilter==="sent"){ renderSent(); return; }
-    if(!DRAFTS.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">Inbox clear \u2014 flag creators in the Creators tab and hit <b>Draft flagged</b> to add drafts here.</div>'; viewEl.innerHTML=welcome(); return; }
+    if(!DRAFTS.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">Inbox clear \u2014 flag creators in the Creators tab and hit <b>Draft flagged</b> to add drafts here.</div>'; if(!composing)viewEl.innerHTML=welcome(); return; }
     var list=DRAFTS.filter(matches).slice().sort(sortDrafts);
     stEl.textContent=list.length+" of "+DRAFTS.length+" conversation"+(DRAFTS.length>1?"s":"");
     if(!list.length){ listEl.innerHTML='<div class="mempty">No conversations match.</div>'; return; }
@@ -1635,8 +1651,9 @@ window.SimifyStore=(function(){
     }).join("");
   }
 
+  var composing=false;
   function openDraft(id){
-    selId=id; renderList();
+    composing=false; selId=id; renderList();
     viewEl.innerHTML='<div class="mloading">Loading\u2026</div>';
     fetch("/api/draft-get?id="+encodeURIComponent(id)).then(function(r){return r.json();}).then(function(g){
       if(!g||g.error){ viewEl.innerHTML='<div class="mloading">Couldn\u2019t load this draft.</div>'; return; }
@@ -1701,13 +1718,35 @@ window.SimifyStore=(function(){
   if(statsEl) statsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); renderList(); } });
   if(chipsEl) chipsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); renderList(); } });
   if(searchEl) searchEl.addEventListener("input",function(){ searchTerm=searchEl.value.trim().toLowerCase(); renderList(); });
+  // ---- Compose a brand-new email (saved to Gmail drafts via /api/draft-new) ----
+  function composeHtml(){
+    return '<div class="thread"><div class="crhead"><div class="mav big">✎</div>'+
+      '<div class="crhinfo"><div class="crhname">New email</div><div class="crhmeta">Write a fresh email — saved to your Gmail drafts, nothing sends without your click</div></div></div>'+
+      '<div class="editor"><div class="edmeta2"><div class="edrow"><label>To</label><input id="edTo" type="email" placeholder="creator@example.com"></div>'+
+      '<div class="edrow"><label>Subject</label><input id="edSubject" type="text" placeholder="Subject"></div></div>'+
+      '<div class="edbodywrap"><div id="edBody" class="edbody" contenteditable="true" data-placeholder="Write your message…"></div></div>'+
+      '<div class="edacts"><button class="btn pri" id="edSend">Send</button><button class="btn" id="edSave">Save draft</button><span class="edstatus" id="edStatus"></span></div></div>';
+  }
+  function openCompose(){ composing=true; selId=null; renderList(); viewEl.innerHTML=composeHtml(); wireCompose(); var t=document.getElementById("edTo"); if(t)t.focus(); }
+  function wireCompose(){
+    var toI=document.getElementById("edTo"), subI=document.getElementById("edSubject"), bodyI=document.getElementById("edBody"), stat=document.getElementById("edStatus");
+    var newId=null;
+    function ensureSaved(){
+      var p={to:toI.value.trim(),subject:subI.value.trim(),html:bodyI.innerHTML};
+      if(newId){ p.id=newId; return fetch("/api/draft-update",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}).then(function(r){return r.json();}); }
+      return fetch("/api/draft-new",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}).then(function(r){return r.json();}).then(function(j){ if(j&&j.ok&&j.id) newId=j.id; return j; });
+    }
+    document.getElementById("edSave").addEventListener("click",function(){ stat.textContent="Saving…"; ensureSaved().then(function(j){ if(j&&j.ok){ stat.textContent="Saved ✓ · in your Gmail drafts"; setTimeout(function(){stat.textContent="";},2200); } else { stat.textContent=""; toast("Save failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Backend not connected (works on the live site)"); }); });
+    document.getElementById("edSend").addEventListener("click",function(){ var to=toI.value.trim(); if(to.indexOf("@")<1){ toast("Add a valid recipient first"); return; } if(!confirm("Send this email to "+to+" now?\n\nIt will be sent from your Gmail.")) return; stat.textContent="Sending…"; ensureSaved().then(function(j){ if(!(j&&j.ok&&newId)) throw new Error("save"); return fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:newId})}).then(function(r){return r.json();}); }).then(function(j){ if(j&&j.ok){ var cr=window.simCreatorByEmail?window.simCreatorByEmail(to):null; sentAdd({id:newId,to:to,subject:subI.value.trim(),html:bodyI.innerHTML,sentAt:today(),name:(cr&&cr.name)||""}); toast("Sent to "+to+" — see the Sent tab"); if(window.simMarkOutreached) window.simMarkOutreached(to); composing=false; viewEl.innerHTML=welcome(); load(); } else { stat.textContent=""; toast("Send failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Send failed (works on the live site)"); }); });
+  }
+  var composeBtn=document.getElementById("ibCompose"); if(composeBtn) composeBtn.addEventListener("click",openCompose);
 
   function load(){
     stEl.textContent="Loading your drafts\u2026"; listEl.innerHTML=""; viewEl.innerHTML="";
     fetch("/api/drafts").then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});}).then(function(res){
       if(res.ok&&res.j&&res.j.drafts){ DRAFTS=res.j.drafts; selId=null; enrich(); renderList(); }
-      else { stEl.textContent=""; renderStats(); renderChips(); listEl.innerHTML=notConfigured(); viewEl.innerHTML=welcome(); }
-    }).catch(function(){ stEl.textContent=""; renderStats(); renderChips(); listEl.innerHTML=notConfigured(); viewEl.innerHTML=welcome(); });
+      else { stEl.textContent=""; renderStats(); renderChips(); listEl.innerHTML=notConfigured(); if(!composing)viewEl.innerHTML=welcome(); }
+    }).catch(function(){ stEl.textContent=""; renderStats(); renderChips(); listEl.innerHTML=notConfigured(); if(!composing)viewEl.innerHTML=welcome(); });
   }
   var navBtn=document.querySelector('.nav[data-view="approvals"]');
   if(navBtn) navBtn.addEventListener("click",load); // reload each open so newly-flagged drafts appear

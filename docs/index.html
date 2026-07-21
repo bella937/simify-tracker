@@ -718,6 +718,20 @@
   .tplmenu button{background:none;border:none;text-align:left;padding:9px 13px;font:inherit;font-size:13px;color:var(--ink);cursor:pointer;text-transform:none;letter-spacing:0;}
   .tplmenu button:hover{background:var(--surface-2,#faf8f3);}
   .draftlabel{font-family:var(--fm);font-size:11px;color:#7a5b12;background:#fdf1dc;padding:6px 20px;border-bottom:1px solid var(--line);}
+  /* --- Creators: filter bar, collapsible sections, inline add-row --- */
+  .crfilterbar{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap;}
+  .crfilter{flex:1;min-width:200px;border:1px solid var(--line);border-radius:9px;padding:8px 12px;font:inherit;font-size:13px;background:var(--surface,#fff);color:var(--ink);}
+  .crfilter:focus{outline:none;border-color:var(--brand,#f0a02a);}
+  .crfcol{border:1px solid var(--line);border-radius:9px;padding:8px 10px;font:inherit;font-size:13px;background:var(--surface,#fff);color:var(--ink);cursor:pointer;}
+  .crfcol:focus{outline:none;border-color:var(--brand,#f0a02a);}
+  .linkbtn2{background:none;border:none;color:var(--brand,#f0a02a);font-family:var(--fm);font-size:12px;font-weight:600;cursor:pointer;padding:4px 6px;}
+  .grpcaret{background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px;padding:0 9px 0 0;line-height:1;vertical-align:middle;}
+  tr.grp{cursor:default;}
+  tr.grp.collapsed td{opacity:.8;}
+  tr.grp.unsorted .pillst.dim{background:#fdf1dc;color:#7a5b12;border:1px solid #f0a02a44;}
+  tr.prow td{background:#fffdf9;vertical-align:middle;}
+  input.padd,select.padd{width:100%;border:1px solid var(--line);border-radius:7px;padding:6px 8px;font:inherit;font-size:13px;background:#fff;color:var(--ink);box-sizing:border-box;}
+  input.padd:focus,select.padd:focus{outline:none;border-color:var(--brand,#f0a02a);}
   /* --- Creative Intelligence --- */
   .newbadge{margin-left:auto;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#137a3f;background:#eafaf0;border:1px solid #137a3f44;border-radius:20px;padding:1px 7px;}
   .cihero{display:flex;gap:20px;align-items:center;background:linear-gradient(120deg,#fff6e9,#fdfcf9);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:16px;flex-wrap:wrap;}
@@ -894,6 +908,22 @@
         </div>
         <div class="triagehint" id="triageHint">Work down the list &mdash; <b>&check;</b> the creators worth contacting, <b>&times;</b> the ones to skip, click a blank email to add one, then hit <b>Draft flagged</b> to create the Gmail drafts. Aim for 30&ndash;50 a day.</div>
         <div class="crtagbar" id="crTagBar" style="display:none"></div>
+        <div class="crfilterbar">
+          <input type="text" id="crFilter" class="crfilter" placeholder="Filter creators by any word…" aria-label="Filter creators">
+          <select id="crFilterCol" class="crfcol" aria-label="Filter by column">
+            <option value="all">All columns</option>
+            <option value="name">Creator</option>
+            <option value="handle">Handle</option>
+            <option value="email">Email</option>
+            <option value="market">Market</option>
+            <option value="subs">Subs</option>
+            <option value="niche">Niche</option>
+            <option value="tags">Tags</option>
+            <option value="status">Status</option>
+          </select>
+          <button class="linkbtn2" id="crFilterClear" hidden>Clear filter</button>
+          <button class="btn2" id="crAddRow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 5v14M5 12h14"/></svg>Add creator</button>
+        </div>
         <div class="xlswrap">
           <table class="xls">
             <thead><tr>
@@ -1311,6 +1341,10 @@ window.SimifyStore=(function(){
   var seg=document.getElementById("marketSeg");
   var market="All", term="", tagFilter=[];
   var COLS=8;
+  var filterTerm="", filterCol="all";        // richer per-column word filter (#crFilter)
+  var COLLAPSED=(function(){ var u=SimifyStore.get("ui")||{}; return u.crCollapsed||{}; })();  // collapsed section state
+  function saveCollapsed(){ var u=SimifyStore.get("ui")||{}; u.crCollapsed=COLLAPSED; SimifyStore.set("ui",u); }
+  var PENDING=[];                             // in-progress "Unsorted" add-rows (not yet in roster)
 
   // ---- Triage state (per-creator, saved in this browser only) ----------------
   var STATE=SimifyStore.get("triage");
@@ -1341,6 +1375,20 @@ window.SimifyStore=(function(){
       if(market!=="All"&&c.market!==market)return false;
       if(term){var t=term.toLowerCase(); if((c.name+" "+c.handle+" "+c.niche+" "+emailOf(c)).toLowerCase().indexOf(t)<0)return false;}
       if(tagFilter.length){ var ct=tagsOf(c); if(!tagFilter.every(function(tg){return ct.indexOf(tg)>-1;})) return false; }
+      if(filterTerm){ var ft=filterTerm.toLowerCase(), hay;
+        switch(filterCol){
+          case "name": hay=c.name; break;
+          case "handle": hay=c.handle; break;
+          case "email": hay=emailOf(c); break;
+          case "market": hay=c.market; break;
+          case "subs": hay=String(c.subs); break;
+          case "niche": hay=c.niche; break;
+          case "tags": hay=tagsOf(c).join(" "); break;
+          case "status": hay=effStatus(c)[1]; break;
+          default: hay=[c.name,c.handle,emailOf(c),c.market,c.subs,c.niche,tagsOf(c).join(" "),effStatus(c)[1]].join(" ");
+        }
+        if(String(hay==null?"":hay).toLowerCase().indexOf(ft)<0) return false;
+      }
       return true;
     });
   }
@@ -1372,12 +1420,29 @@ window.SimifyStore=(function(){
     var removed=DATA.filter(function(c){return stateFor(c).deleted;}).length;
     countEl.innerHTML="Showing "+list.length+" of "+DATA.length+" creators"+(removed?' · <a href="#" id="undoDel">'+removed+" removed (undo)</a>":"");
     renderGoal(); updateDraftBtn();
-    if(!list.length){ body.innerHTML='<tr><td class="empty2" colspan="'+COLS+'">No creators match your filters.</td></tr>'; return; }
     var html="";
+    if(PENDING.length){
+      html+='<tr class="grp unsorted"><td colspan="'+COLS+'"><span class="pillst dim">Unsorted</span><span class="gcount">'+PENDING.length+" new — fill in the details and press ✓ to move to New leads</span></td></tr>";
+      PENDING.forEach(function(p){
+        html+='<tr class="prow" data-pk="'+esc(p.tempId)+'">'+
+          '<td class="cnm"><input class="padd" data-pf="name" value="'+esc(p.name||"")+'" placeholder="Creator name"></td>'+
+          '<td class="hd"><input class="padd" data-pf="handle" value="'+esc(p.handle||"")+'" placeholder="@handle"></td>'+
+          '<td class="em"><input class="padd" data-pf="email" type="email" value="'+esc(p.email||"")+'" placeholder="name@example.com"></td>'+
+          '<td><select class="padd" data-pf="market"><option'+(p.market==="AU"?" selected":"")+'>AU</option><option'+(p.market==="UK"?" selected":"")+'>UK</option><option'+(p.market==="NZ"?" selected":"")+'>NZ</option></select></td>'+
+          '<td class="r"><input class="padd" data-pf="subs" value="'+esc(p.subs||"")+'" placeholder="0" inputmode="numeric"></td>'+
+          '<td><input class="padd" data-pf="niche" value="'+esc(p.niche||"")+'" placeholder="Niche"></td>'+
+          '<td class="tags"><span class="addemail">tags after adding</span></td>'+
+          '<td class="act"><button class="tick" data-pact="confirm" title="Add to New leads">&check;</button><button class="cross" data-pact="discard" title="Discard this row">&times;</button></td>'+
+        "</tr>";
+      });
+    }
+    if(!list.length){ body.innerHTML=html+'<tr><td class="empty2" colspan="'+COLS+'">'+(PENDING.length?"Fill in the row above, then press ✓.":"No creators match your filters.")+'</td></tr>'; renderTagBar(); return; }
     ORDER.forEach(function(status){
       var g=list.filter(function(c){return effStatus(c)[1]===status;});
       if(!g.length)return;
-      html+='<tr class="grp"><td colspan="'+COLS+'"><span class="pillst '+effStatus(g[0])[0]+'">'+status+'</span><span class="gcount">'+g.length+" creator"+(g.length>1?"s":"")+"</span></td></tr>";
+      var _col=!!COLLAPSED[status];
+      html+='<tr class="grp'+(_col?" collapsed":"")+'" data-grp="'+esc(status)+'"><td colspan="'+COLS+'"><button class="grpcaret" data-grptoggle="'+esc(status)+'" aria-label="Collapse or expand '+esc(status)+'" title="Collapse/expand">'+(_col?"▸":"▾")+'</button><span class="pillst '+effStatus(g[0])[0]+'">'+status+'</span><span class="gcount">'+g.length+" creator"+(g.length>1?"s":"")+"</span></td></tr>";
+      if(_col) return;
       g.forEach(function(c){
         var s=stateFor(c), k=encodeURIComponent(keyOf(c));
         html+='<tr data-k="'+k+'">'+
@@ -1401,6 +1466,24 @@ window.SimifyStore=(function(){
     renderTagBar();
   }
   function findByKey(k){ k=decodeURIComponent(k); for(var i=0;i<DATA.length;i++){ if(keyOf(DATA[i])===k) return DATA[i]; } return null; }
+  // ---- Inline "Unsorted" add-row → confirm moves it into New leads ----
+  function addPendingRow(){
+    PENDING.unshift({tempId:"p_"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name:"",handle:"",email:"",market:"AU",subs:"",niche:""});
+    render();
+    setTimeout(function(){ var f=body.querySelector('tr[data-pk] input[data-pf="name"]'); if(f)f.focus(); },30);
+  }
+  function confirmPending(pk){
+    var p=null; for(var i=0;i<PENDING.length;i++){ if(PENDING[i].tempId===pk){ p=PENDING[i]; break; } }
+    if(!p) return;
+    var nm=String(p.name||"").trim();
+    if(!nm){ toastMsg2("Add a creator name first"); var f=body.querySelector('tr[data-pk="'+pk+'"] input[data-pf="name"]'); if(f)f.focus(); return; }
+    var subs=parseInt(String(p.subs||"").replace(/[^0-9]/g,""),10); if(isNaN(subs)||subs<0)subs=0;
+    var handle=String(p.handle||"").trim(); if(handle&&handle.charAt(0)!=="@")handle="@"+handle;
+    PENDING=PENDING.filter(function(x){return x.tempId!==pk;});
+    window.simAddCreator({name:nm,handle:handle||"@new",email:String(p.email||"").trim(),market:p.market||"AU",niche:String(p.niche||"").trim()||"General",subs:subs});
+    toastMsg2('Added "'+nm+'" to New leads');
+  }
+  window.simAddCreatorRow=addPendingRow;
   // Draft a single creator on the spot → one Gmail draft, appears in the Inbox.
   function draftOne(c){
     var to=emailOf(c);
@@ -1415,6 +1498,8 @@ window.SimifyStore=(function(){
   // action buttons + email editing (event delegation)
   body.addEventListener("click",function(e){
     var undo=e.target.closest("#undoDel"); if(undo){ e.preventDefault(); DATA.forEach(function(c){ if(stateFor(c).deleted) setStateFor(c,{deleted:false}); }); render(); return; }
+    var gt=e.target.closest("[data-grptoggle]"); if(gt){ var _s=gt.getAttribute("data-grptoggle"); COLLAPSED[_s]=!COLLAPSED[_s]; saveCollapsed(); render(); return; }
+    var pact=e.target.closest("[data-pact]"); if(pact){ var _pr=pact.closest("tr[data-pk]"); if(_pr){ var _pk=_pr.getAttribute("data-pk"); if(pact.getAttribute("data-pact")==="discard"){ PENDING=PENDING.filter(function(x){return x.tempId!==_pk;}); render(); } else { confirmPending(_pk); } } return; }
     var tr=e.target.closest("tr[data-k]"); if(!tr) return; var c=findByKey(tr.getAttribute("data-k")); if(!c) return;
     var btn=e.target.closest("button[data-act]");
     if(btn){ var act=btn.getAttribute("data-act");
@@ -1440,6 +1525,16 @@ window.SimifyStore=(function(){
       inp.addEventListener("blur",function(){ commit(true); });
     }
   });
+  // keep PENDING objects in sync as the inline add-row is typed (no re-render, so focus stays)
+  body.addEventListener("input",function(e){ var inp=e.target.closest(".padd"); if(!inp)return; var pr=inp.closest("tr[data-pk]"); if(!pr)return; var pk=pr.getAttribute("data-pk"); for(var i=0;i<PENDING.length;i++){ if(PENDING[i].tempId===pk){ PENDING[i][inp.getAttribute("data-pf")]=inp.value; break; } } });
+  body.addEventListener("change",function(e){ var sel=e.target.closest("select.padd"); if(!sel)return; var pr=sel.closest("tr[data-pk]"); if(!pr)return; var pk=pr.getAttribute("data-pk"); for(var i=0;i<PENDING.length;i++){ if(PENDING[i].tempId===pk){ PENDING[i][sel.getAttribute("data-pf")]=sel.value; break; } } });
+  body.addEventListener("keydown",function(e){ if(e.key!=="Enter")return; var inp=e.target.closest(".padd"); if(!inp)return; var pr=inp.closest("tr[data-pk]"); if(pr){ e.preventDefault(); confirmPending(pr.getAttribute("data-pk")); } });
+  // Creators filter bar (word + column) + inline "Add creator"
+  var crFilter=document.getElementById("crFilter"), crFilterCol=document.getElementById("crFilterCol"), crFilterClear=document.getElementById("crFilterClear");
+  if(crFilter) crFilter.addEventListener("input",function(){ filterTerm=crFilter.value.trim(); if(crFilterClear)crFilterClear.hidden=!filterTerm; render(); });
+  if(crFilterCol) crFilterCol.addEventListener("change",function(){ filterCol=crFilterCol.value; if(filterTerm)render(); });
+  if(crFilterClear) crFilterClear.addEventListener("click",function(){ filterTerm=""; if(crFilter)crFilter.value=""; crFilterClear.hidden=true; render(); });
+  var crAddRow=document.getElementById("crAddRow"); if(crAddRow) crAddRow.addEventListener("click",addPendingRow);
   var hs=document.getElementById("hideSkip"); if(hs) hs.addEventListener("change",render);
   var tagBar=document.getElementById("crTagBar");
   if(tagBar) tagBar.addEventListener("click",function(e){
@@ -1601,7 +1696,7 @@ window.SimifyStore=(function(){
   var modal=document.getElementById("addModal");
   function openModal(){ if(modal)modal.hidden=false; }
   function closeModal(){ if(modal)modal.hidden=true; }
-  var ghost=document.querySelector(".ghost"); if(ghost)ghost.addEventListener("click",openModal);
+  var ghost=document.querySelector(".ghost"); if(ghost)ghost.addEventListener("click",function(){ go("creators"); if(window.simAddCreatorRow){ window.simAddCreatorRow(); } else { openModal(); } });
   var addClose=document.getElementById("addClose"); if(addClose)addClose.addEventListener("click",closeModal);
   var addCancel=document.getElementById("addCancel"); if(addCancel)addCancel.addEventListener("click",closeModal);
   if(modal)modal.addEventListener("click",function(e){ if(e.target===modal){closeModal();} });
@@ -1832,7 +1927,7 @@ window.SimifyStore=(function(){
   function tile(label,val,cls){ return '<div class="cctile"><div class="cclabel">'+esc(label)+'</div><div class="ccval '+(cls||"")+'">'+val+'</div></div>'; }
   function commandCentreHtml(email,conv){
     var cr=conv.cr, c=crmFor(email), stage=stageOf(conv), ctx=resolveCtx(email);
-    var metaBits=[]; if(cr){ if(cr.handle)metaBits.push(esc(cr.handle)); if(cr.subs)metaBits.push(esc(cr.subs)+" subs"); if(cr.market&&cr.market!=="—")metaBits.push(esc(cr.market)); if(cr.niche)metaBits.push(esc(cr.niche)); } else { metaBits.push(esc(email)); metaBits.push("not in your roster"); }
+    var metaBits=[]; if(cr){ if(cr.handle){ var _h=String(cr.handle); if(_h.charAt(0)!=="@")_h="@"+_h; metaBits.push('<a class="cclink" href="https://www.youtube.com/'+esc(_h)+'" target="_blank" rel="noopener" title="Open YouTube channel">'+esc(cr.handle)+'</a>'); } if(cr.subs)metaBits.push(esc(cr.subs)+" subs"); if(cr.market&&cr.market!=="—")metaBits.push(esc(cr.market)); if(cr.niche)metaBits.push(esc(cr.niche)); } else { metaBits.push(esc(email)); metaBits.push("not in your roster"); }
     var head='<div class="crhead"><div class="mav big">'+esc(initial(nameOf(conv)))+'</div>'+
       '<div class="crhinfo"><div class="crhname">'+esc(nameOf(conv))+(cr&&cr.handle?' <a class="ytbadge" href="https://www.youtube.com/'+esc(cr.handle)+'" target="_blank" rel="noopener">YouTube</a>':'')+'</div>'+
       '<div class="crhmeta">'+metaBits.join(' · ')+(conv.ts?' · last activity '+esc(fmtWhen(tsOf(conv))):'')+'</div></div>'+

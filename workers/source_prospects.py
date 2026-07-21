@@ -2,7 +2,7 @@
 """Source NEW on-pattern channels via YouTube search (retuned niches), keep
 nano-micro (<=40K) actives (posted <8mo), grab latest video for the Discovery
 embed, and MERGE into docs/data/prospects.json (preserving existing entries)."""
-import os,sys,json,time,datetime,urllib.parse,urllib.request
+import os,sys,json,time,re,datetime,urllib.parse,urllib.request
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT=os.path.join(ROOT,"docs","data","prospects.json")
 CRE=os.path.join(ROOT,"docs","data","creators.json")
@@ -44,12 +44,55 @@ def months(iso):
         if d.tzinfo is None: d=d.replace(tzinfo=datetime.timezone.utc)
         return (datetime.datetime.now(datetime.timezone.utc)-d).days/30.44
     except: return None
+
+# --- contact extraction: pull a business email creators publish in plain text
+# in their channel About / video descriptions (NOT the CAPTCHA-gated About email).
+EMAIL_RE=re.compile(r'[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}')
+LINK_RE=re.compile(r'https?://(?:www\.)?(?:linktr\.ee|beacons\.ai|linkin\.bio|solo\.to|komi\.io|stan\.store|milkshake\.app)/[^\s)\]]+',re.I)
+BIZ_HINT=re.compile(r'(business|enquir|inquir|contact|collab|partnership|\bemail\b|work with|sponsor|📩|✉)',re.I)
+_IMG_EXT=("png","jpg","jpeg","gif","webp","svg","bmp","ico")
+_BAD_DOM=("example.","sentry.","wixpress.","email.com","domain.com","yourbrand.","youremail.")
+def _valid_email(e):
+    dom=e.rsplit("@",1)[-1].lower()
+    if dom.rsplit(".",1)[-1] in _IMG_EXT: return False           # e.g. logo@2x.png
+    if any(b in dom for b in _BAD_DOM): return False             # placeholders
+    return True
+def extract_contact(*texts):
+    """Return (best_email, link) from the given text blobs. Prefers an email that
+    sits right after a business/contact cue; falls back to the first valid one."""
+    blob="\n".join(t for t in texts if t)
+    emails=[e.rstrip(".") for e in EMAIL_RE.findall(blob) if _valid_email(e.rstrip("."))]
+    best=""
+    for e in emails:
+        i=blob.find(e)
+        if i>=0 and BIZ_HINT.search(blob[max(0,i-80):i]): best=e; break
+    if not best and emails: best=emails[0]
+    lm=LINK_RE.search(blob)
+    return best, (lm.group(0) if lm else "")
 # existing (preserve) + roster handles (dedup)
 existing=json.load(open(OUT)); have={p["handle"].lower() for p in existing["prospects"]}
 try:
     ros=json.load(open(CRE)); ros=ros.get("creators",ros)
     for c in ros: have.add(str(c.get("handle","")).lower())
 except: pass
+
+# --- backfill: fill emails on existing prospects that don't have one yet
+# (cheap: one channels.list per 50, description only — no per-channel calls).
+need={p["channelId"]:p for p in existing["prospects"] if p.get("channelId") and not p.get("email")}
+if need:
+    filled=0; nids=list(need)
+    for batch in [nids[i:i+50] for i in range(0,len(nids),50)]:
+        try: d=api("channels",part="snippet",id=",".join(batch))
+        except Exception as e: print("  ! backfill channels:",e); continue
+        for it in d.get("items",[]):
+            em,site=extract_contact(it.get("snippet",{}).get("description",""))
+            p=need.get(it["id"])
+            if not p: continue
+            if em: p["email"]=em; filled+=1
+            if site and not p.get("site"): p["site"]=site
+        time.sleep(0.1)
+    print(f"  backfilled {filled} email(s) onto {len(need)} email-less prospects")
+
 found_ids={}
 for i,niche in enumerate(NICHES):
     region=REGIONS[i%len(REGIONS)]
@@ -82,9 +125,13 @@ for batch in [ids[i:i+50] for i in range(0,len(ids),50)]:
         m=months(pub)
         if m is None or m>MONTHS: continue
         have.add(handle.lower())
+        email,site=extract_contact(it["snippet"].get("description",""),
+                                   pit.get("snippet",{}).get("description",""))
+        why=f"Sourced ({found_ids[it['id']]}) - {subs:,} subs, active."
+        why+=" Email on file." if email else (f" No public email - see {site}" if site else " No public email in About/video.")
         kept.append({"name":it["snippet"]["title"],"handle":handle,"channelId":it["id"],"subs":subs,
                      "niche":found_ids[it["id"]],"market":(it["snippet"].get("country") or ""),
-                     "videoId":vid,"lastUpload":pub,"email":"","why":f"Sourced ({found_ids[it['id']]}) - {subs:,} subs, active."})
+                     "videoId":vid,"lastUpload":pub,"email":email,"site":site,"why":why})
     time.sleep(0.1)
 kept.sort(key=lambda p:p["lastUpload"],reverse=True)
 existing["prospects"]=existing["prospects"]+kept

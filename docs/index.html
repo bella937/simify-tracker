@@ -3057,6 +3057,7 @@ window.SimifyStore=(function(){
         '<div class="discrow"><span><b>'+Number(p.subs||0).toLocaleString()+'</b> subs</span><span>📍 '+esc(p.market)+'</span>'+fresh(p)+'</div>'+
         '<div class="discniche">'+esc(p.niche)+'</div>'+
         (p.why?'<div class="discwhy">'+esc(p.why)+'</div>':'')+
+        (p.email?'<div class="discrow disccontact"><a href="mailto:'+esc(p.email)+'">✉ '+esc(p.email)+'</a></div>':(p.site?'<div class="discrow disccontact"><a href="'+esc(p.site)+'" target="_blank" rel="noopener">🔗 '+esc(String(p.site).replace(/^https?:\/\/(www\.)?/,''))+'</a></div>':'<div class="discrow disccontact muted">no public email — check About tab</div>'))+
         (links?'<div class="discrow">'+links+'</div>':'')+
         '<div class="discacts"><button class="discbtn add" data-act="add">✓ Add to roster</button><button class="discbtn skip" data-act="skip">Skip</button></div>'+
       '</div></div>';
@@ -3074,7 +3075,7 @@ window.SimifyStore=(function(){
     var cardEl=btn.closest("[data-h]"); if(!cardEl) return; var h=cardEl.getAttribute("data-h");
     var p=(DATA.prospects||[]).filter(function(x){return x.handle===h;})[0]; if(!p) return;
     if(btn.getAttribute("data-act")==="add"){
-      if(window.simAddCreator) window.simAddCreator({name:p.name,handle:p.handle,market:p.market,niche:p.niche,subs:p.subs,email:""});
+      if(window.simAddCreator) window.simAddCreator({name:p.name,handle:p.handle,market:p.market,niche:p.niche,subs:p.subs,email:p.email||""});
       setDecision(h,"added"); toastD(p.name+" added to your roster");
     } else { setDecision(h,"skipped"); }
     render();

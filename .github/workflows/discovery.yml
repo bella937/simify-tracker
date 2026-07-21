@@ -1,0 +1,70 @@
+name: Auto-discovery (Discovery tab)
+
+# Sources fresh on-pattern YouTube creators into docs/data/prospects.json,
+# which feeds the Creators -> Discovery triage tab. Nano-micro (<=40K subs),
+# active within 8 months, deduped against the roster + existing prospects.
+# Uses ONLY the YOUTUBE_API_KEY repo secret. Commits only when new leads are
+# found, which triggers the normal Cloudflare Pages deploy.
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # every Monday 06:00 UTC
+  workflow_dispatch: {}    # manual "Run workflow" button in the Actions tab
+
+# Serialise runs so an overlapping scheduled + manual run can't race on the push.
+concurrency:
+  group: auto-discovery
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # allows the job to commit the refreshed prospects back
+      issues: write     # allows the failure step to open a tracking issue
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Source new prospects
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python3 workers/source_prospects.py
+
+      - name: Commit new leads (if any)
+        run: |
+          if git diff --quiet -- docs/data/prospects.json; then
+            echo "No new prospects — nothing to commit."
+            exit 0
+          fi
+          git config user.name "simify-discovery-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          COUNT=$(python3 -c "import json;print(len(json.load(open('docs/data/prospects.json'))['prospects']))")
+          git add docs/data/prospects.json
+          git commit -m "Auto-discovery: refresh Discovery prospects (${COUNT} total)
+
+          Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+          # Rebase onto anything that landed since checkout, so the push is a
+          # fast-forward instead of being silently rejected on a race.
+          git pull --rebase origin main
+          git push
+
+      - name: Report failure as an issue
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toISOString().slice(0, 10);
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⚠️ Auto-discovery failed on ${date}`,
+              body: `The **Auto-discovery** workflow failed.\n\n`
+                + `- Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}\n`
+                + `- Commit: ${context.sha}\n\n`
+                + `Most likely cause: the YOUTUBE_API_KEY secret is missing, expired, or over quota. `
+                + `Scheduled jobs are auto-disabled after 60 days of failures.`,
+              labels: ['automation-failure']
+            });

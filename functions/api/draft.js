@@ -40,7 +40,7 @@ function cleanChannel(name) {
 function subjectLine(name) {
   let label = greetName(name);
   if (!label || label === "there") label = cleanChannel(name);
-  return label + " get paid to travel - Partnership with Simify ✈️"; // plain hyphen, no em dash
+  return label + ", get paid to travel - Partnership with Simify ✈️"; // plain hyphen, no em dash
 }
 function firstLine(niche) {
   if (niche) {
@@ -55,11 +55,11 @@ function esc(s) {
 function bodyText(first, niche) {
   return "Hey " + first + "\n\n" + firstLine(niche) + "\n\n" +
     "I'm Bella from Simify - we're a Travel eSIM brand trusted by 1M+ travellers, " +
-    "and we're inviting you to join our YouTube affiliate programme. Here's how it works:\n\n" +
+    "and we're inviting you to join our YouTube partnerships programme. Here's how it works:\n\n" +
     "🎁 We'll gift you a $100 USD eSIM voucher\n" +
-    "📱 Share your Simify experience in a YouTube Short or a video integration\n" +
-    "💸 Earn 15% commission on every sale through your unique discount code\n" +
-    "🚀 We'll also feature your content in our paid campaigns to boost your reach and help you grow your audience\n\n" +
+    "💸 Earn 15% commission on every sale through your unique discount code (Some of our top creators are earning $3k+ in commission)\n" +
+    "🚀 We'll also feature your content in our paid campaigns, putting real budget behind your videos to grow your reach\n" +
+    "📹 All we ask is a Simify mention in a Short or video integration\n\n" +
     "Let me know if you're interested and I'll send over all the details!\n\n" +
     "Bella\nPartnerships Manager | Simify\nbella@simify.com";
 }
@@ -68,11 +68,11 @@ function bodyHtml(first, niche, signature) {
   return '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#111">' +
     "Hey " + esc(first) + "<br><br>" + esc(firstLine(niche)) + "<br><br>" +
     "I'm Bella from <b>Simify</b> - we're a Travel eSIM brand trusted by 1M+ travellers, " +
-    "and we're inviting you to join our <b>YouTube affiliate programme</b>. Here's how it works:<br><br>" +
+    "and we're inviting you to join our <b>YouTube partnerships programme</b>. Here's how it works:<br><br>" +
     "🎁 We'll gift you a <b>$100 USD eSIM voucher</b><br>" +
-    "📱 Share your Simify experience in a YouTube Short or a video integration<br>" +
-    "💸 Earn <b>15% commission</b> on every sale through your unique discount code<br>" +
-    "🚀 We'll also feature your content in our paid campaigns to boost your reach and help you grow your audience<br><br>" +
+    "💸 Earn <b>15% commission</b> on every sale through your unique discount code (Some of our top creators are earning $3k+ in commission)<br>" +
+    "🚀 We'll also feature your content in our paid campaigns, putting real budget behind your videos to grow your reach<br>" +
+    "📹 All we ask is a Simify mention in a Short or video integration<br><br>" +
     "Let me know if you're interested and I'll send over all the details!<br><br>" +
     signoff + "</div>";
 }

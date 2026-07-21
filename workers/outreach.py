@@ -56,18 +56,17 @@ def subject_line(name):
     label = greet_name(name)
     if not label or label == "there":
         label = clean_channel(name)
-    return f"{label} get paid to travel - Partnership with Simify ✈️"  # ✈️ (plain hyphen, no em dash)
+    return f"{label}, get paid to travel - Partnership with Simify ✈️"  # ✈️ (plain hyphen, no em dash)
 
 def body_text(first, niche):
     return (f"Hey {first}\n\n"
             f"{first_line(niche)}\n\n"
             "I'm Bella from Simify - we're a Travel eSIM brand trusted by 1M+ travellers, "
-            "and we're inviting you to join our YouTube affiliate programme. Here's how it works:\n\n"
+            "and we're inviting you to join our YouTube partnerships programme. Here's how it works:\n\n"
             "\U0001F381 We'll gift you a $100 USD eSIM voucher\n"
-            "\U0001F4F1 Share your Simify experience in a YouTube Short or a video integration\n"
-            "\U0001F4B8 Earn 15% commission on every sale through your unique discount code\n"
-            "\U0001F680 We'll also feature your content in our paid campaigns to boost your reach "
-            "and help you grow your audience\n\n"
+            "\U0001F4B8 Earn 15% commission on every sale through your unique discount code (Some of our top creators are earning $3k+ in commission)\n"
+            "\U0001F680 We'll also feature your content in our paid campaigns, putting real budget behind your videos to grow your reach\n"
+            "\U0001F4F9 All we ask is a Simify mention in a Short or video integration\n\n"
             "Let me know if you're interested and I'll send over all the details!\n\n"
             "Bella\nPartnerships Manager | Simify\nbella@simify.com")
 
@@ -84,13 +83,12 @@ def body_html(first, niche, signature=""):
         f"Hey {fn}<br><br>"
         f"{fl}<br><br>"
         "I'm Bella from <b>Simify</b> - we're a Travel eSIM brand trusted by 1M+ travellers, "
-        "and we're inviting you to join our <b>YouTube affiliate programme</b>. "
+        "and we're inviting you to join our <b>YouTube partnerships programme</b>. "
         "Here's how it works:<br><br>"
         "\U0001F381 We'll gift you a <b>$100 USD eSIM voucher</b><br>"
-        "\U0001F4F1 Share your Simify experience in a YouTube Short or a video integration<br>"
-        "\U0001F4B8 Earn <b>15% commission</b> on every sale through your unique discount code<br>"
-        "\U0001F680 We'll also feature your content in our paid campaigns to boost your reach "
-        "and help you grow your audience<br><br>"
+        "\U0001F4B8 Earn <b>15% commission</b> on every sale through your unique discount code (Some of our top creators are earning $3k+ in commission)<br>"
+        "\U0001F680 We'll also feature your content in our paid campaigns, putting real budget behind your videos to grow your reach<br>"
+        "\U0001F4F9 All we ask is a Simify mention in a Short or video integration<br><br>"
         "Let me know if you're interested and I'll send over all the details!<br><br>"
         f"{signoff}"
         "</div>")

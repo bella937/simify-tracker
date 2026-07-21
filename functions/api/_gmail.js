@@ -47,6 +47,40 @@ export function rawMessage(to, subject, text, html) {
   return b64url(mime);
 }
 
+// Build a threaded raw MIME message — like rawMessage but with optional reply headers
+// (In-Reply-To / References) so a draft stays inside its Gmail conversation, plus Cc.
+export function rawMessageThreaded({ to, cc, subject, text, html, inReplyTo, references }) {
+  const B = "simify_boundary_9c3f";
+  const subjHeader = "=?UTF-8?B?" + b64utf8(subject || "") + "?=";
+  let headers = "To: " + (to || "") + "\r\n";
+  if (cc) headers += "Cc: " + cc + "\r\n";
+  headers += "Subject: " + subjHeader + "\r\n";
+  if (inReplyTo) headers += "In-Reply-To: " + inReplyTo + "\r\n";
+  if (references) headers += "References: " + references + "\r\n";
+  const mime =
+    headers +
+    "MIME-Version: 1.0\r\n" +
+    'Content-Type: multipart/alternative; boundary="' + B + '"\r\n\r\n' +
+    "--" + B + "\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" +
+    chunk76(b64utf8(text || "")) + "\r\n" +
+    "--" + B + "\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" +
+    chunk76(b64utf8(html || "")) + "\r\n" +
+    "--" + B + "--";
+  return b64url(mime);
+}
+
+// Read the account's default Gmail signature (so composed mail matches Gmail).
+export async function getSignature(tok) {
+  try {
+    const r = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/settings/sendAs",
+      { headers: { Authorization: "Bearer " + tok } });
+    if (!r.ok) return "";
+    const list = (await r.json()).sendAs || [];
+    const def = list.find((s) => s.isDefault && s.signature) || list.find((s) => s.signature);
+    return (def && def.signature) || "";
+  } catch (e) { return ""; }
+}
+
 // Walk a Gmail message payload and pull out the text/html (preferred) + text/plain bodies.
 export function extractBodies(payload) {
   let html = "", text = "";

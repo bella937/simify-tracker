@@ -631,6 +631,93 @@
   .notesf textarea{border:1px solid var(--line);border-radius:8px;padding:9px 11px;font:inherit;font-size:13px;min-height:52px;resize:vertical;color:var(--ink);background:#fffdf9;}
   .notesf textarea:focus{outline:none;border-color:var(--brand,#f0a02a);}
   .edmeta2{padding:14px 20px 2px;}
+  /* --- Inbox: command centre, threads, tasks, reply (redesign) --- */
+  .cvrow{position:relative;}
+  .cvrow.unread .cvname{font-weight:800;}
+  .unreaddot{position:absolute;top:-2px;left:-2px;width:9px;height:9px;border-radius:50%;background:var(--brand,#f0a02a);border:2px solid var(--surface,#fff);}
+  .mav{position:relative;}
+  .cvtime{float:right;font-family:var(--fm);font-size:10.5px;color:var(--dim);margin-left:6px;}
+  .campchip{font-family:var(--fm);font-size:10px;color:#7a5b12;background:#fdf1dc;border:1px solid #f0a02a44;border-radius:20px;padding:1px 8px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .draftbadge{font-family:var(--fm);font-size:9.5px;font-weight:700;color:#7a5b12;background:#fdf1dc;border-radius:5px;padding:1px 6px;}
+  .msgcount{font-family:var(--fm);font-size:9.5px;font-weight:700;color:var(--muted);background:var(--surface-2,#f1efe9);border-radius:20px;padding:1px 7px;}
+  .cc{display:flex;flex-direction:column;}
+  .cc-shell{max-width:760px;margin:0 auto;width:100%;}
+  .cc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 20px;border-bottom:1px solid var(--line);}
+  @media(max-width:1100px){.cc-grid{grid-template-columns:repeat(2,1fr);}}
+  .cctile{display:flex;flex-direction:column;gap:3px;min-width:0;}
+  .cclabel{font-family:var(--fm);font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--dim);}
+  .ccval{font-size:13px;color:var(--ink);font-weight:600;overflow:hidden;text-overflow:ellipsis;}
+  .ccval .ccinput{width:100%;border:1px solid var(--line);border-radius:7px;padding:5px 7px;font:inherit;font-size:12.5px;background:var(--surface,#fff);color:var(--ink);font-weight:500;box-sizing:border-box;}
+  .ccval .ccinput:focus{outline:none;border-color:var(--brand,#f0a02a);}
+  .ccpill{display:inline-block;font-family:var(--fm);font-size:11px;font-weight:700;border-radius:20px;padding:2px 9px;border:1px solid transparent;cursor:default;}
+  button.ccpill{cursor:pointer;}
+  .ccpill.ok{color:#137a3f;background:#eafaf0;border-color:#137a3f33;}
+  .ccpill.warn{color:#c0392b;background:#fdecec;border-color:#c0392b33;}
+  .ccpill.info{color:#1f6feb;background:#eaf1fe;border-color:#1f6feb33;}
+  .ccpill.neutral{color:var(--muted);background:var(--surface-2,#f1efe9);border-color:var(--line);}
+  .cclink{color:var(--brand,#f0a02a);font-weight:700;text-decoration:none;}
+  .cclink:hover{text-decoration:underline;}
+  .ccsub{font-family:var(--fm);font-size:10px;color:var(--muted);font-weight:500;}
+  .ccmuted{color:var(--muted);font-weight:500;}
+  .ccmuted.small{font-size:12px;}
+  .ccrow2{display:flex;gap:16px;padding:12px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap;background:#fffdf9;}
+  .ccnext{flex:1;min-width:220px;}
+  .ccnextl{display:block;font-family:var(--fm);font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--dim);margin-bottom:3px;}
+  .ccnextv{font-size:13.5px;font-weight:700;color:var(--ink);}
+  .ccout{flex:1;min-width:220px;display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start;}
+  .ccout .ccnextl{flex-basis:100%;}
+  .outtag{font-family:var(--fm);font-size:10.5px;color:#c0392b;background:#fdecec;border:1px solid #c0392b33;border-radius:20px;padding:2px 9px;}
+  .ccactions{display:flex;gap:8px;padding:12px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .qbtn{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--ink);background:var(--surface,#fff);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer;transition:.12s;}
+  .qbtn:hover{border-color:var(--brand,#f0a02a);background:#fff6e9;}
+  .tasks{padding:12px 20px;border-bottom:1px solid var(--line);}
+  .tasksh{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--dim);margin-bottom:7px;display:flex;align-items:center;gap:7px;}
+  .tcount{color:#fff;background:var(--brand,#f0a02a);border-radius:20px;padding:0 7px;font-size:10px;}
+  .tasklist{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;}
+  .taskrow{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink);padding:4px 0;}
+  .taskrow input[type=checkbox]{flex:0 0 auto;}
+  .taskrow.done span{text-decoration:line-through;color:var(--muted);}
+  .taskrow span{flex:1;min-width:0;}
+  .taskrow em{font-family:var(--fm);font-style:normal;font-size:10.5px;color:var(--muted);}
+  .taskdel{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;line-height:1;flex:0 0 auto;}
+  .taskdel:hover{color:#c0392b;}
+  .taskadd{display:flex;gap:7px;}
+  .taskadd input[type=text]{flex:1;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px 9px;font:inherit;font-size:12.5px;background:var(--surface,#fff);color:var(--ink);}
+  .taskadd input[type=date]{border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit;font-size:12px;color:var(--ink);background:var(--surface,#fff);}
+  .taskadd input:focus{outline:none;border-color:var(--brand,#f0a02a);}
+  .msgs{display:flex;flex-direction:column;padding:6px 12px 0;}
+  .msgtools{display:flex;align-items:center;justify-content:space-between;padding:8px 8px 4px;}
+  .linkbtn{background:none;border:none;color:var(--brand,#f0a02a);font-family:var(--fm);font-size:12px;font-weight:600;cursor:pointer;padding:0;}
+  .msg{border:1px solid var(--line);border-radius:11px;margin:6px 0;overflow:hidden;background:var(--surface,#fff);}
+  .msg.unread{border-color:var(--brand,#f0a02a);box-shadow:0 0 0 1px #f0a02a33;}
+  .msghead{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;}
+  .msg.open .msghead{border-bottom:1px solid var(--line);}
+  .mav.sm{width:28px;height:28px;flex-basis:28px;font-size:12px;}
+  .mav.sm.out{background:#137a3f;}
+  .mav.sm.in{background:var(--brand,#f0a02a);}
+  .msgwho{font-weight:700;font-size:13px;color:var(--ink);display:flex;flex-direction:column;line-height:1.2;flex:1;min-width:0;}
+  .msgdir{font-family:var(--fm);font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;}
+  .msgbadges{display:flex;gap:5px;flex-wrap:wrap;}
+  .msgbadge{font-family:var(--fm);font-size:10px;font-weight:700;border-radius:20px;padding:1px 8px;}
+  .msgbadge.ok{color:#137a3f;background:#eafaf0;}
+  .msgbadge.warn{color:#c0392b;background:#fdecec;}
+  .msgbadge.info{color:#1f6feb;background:#eaf1fe;}
+  .msgwhen{font-family:var(--fm);font-size:11px;color:var(--dim);flex:0 0 auto;}
+  .msgbody{display:none;padding:14px 16px;font-size:14px;line-height:1.55;color:#111;overflow-x:auto;overflow-wrap:anywhere;word-break:break-word;}
+  .msg.open .msgbody{display:block;}
+  .msgbody img{max-width:100%;height:auto;}
+  .msgbody table{max-width:100%;display:block;overflow-x:auto;}
+  .msgbody blockquote{border-left:3px solid var(--line);margin:6px 0;padding-left:12px;color:var(--muted);}
+  .msgatts{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;}
+  .att{font-family:var(--fm);font-size:11px;color:var(--ink);background:var(--surface-2,#f1efe9);border:1px solid var(--line);border-radius:7px;padding:3px 9px;}
+  .replywrap{padding:6px 12px 16px;}
+  .reply{border:1px solid var(--line);border-radius:12px;background:#fffdf9;max-width:100%;}
+  .replyh{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--line);font-family:var(--fm);font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--dim);}
+  .tplwrap{position:relative;}
+  .tplmenu{position:absolute;right:0;top:110%;z-index:20;background:var(--surface,#fff);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,.14);display:flex;flex-direction:column;min-width:170px;overflow:hidden;}
+  .tplmenu button{background:none;border:none;text-align:left;padding:9px 13px;font:inherit;font-size:13px;color:var(--ink);cursor:pointer;text-transform:none;letter-spacing:0;}
+  .tplmenu button:hover{background:var(--surface-2,#faf8f3);}
+  .draftlabel{font-family:var(--fm);font-size:11px;color:#7a5b12;background:#fdf1dc;padding:6px 20px;border-bottom:1px solid var(--line);}
   /* --- Creative Intelligence --- */
   .newbadge{margin-left:auto;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#137a3f;background:#eafaf0;border:1px solid #137a3f44;border-radius:20px;padding:1px 7px;}
   .cihero{display:flex;gap:20px;align-items:center;background:linear-gradient(120deg,#fff6e9,#fdfcf9);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:16px;flex-wrap:wrap;}
@@ -1161,7 +1248,7 @@
 window.SimifyStore=(function(){
   var ROOT="simify_store_v1";
   var LEGACY={triage:"simify_triage_v1",daily:"simify_daily_v1",crm:"simify_crm_v1"};
-  function defaults(){ return {triage:{},daily:null,crm:{},creatorsAdded:[],campaigns:[],deliverables:{},affiliate:{},ui:{},_meta:{migrated:false,savedAt:null}}; }
+  function defaults(){ return {triage:{},daily:null,crm:{},creatorsAdded:[],campaigns:[],deliverables:{},affiliate:{},tasks:[],ui:{},_meta:{migrated:false,savedAt:null}}; }
   var db=load();
   var timer=null, extCbs=[], savedCbs=[], errCb=null, bc=null;
   try{ bc=("BroadcastChannel" in window)?new BroadcastChannel("simify_store"):null; }catch(e){ bc=null; }
@@ -1537,26 +1624,29 @@ window.SimifyStore=(function(){
 </script>
 <script>
 (function(){
-  var DRAFTS=[], selId=null, searchTerm="", activeFilter="all";
+  var BELLA="bella@simify.com";
+  var CONVOS=[], selKey=null, searchTerm="", activeFilter="all", composing=false;
+  var histId="", pollTimer=null, threadOpen=null, syncErr=false;
   var listEl=document.getElementById("inboxList");
   var viewEl=document.getElementById("mailView");
   var stEl=document.getElementById("inboxStatus");
   var statsEl=document.getElementById("ibStats");
   var chipsEl=document.getElementById("ibChips");
   var searchEl=document.getElementById("ibSearch");
+
   function toast(m){ var t=document.getElementById("toast"),ts=document.getElementById("toastMsg"); if(t&&ts){ts.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2400);} }
   function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
   function initial(s){ return ((String(s).replace(/[^A-Za-z0-9]/g,"")[0])||"?").toUpperCase(); }
   function today(){ try{ return (new Date()).toISOString().slice(0,10); }catch(e){ return ""; } }
-  function notConfigured(){ return '<div class="mempty">Mailbox not connected yet \u2014 your Gmail drafts appear here once the site is deployed with your Gmail secret (behind Cloudflare Access).</div>'; }
-  function welcome(){ return '<div class="mwelcome"><div class="mwicon">\u2709</div><div class="mwt">Select a conversation</div><div class="mws">Every thread shows the creator, their pipeline stage and your notes \u2014 before you open it.</div></div>'; }
+  function notConfigured(){ return '<div class="mempty">Mailbox not connected yet — your conversations appear here once the site is deployed with your Gmail secret (behind Cloudflare Access).</div>'; }
+  function welcome(){ return '<div class="mwelcome"><div class="mwicon">✉</div><div class="mwt">Select a conversation</div><div class="mws">Every thread opens with a campaign command centre — stage, shipping, content, affiliate and next action — above the full email history.</div></div>'; }
 
+  // ---- persistence (shared SimifyStore) ----
   var CRM=SimifyStore.get("crm");
   function crmSave(){ SimifyStore.set("crm",CRM); }
-  SimifyStore.onExternalChange(function(){ CRM=SimifyStore.get("crm"); if(typeof renderList==="function"){ try{ renderList(); }catch(e){} } });
+  SimifyStore.onExternalChange(function(){ CRM=SimifyStore.get("crm"); TASKS=SimifyStore.get("tasks")||[]; if(typeof renderList==="function"){ try{ renderList(); }catch(e){} } });
   function crmFor(email){ return CRM[String(email||"").toLowerCase()]||{}; }
   function crmSet(email,patch){ var k=String(email||"").toLowerCase(); CRM[k]=Object.assign({},CRM[k]||{},patch); crmSave(); }
-  // ---- Inbox archive / remove — LOCAL & reversible; the Gmail draft is never touched ----
   var IBX=(SimifyStore.get("ui")||{}).inbox||{};
   function ibxSave(){ var u=SimifyStore.get("ui")||{}; u.inbox=IBX; SimifyStore.set("ui",u); }
   function ibxState(id){ return IBX[id]||""; }
@@ -1571,189 +1661,435 @@ window.SimifyStore=(function(){
     el.querySelector("button").onclick=function(){ clearTimeout(_undoT); el.classList.remove("show"); fn(); };
     clearTimeout(_undoT); _undoT=setTimeout(function(){ el.classList.remove("show"); },6000);
   }
-  // ---- Sent history — kept locally, since a sent email leaves the Gmail drafts feed ----
   var SENT=(SimifyStore.get("ui")||{}).sent||[];
   function sentSave(){ var u=SimifyStore.get("ui")||{}; u.sent=SENT; SimifyStore.set("ui",u); }
   function sentAdd(rec){ SENT.unshift(rec); if(SENT.length>500) SENT.length=500; sentSave(); }
-  var STAGES=["Prospect","Contacted","Interested","Product sent","Content pending","Review","Published","Affiliate active","Completed"];
-  function stageFromStatus(l){ return ({"New lead":"Prospect","Ready to draft":"Prospect","Skipped":"Prospect","Declined":"Prospect","Outreached":"Contacted","Replied":"Interested","Negotiating":"Interested","Onboarding":"Product sent","In production":"Content pending","Live":"Published"})[l]||"Prospect"; }
-  function stageOf(d){ var c=crmFor(d.to); if(c.stage) return c.stage; return d.cr?stageFromStatus(d.cr.statusLabel):"Prospect"; }
-  function priOf(d){ return crmFor(d.to).priority||""; }
-  function isFollowDue(d){ var f=crmFor(d.to).follow||""; return !!(f && f<=today()); }
-  function enrich(){ DRAFTS.forEach(function(d){ d.cr = window.simCreatorByEmail ? window.simCreatorByEmail(d.to) : null; }); }
-  function nameOf(d){ return (d.cr&&d.cr.name)||d.to; }
+  // ---- tasks linked to a conversation ----
+  var TASKS=SimifyStore.get("tasks")||[];
+  function tasksSave(){ SimifyStore.set("tasks",TASKS); }
+  function tasksFor(email){ var e=String(email||"").toLowerCase(); return TASKS.filter(function(t){return String(t.email||"").toLowerCase()===e;}); }
+  function taskAdd(email,threadId,title,due){ TASKS.unshift({id:"tk_"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),email:String(email||"").toLowerCase(),threadId:threadId||"",title:String(title||"").trim(),due:due||"",done:false,createdAt:today()}); tasksSave(); }
+  function taskToggle(id){ var t=TASKS.filter(function(x){return x.id===id;})[0]; if(t){t.done=!t.done;tasksSave();} }
+  function taskDel(id){ TASKS=TASKS.filter(function(x){return x.id!==id;}); tasksSave(); }
 
+  var STAGES=["Prospect","Contacted","Interested","Product sent","Content pending","Review","Published","Affiliate active","Completed"];
+  var SHIPPED_IDX=STAGES.indexOf("Product sent");
+  function stageFromStatus(l){ return ({"New lead":"Prospect","Ready to draft":"Prospect","Skipped":"Prospect","Declined":"Prospect","Outreached":"Contacted","Replied":"Interested","Negotiating":"Interested","Onboarding":"Product sent","In production":"Content pending","Live":"Published"})[l]||"Prospect"; }
+  function stageOf(c){ var m=crmFor(c.email); if(m.stage) return m.stage; return c.cr?stageFromStatus(c.cr.statusLabel):"Prospect"; }
+  function priOf(c){ return crmFor(c.email).priority||""; }
+  function isFollowDue(c){ var f=crmFor(c.email).follow||""; return !!(f && f<=today()); }
+
+  // ---- address / name parsing ----
+  function parseAddr(s){ var m=String(s||"").match(/[^\s<>"]+@[^\s<>"]+/); return m?m[0].toLowerCase().replace(/[.,;]+$/,""):""; }
+  function parseName(s){ s=String(s||"").trim(); var m=s.match(/^"?([^"<]+?)"?\s*<[^>]+>/); if(m) return m[1].trim(); if(s.indexOf("@")>=0 && s.indexOf("<")<0) return s.split("@")[0]; return s; }
+  function counterpartyOf(conv){ var f=parseAddr(conv.fromH), t=parseAddr(conv.toH); if(f&&f!==BELLA)return f; if(t&&t!==BELLA)return t; return f||t||""; }
+  function fmtWhen(ms){ if(!ms) return ""; var d=new Date(typeof ms==="number"?ms:parseInt(ms,10)); if(isNaN(d.getTime())) return ""; var now=new Date(), diff=(now-d)/1000; if(diff<60) return "just now"; if(diff<3600) return Math.floor(diff/60)+"m ago"; if(diff<86400 && now.getDate()===d.getDate()) return d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}); var mo=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; return d.getDate()+" "+mo[d.getMonth()]+(d.getFullYear()!==now.getFullYear()?" "+d.getFullYear():""); }
+  function tsOf(conv){ return parseInt(conv.ts||conv.internalDate||"0",10)||0; }
+  function normH(h){ return String(h||"").replace(/^@/,"").trim().toLowerCase(); }
+
+  // ---- Phase 3: resolve full campaign context for an email ----
+  function sameCreator(a,b){ if(!a||!b) return false; if(a.handle&&b.handle&&normH(a.handle)===normH(b.handle)) return true; if(a.name&&b.name&&a.name===b.name) return true; return false; }
+  function resolveCtx(email){
+    var cr=window.simCreatorByEmail?window.simCreatorByEmail(email):null;
+    var camps=SimifyStore.get("campaigns")||[], found=null, key=null;
+    var nm=(crmFor(email).campaign||"").trim().toLowerCase();
+    if(nm){ found=camps.filter(function(c){return (c.name||"").trim().toLowerCase()===nm;})[0]||null; }
+    if(cr){
+      for(var i=0;i<camps.length && (!found||!key);i++){
+        var mem=camps[i].members||[];
+        for(var j=0;j<mem.length;j++){
+          var mc=window.simCreatorByKey?window.simCreatorByKey(mem[j]):null;
+          if(sameCreator(mc,cr)){ if(!found)found=camps[i]; if(found===camps[i]){key=mem[j];} break; }
+        }
+      }
+    }
+    var deliv=null, affil=null;
+    if(found&&key){ var dm=SimifyStore.get("deliverables")||{}, am=SimifyStore.get("affiliate")||{}; var kk=found.id+"::"+key; deliv=dm[kk]||null; affil=am[kk]||null; }
+    return {cr:cr, campaign:found, key:key, deliv:deliv, affil:affil};
+  }
+  function shippedOf(email,stage){ var m=crmFor(email); if(typeof m.shipped==="boolean") return m.shipped; return STAGES.indexOf(stage)>=SHIPPED_IDX; }
+  function affLabel(email,ctx){ if(ctx.affil&&ctx.affil.status) return ctx.affil.status; var a=crmFor(email).affiliate; return a==="active"?"Sales active":(a==="pending"?"Code sent":"Not active"); }
+  function contentLabel(ctx){ return (ctx.deliv&&ctx.deliv.status)||"—"; }
+  function money(n){ n=Number(n)||0; return "$"+n.toLocaleString(); }
+
+  function outstanding(email,ctx,conv){
+    var out=[], stage=stageOf(conv), m=crmFor(email);
+    if(isFollowDue(conv)) out.push("Follow-up due"+(m.follow?" ("+m.follow+")":""));
+    if(!shippedOf(email,stage) && STAGES.indexOf(stage)>=STAGES.indexOf("Interested")) out.push("Product not shipped");
+    if(ctx.deliv){ if(ctx.deliv.status==="Submitted") out.push("Content awaiting review"); if(ctx.deliv.status==="Changes requested") out.push("Revision requested — awaiting creator"); if(ctx.deliv.status==="Awaiting"||!ctx.deliv.url) out.push("No content received"); }
+    else if(STAGES.indexOf(stage)>=STAGES.indexOf("Content pending")) out.push("No content received");
+    if((affLabel(email,ctx)==="Not active") && STAGES.indexOf(stage)>=STAGES.indexOf("Published")) out.push("No affiliate code issued");
+    if(conv&&conv.unread) out.push("Unread reply");
+    return out;
+  }
+  function nextAction(email,ctx,conv){
+    var stage=stageOf(conv), m=crmFor(email);
+    if(conv&&conv.unread) return "Read & reply to their latest message";
+    if(isFollowDue(conv)) return "Send the follow-up that's due";
+    switch(stage){
+      case "Prospect": return "Send the intro / outreach email";
+      case "Contacted": return "Wait for a reply, or nudge after 3–4 days";
+      case "Interested": return "Confirm the deal and ship the $100 eSIM voucher";
+      case "Product sent": return "Share the brief and agree a go-live date";
+      case "Content pending": return ctx.deliv&&ctx.deliv.url?"Review the submitted content":"Chase the content draft";
+      case "Review": return ctx.deliv&&ctx.deliv.status==="Submitted"?"Approve or request revisions":"Finalise the review";
+      case "Published": return affLabel(email,ctx)==="Not active"?"Issue their affiliate code":"Track affiliate sales";
+      case "Affiliate active": return "Monitor sales and pay commission";
+      case "Completed": return "Nurture for the next campaign";
+      default: return "Review the conversation";
+    }
+  }
+
+  function nameOf(c){ return (c.cr&&c.cr.name)||c.name||c.email; }
+  function enrich(){ CONVOS.forEach(function(c){ if(!c.email) c.email=counterpartyOf(c); c.cr=window.simCreatorByEmail?window.simCreatorByEmail(c.email):null; if(!c.name) c.name=(c.cr&&c.cr.name)||parseName(c.fromH&&parseAddr(c.fromH)===c.email?c.fromH:(c.toH||c.fromH))||c.email; }); }
+
+  // ---- list ----
+  function visible(){ return CONVOS.filter(function(c){var s=ibxState(c.id);return s!=="archived"&&s!=="deleted";}); }
   function renderStats(){
     if(!statsEl) return;
-    var vis=DRAFTS.filter(function(d){var s=ibxState(d.id);return s!=="archived"&&s!=="deleted";});
-    var due=vis.filter(isFollowDue).length, high=vis.filter(function(d){return priOf(d)==="high";}).length, pin=vis.filter(function(d){return crmFor(d.to).pin;}).length;
-    var cards=[["all","To send",vis.length],["due","Follow-ups due",due],["high","High priority",high],["pin","Pinned",pin]];
+    var vis=visible();
+    var unread=vis.filter(function(c){return c.unread;}).length;
+    var due=vis.filter(isFollowDue).length, high=vis.filter(function(c){return priOf(c)==="high";}).length;
+    var review=vis.filter(function(c){var x=resolveCtx(c.email);return x.deliv&&x.deliv.status==="Submitted";}).length;
+    var cards=[["all","Conversations",vis.length],["unread","Unread",unread],["due","Follow-ups due",due],["review","To review",review],["high","High priority",high]];
     statsEl.innerHTML=cards.map(function(c){ return '<button class="ibstat'+(activeFilter===c[0]?" on":"")+'" data-f="'+c[0]+'"><span class="ibsn">'+c[2]+'</span><span class="ibsl">'+c[1]+'</span></button>'; }).join("");
   }
   function renderChips(){
     if(!chipsEl) return;
-    var arch=DRAFTS.filter(function(d){return ibxState(d.id)==="archived";}).length;
-    var chips=[["all","All"],["due","Follow-up due"],["high","High priority"],["pin","Pinned"],["archived","Archived"+(arch?" ("+arch+")":"")],["sent","Sent"+(SENT.length?" ("+SENT.length+")":"")]];
+    var arch=CONVOS.filter(function(c){return ibxState(c.id)==="archived";}).length;
+    var chips=[["all","All"],["unread","Unread"],["due","Follow-up due"],["review","To review"],["high","High priority"],["pin","Pinned"],["drafts","Drafts"],["archived","Archived"+(arch?" ("+arch+")":"")],["sent","Sent"+(SENT.length?" ("+SENT.length+")":"")]];
     chipsEl.innerHTML=chips.map(function(c){ return '<button class="ibchip'+(activeFilter===c[0]?" on":"")+'" data-f="'+c[0]+'">'+c[1]+'</button>'; }).join("");
   }
-  function matches(d){
-    var _st=ibxState(d.id);
-    if(_st==="deleted") return false;
-    if(activeFilter==="archived") return _st==="archived";
-    if(_st==="archived") return false;
-    if(activeFilter==="due"&&!isFollowDue(d)) return false;
-    if(activeFilter==="high"&&priOf(d)!=="high") return false;
-    if(activeFilter==="pin"&&!crmFor(d.to).pin) return false;
-    if(searchTerm){ var hay=(nameOf(d)+" "+d.to+" "+(d.subject||"")+" "+(d.cr?d.cr.niche+" "+d.cr.market+" "+d.cr.handle:"")+" "+stageOf(d)).toLowerCase(); if(hay.indexOf(searchTerm)<0) return false; }
+  function matches(c){
+    var st=ibxState(c.id);
+    if(st==="deleted") return false;
+    if(activeFilter==="archived") return st==="archived";
+    if(st==="archived") return false;
+    if(activeFilter==="unread"&&!c.unread) return false;
+    if(activeFilter==="due"&&!isFollowDue(c)) return false;
+    if(activeFilter==="high"&&priOf(c)!=="high") return false;
+    if(activeFilter==="pin"&&!crmFor(c.email).pin) return false;
+    if(activeFilter==="drafts"&&c.type!=="draft") return false;
+    if(activeFilter==="review"){ var x=resolveCtx(c.email); if(!(x.deliv&&x.deliv.status==="Submitted")) return false; }
+    if(searchTerm){ var hay=(nameOf(c)+" "+c.email+" "+(c.subject||"")+" "+(c.snippet||"")+" "+(c.cr?c.cr.niche+" "+c.cr.market+" "+c.cr.handle:"")+" "+stageOf(c)+" "+(crmFor(c.email).campaign||"")).toLowerCase(); if(hay.indexOf(searchTerm)<0) return false; }
     return true;
   }
-  function sortDrafts(a,b){ var pa=crmFor(a.to).pin?0:1,pb=crmFor(b.to).pin?0:1; if(pa!==pb)return pa-pb; return (isFollowDue(a)?0:1)-(isFollowDue(b)?0:1); }
+  function sortConvos(a,b){ var pa=crmFor(a.email).pin?0:1,pb=crmFor(b.email).pin?0:1; if(pa!==pb)return pa-pb; var ua=a.unread?0:1,ub=b.unread?0:1; if(ua!==ub)return ua-ub; return tsOf(b)-tsOf(a); }
 
-  function renderSent(){
-    if(!SENT.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">No sent emails yet \u2014 when you send from a draft, it moves here.</div>'; if(!composing)viewEl.innerHTML=welcome(); return; }
-    stEl.textContent=SENT.length+" sent";
-    listEl.innerHTML=SENT.map(function(s,i){ var nm=s.name||s.to;
-      return '<div class="cvrow'+(("sent:"+i)===selId?" active":"")+'" data-sent="'+i+'">'+
-        '<div class="mav">'+esc(initial(nm))+'</div>'+
-        '<div class="cvmain"><div class="cvl1"><span class="cvname">'+esc(nm)+'</span></div>'+
-        '<div class="cvl2">'+esc(s.to)+'</div>'+
-        '<div class="cvl3">'+esc(s.subject||"(no subject)")+'</div>'+
-        '<div class="cvl4"><span class="sentbadge">Sent \u2713'+(s.sentAt?' \u00b7 '+esc(s.sentAt):'')+'</span></div>'+
-        '</div></div>';
-    }).join("");
-  }
-  function openSent(i){ var s=SENT[i]; if(!s) return; composing=false; selId="sent:"+i; renderList();
-    var body=s.html||('<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px">'+esc(s.text||"").replace(/\n/g,"<br>")+'</div>');
-    viewEl.innerHTML='<div class="thread"><div class="crhead"><div class="mav big">'+esc(initial(s.name||s.to))+'</div>'+
-      '<div class="crhinfo"><div class="crhname">'+esc(s.name||s.to)+'</div><div class="crhmeta">To '+esc(s.to)+(s.sentAt?' \u00b7 sent '+esc(s.sentAt):'')+'</div></div>'+
-      '<span class="sentbadge">Sent \u2713</span></div>'+
-      '<div class="edmeta2"><div class="edrow"><label>Subject</label><div class="sentfield">'+esc(s.subject||"(no subject)")+'</div></div></div>'+
-      '<div class="edbodywrap"><div class="edbody">'+body+'</div></div>'+
-      '<div class="edacts"><a class="btn ghost" href="https://mail.google.com/mail/u/0/#sent" target="_blank" rel="noopener">Open in Gmail</a></div></div>';
+  function rowHtml(c){
+    var cr=c.cr, pri=priOf(c), pin=crmFor(c.email).pin, due=isFollowDue(c), meta=[], st=ibxState(c.id);
+    if(cr){ if(cr.subs)meta.push(esc(cr.subs)); if(cr.market&&cr.market!=="—")meta.push(esc(cr.market)); }
+    var camp=(crmFor(c.email).campaign||(resolveCtx(c.email).campaign||{}).name||"");
+    var acts='<div class="cvacts">'+(st==="archived"
+      ? '<button class="cvact" data-act="unarchive" data-id="'+esc(c.id)+'" title="Unarchive" aria-label="Unarchive">↩</button>'
+      : '<button class="cvact" data-act="archive" data-id="'+esc(c.id)+'" title="Archive" aria-label="Archive conversation">\u{1F5C4}</button>')
+      +'<button class="cvact del" data-act="delete" data-id="'+esc(c.id)+'" title="Remove from inbox" aria-label="Remove from inbox">\u{1F5D1}</button></div>';
+    return '<div class="cvrow'+(c.key===selKey?" active":"")+(c.unread?" unread":"")+'" data-key="'+esc(c.key)+'">'+
+      '<div class="mav">'+(c.unread?'<span class="unreaddot" aria-label="unread"></span>':'')+esc(initial(nameOf(c)))+'</div>'+
+      '<div class="cvmain"><div class="cvl1"><span class="cvname">'+esc(nameOf(c))+'</span>'+(pin?'<span class="cvpin">★</span>':'')+(c.type==="draft"?'<span class="draftbadge">Draft</span>':(c.msgCount>1?'<span class="msgcount">'+c.msgCount+'</span>':''))+(pri?'<span class="pdot '+pri+'" title="'+esc(pri)+' priority"></span>':'')+'</div>'+
+      '<div class="cvl2">'+(cr?'@'+esc(normH(cr.handle))+(meta.length?' · '+meta.join(' · '):''):esc(c.email))+(c.ts?'<span class="cvtime">'+esc(fmtWhen(tsOf(c)))+'</span>':'')+'</div>'+
+      '<div class="cvl3">'+esc(c.subject||"(no subject)")+'</div>'+
+      '<div class="cvl4"><span class="stpill">'+esc(stageOf(c))+'</span>'+(camp?'<span class="campchip">'+esc(camp)+'</span>':'')+(due?'<span class="duebadge">follow-up due</span>':'')+'</div>'+
+      '</div>'+acts+'</div>';
   }
   function renderList(){
     renderStats(); renderChips();
     if(activeFilter==="sent"){ renderSent(); return; }
-    if(!DRAFTS.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">Inbox clear \u2014 flag creators in the Creators tab and hit <b>Draft flagged</b> to add drafts here.</div>'; if(!composing)viewEl.innerHTML=welcome(); return; }
-    var list=DRAFTS.filter(matches).slice().sort(sortDrafts);
-    stEl.textContent=list.length+" of "+DRAFTS.length+" conversation"+(DRAFTS.length>1?"s":"");
+    if(syncErr && !CONVOS.length){ stEl.textContent=""; listEl.innerHTML=notConfigured(); if(!composing&&!threadOpen)viewEl.innerHTML=welcome(); return; }
+    if(!CONVOS.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">Inbox clear — conversations with creators appear here automatically, and drafts you create show up too.</div>'; if(!composing&&!threadOpen)viewEl.innerHTML=welcome(); return; }
+    var list=CONVOS.filter(matches).slice().sort(sortConvos);
+    stEl.textContent=list.length+" of "+CONVOS.length+" conversation"+(CONVOS.length>1?"s":"")+(syncErr?" · full sync needs Gmail read access":"");
     if(!list.length){ listEl.innerHTML='<div class="mempty">No conversations match.</div>'; return; }
-    listEl.innerHTML=list.map(function(d){
-      var cr=d.cr, pri=priOf(d), pin=crmFor(d.to).pin, due=isFollowDue(d), meta=[], st=ibxState(d.id);
-      if(cr){ if(cr.subs)meta.push(esc(cr.subs)); if(cr.market&&cr.market!=="\u2014")meta.push(esc(cr.market)); }
-      var acts='<div class="cvacts">'+(st==="archived"
-        ? '<button class="cvact" data-act="unarchive" data-id="'+esc(d.id)+'" title="Unarchive" aria-label="Unarchive">\u21a9</button>'
-        : '<button class="cvact" data-act="archive" data-id="'+esc(d.id)+'" title="Archive" aria-label="Archive conversation">\u{1F5C4}</button>')
-        +'<button class="cvact del" data-act="delete" data-id="'+esc(d.id)+'" title="Remove from inbox (keeps the Gmail draft)" aria-label="Remove from inbox">\u{1F5D1}</button></div>';
-      return '<div class="cvrow'+(d.id===selId?" active":"")+'" data-id="'+esc(d.id)+'">'+
-        '<div class="mav">'+esc(initial(nameOf(d)))+'</div>'+
-        '<div class="cvmain"><div class="cvl1"><span class="cvname">'+esc(nameOf(d))+'</span>'+(pin?'<span class="cvpin">\u2605</span>':'')+(pri?'<span class="pdot '+pri+'" title="'+esc(pri)+' priority" aria-label="'+esc(pri)+' priority"></span>':'')+'</div>'+
-        '<div class="cvl2">'+(cr?'@'+esc((cr.handle||"").replace(/^@/,""))+(meta.length?' \u00B7 '+meta.join(' \u00B7 '):''):esc(d.to))+'</div>'+
-        '<div class="cvl3">'+esc(d.subject||"(no subject)")+'</div>'+
-        '<div class="cvl4"><span class="stpill">'+esc(stageOf(d))+'</span>'+(due?'<span class="duebadge">follow-up due</span>':'')+'</div>'+
-        '</div>'+acts+'</div>';
+    listEl.innerHTML=list.map(rowHtml).join("");
+  }
+  function renderSent(){
+    if(!SENT.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">No sent emails logged yet.</div>'; if(!composing&&!threadOpen)viewEl.innerHTML=welcome(); return; }
+    stEl.textContent=SENT.length+" sent";
+    listEl.innerHTML=SENT.map(function(s,i){ var nm=s.name||s.to;
+      return '<div class="cvrow'+(("sent:"+i)===selKey?" active":"")+'" data-sent="'+i+'">'+
+        '<div class="mav">'+esc(initial(nm))+'</div>'+
+        '<div class="cvmain"><div class="cvl1"><span class="cvname">'+esc(nm)+'</span></div>'+
+        '<div class="cvl2">'+esc(s.to)+'</div><div class="cvl3">'+esc(s.subject||"(no subject)")+'</div>'+
+        '<div class="cvl4"><span class="sentbadge">Sent ✓'+(s.sentAt?' · '+esc(s.sentAt):'')+'</span></div>'+
+        '</div></div>';
     }).join("");
   }
-
-  var composing=false;
-  function openDraft(id){
-    composing=false; selId=id; renderList();
-    viewEl.innerHTML='<div class="mloading">Loading\u2026</div>';
-    fetch("/api/draft-get?id="+encodeURIComponent(id)).then(function(r){return r.json();}).then(function(g){
-      if(!g||g.error){ viewEl.innerHTML='<div class="mloading">Couldn\u2019t load this draft.</div>'; return; }
-      var d=DRAFTS.filter(function(x){return x.id===id;})[0]||{id:id,to:g.to}; g.to=g.to||d.to;
-      if(!d.cr) d.cr=window.simCreatorByEmail?window.simCreatorByEmail(g.to):null;
-      viewEl.innerHTML=detailHtml(g,d); wireDetail(g,d);
-    }).catch(function(){ viewEl.innerHTML='<div class="mloading">Backend not connected (editing works on the live site).</div>'; });
+  function openSent(i){ var s=SENT[i]; if(!s) return; composing=false; threadOpen=null; selKey="sent:"+i; renderList();
+    var body=s.html||('<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px">'+esc(s.text||"").replace(/\n/g,"<br>")+'</div>');
+    viewEl.innerHTML='<div class="thread"><div class="crhead"><div class="mav big">'+esc(initial(s.name||s.to))+'</div>'+
+      '<div class="crhinfo"><div class="crhname">'+esc(s.name||s.to)+'</div><div class="crhmeta">To '+esc(s.to)+(s.sentAt?' · sent '+esc(s.sentAt):'')+'</div></div>'+
+      '<span class="sentbadge">Sent ✓</span></div>'+
+      '<div class="edmeta2"><div class="edrow"><label>Subject</label><div class="sentfield">'+esc(s.subject||"(no subject)")+'</div></div></div>'+
+      '<div class="edbodywrap"><div class="edbody">'+body+'</div></div>'+
+      '<div class="edacts"><a class="btn ghost" href="https://mail.google.com/mail/u/0/#sent" target="_blank" rel="noopener">Open in Gmail</a></div></div>';
   }
+
+  // ---- Phase 3: command centre banner ----
   function pipelineHtml(stage){
     var ci=STAGES.indexOf(stage);
     return '<div class="pipeline">'+STAGES.map(function(s,i){ var cls=i<ci?"done":(i===ci?"cur":""); return '<button class="pstep '+cls+'" data-stage="'+esc(s)+'"><span class="pdotm"></span><span class="plabel">'+esc(s)+'</span></button>'; }).join("")+'</div>';
   }
-  function detailHtml(g,d){
-    var email=g.to, cr=d.cr, c=crmFor(email), stage=stageOf(d);
-    var metaBits=[]; if(cr){ if(cr.handle)metaBits.push(esc(cr.handle)); if(cr.subs)metaBits.push(esc(cr.subs)+" subs"); if(cr.market&&cr.market!=="\u2014")metaBits.push(esc(cr.market)); if(cr.niche)metaBits.push(esc(cr.niche)); } else { metaBits.push(esc(email)); metaBits.push("not in your roster"); }
-    var head='<div class="crhead"><div class="mav big">'+esc(initial(nameOf(d)))+'</div>'+
-      '<div class="crhinfo"><div class="crhname">'+esc(nameOf(d))+(cr&&cr.handle?' <a class="ytbadge" href="https://www.youtube.com/'+esc(cr.handle)+'" target="_blank" rel="noopener">YouTube</a>':'')+'</div>'+
-      '<div class="crhmeta">'+metaBits.join(' \u00B7 ')+'</div></div>'+
-      '<button class="pinbtn'+(c.pin?" on":"")+'" data-crm="pin" title="Pin conversation">\u2605</button></div>';
-    var crm='<div class="crmrow">'+
-      '<label class="crmf"><span>Priority</span><select data-crm="priority"><option value="">\u2014</option><option value="high"'+(c.priority==="high"?" selected":"")+'>High</option><option value="med"'+(c.priority==="med"?" selected":"")+'>Medium</option><option value="low"'+(c.priority==="low"?" selected":"")+'>Low</option></select></label>'+
-      '<label class="crmf"><span>Follow up</span><input type="date" data-crm="follow" value="'+esc(c.follow||"")+'"></label>'+
-      '<label class="crmf"><span>Campaign</span><input type="text" data-crm="campaign" placeholder="e.g. UK Summer" value="'+esc(c.campaign||"")+'"></label>'+
-      '<label class="crmf"><span>Affiliate</span><select data-crm="affiliate"><option value="">Not active</option><option value="pending"'+(c.affiliate==="pending"?" selected":"")+'>Code sent</option><option value="active"'+(c.affiliate==="active"?" selected":"")+'>Sales active</option></select></label>'+
-      '</div>'+
-      '<label class="notesf"><span>Private notes \u00B7 creators never see these</span><textarea data-crm="notes" placeholder="Context, next steps, what they said\u2026">'+esc(c.notes||"")+'</textarea></label>';
-    var bodyHtml=g.html||('<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px">'+esc(g.text).replace(/\n/g,"<br>")+'</div>');
-    var editor='<div class="editor"><div class="edmeta2"><div class="edrow"><label>To</label><input id="edTo" type="email" value="'+esc(g.to)+'"></div>'+
-      '<div class="edrow"><label>Subject</label><input id="edSubject" type="text" value="'+esc(g.subject)+'"></div></div>'+
-      '<div class="edbodywrap"><div id="edBody" class="edbody" contenteditable="true">'+bodyHtml+'</div></div>'+
-      '<div class="edacts"><button class="btn pri" id="edSend">Send</button><button class="btn" id="edSave">Save draft</button>'+
-      '<a class="btn ghost" href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Open in Gmail</a>'+
-      '<span class="edstatus" id="edStatus"></span></div></div>';
-    return '<div class="thread">'+head+pipelineHtml(stage)+crm+editor+'</div>';
-  }
-  function wireDetail(g,d){
-    var email=g.to, thread=viewEl.querySelector(".thread"); if(!thread) return;
-    thread.querySelectorAll(".pstep").forEach(function(b){ b.addEventListener("click",function(){ var s=b.getAttribute("data-stage"); crmSet(email,{stage:s}); var ci=STAGES.indexOf(s); thread.querySelectorAll(".pstep").forEach(function(x,i){ x.className="pstep "+(i<ci?"done":(i===ci?"cur":"")); }); renderList(); }); });
-    var pinb=thread.querySelector(".pinbtn"); if(pinb) pinb.addEventListener("click",function(){ var v=!crmFor(email).pin; crmSet(email,{pin:v}); pinb.classList.toggle("on",v); renderList(); });
-    thread.querySelectorAll("[data-crm]").forEach(function(el){ if(el.tagName==="BUTTON")return; var ev=(el.tagName==="SELECT"||el.type==="date")?"change":"input"; el.addEventListener(ev,function(){ var p={}; p[el.getAttribute("data-crm")]=el.value; crmSet(email,p); renderList(); }); });
-    wireEditor(g.id);
-  }
-  function wireEditor(id){
-    var toI=document.getElementById("edTo"), subI=document.getElementById("edSubject"), bodyI=document.getElementById("edBody"), stat=document.getElementById("edStatus");
-    function payload(){ return {id:id,to:toI.value.trim(),subject:subI.value.trim(),html:bodyI.innerHTML}; }
-    function save(){ stat.textContent="Saving\u2026"; return fetch("/api/draft-update",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload())}).then(function(r){return r.json();}).then(function(j){ if(j&&j.ok){ var d=DRAFTS.filter(function(x){return x.id===id;})[0]; if(d){ d.to=j.to; d.subject=j.subject; d.snippet=(bodyI.textContent||"").replace(/\s+/g," ").trim().slice(0,140); d.cr=window.simCreatorByEmail?window.simCreatorByEmail(j.to):d.cr; } renderList(); } return j; }); }
-    document.getElementById("edSave").addEventListener("click",function(){ save().then(function(j){ if(j&&j.ok){ stat.textContent="Saved \u2713"; setTimeout(function(){stat.textContent="";},1600);} else { stat.textContent=""; toast("Save failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Backend not connected"); }); });
-    document.getElementById("edSend").addEventListener("click",function(){ var to=toI.value.trim(); if(to.indexOf("@")<1){ toast("Add a valid recipient first"); return; } if(!confirm("Send this email to "+to+" now?\n\nIt will be sent from your Gmail.")) return; save().then(function(){ stat.textContent="Sending\u2026"; return fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:id})}).then(function(r){return r.json();}); }).then(function(j){ if(j&&j.ok){ var cr=window.simCreatorByEmail?window.simCreatorByEmail(to):null; sentAdd({id:id,to:to,subject:subI.value.trim(),html:bodyI.innerHTML,sentAt:today(),name:(cr&&cr.name)||""}); DRAFTS=DRAFTS.filter(function(x){return x.id!==id;}); selId=null; renderList(); viewEl.innerHTML=welcome(); toast("Sent to "+to+" — see the Sent tab"); if(window.simMarkOutreached) window.simMarkOutreached(to); } else { stat.textContent=""; toast("Send failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Send failed"); }); });
+  function tile(label,val,cls){ return '<div class="cctile"><div class="cclabel">'+esc(label)+'</div><div class="ccval '+(cls||"")+'">'+val+'</div></div>'; }
+  function commandCentreHtml(email,conv){
+    var cr=conv.cr, c=crmFor(email), stage=stageOf(conv), ctx=resolveCtx(email);
+    var metaBits=[]; if(cr){ if(cr.handle)metaBits.push(esc(cr.handle)); if(cr.subs)metaBits.push(esc(cr.subs)+" subs"); if(cr.market&&cr.market!=="—")metaBits.push(esc(cr.market)); if(cr.niche)metaBits.push(esc(cr.niche)); } else { metaBits.push(esc(email)); metaBits.push("not in your roster"); }
+    var head='<div class="crhead"><div class="mav big">'+esc(initial(nameOf(conv)))+'</div>'+
+      '<div class="crhinfo"><div class="crhname">'+esc(nameOf(conv))+(cr&&cr.handle?' <a class="ytbadge" href="https://www.youtube.com/'+esc(cr.handle)+'" target="_blank" rel="noopener">YouTube</a>':'')+'</div>'+
+      '<div class="crhmeta">'+metaBits.join(' · ')+(conv.ts?' · last activity '+esc(fmtWhen(tsOf(conv))):'')+'</div></div>'+
+      '<button class="pinbtn'+(c.pin?" on":"")+'" data-crm="pin" title="Pin conversation">★</button></div>';
+
+    var campVal=ctx.campaign?('<a href="#" class="cclink" data-open-camp="'+esc(ctx.campaign.id)+'">'+esc(ctx.campaign.name)+'</a>'+(ctx.campaign.status?' <span class="ccsub">'+esc(ctx.campaign.status)+'</span>':'')):'<span class="ccmuted">Not linked</span>';
+    var shipped=shippedOf(email,stage);
+    var affl=affLabel(email,ctx);
+    var afflExtra=ctx.affil?(ctx.affil.code?' · '+esc(ctx.affil.code):'')+(ctx.affil.revenue?' · '+money(ctx.affil.revenue):''):'';
+    var grid='<div class="cc-grid">'+
+      tile("Campaign",campVal)+
+      tile("Creator status",esc((cr&&cr.statusLabel)||"—"))+
+      tile("Product shipped",'<button class="ccpill '+(shipped?"ok":"warn")+'" data-toggle-ship="1">'+(shipped?"Shipped ✓":"Not shipped")+'</button>')+
+      tile("Content review",'<span class="ccpill '+(contentLabel(ctx)==="Approved"||contentLabel(ctx)==="Live"?"ok":(contentLabel(ctx)==="Changes requested"?"warn":"neutral"))+'">'+esc(contentLabel(ctx))+'</span>')+
+      tile("Affiliate",'<span class="ccpill '+(affl==="Sales active"||affl==="Active"?"ok":(affl==="Not active"?"neutral":"info"))+'">'+esc(affl)+afflExtra+'</span>')+
+      tile("Priority",'<select class="ccinput" data-crm="priority"><option value="">—</option><option value="high"'+(c.priority==="high"?" selected":"")+'>High</option><option value="med"'+(c.priority==="med"?" selected":"")+'>Medium</option><option value="low"'+(c.priority==="low"?" selected":"")+'>Low</option></select>')+
+      tile("Next follow-up",'<input type="date" class="ccinput" data-crm="follow" value="'+esc(c.follow||"")+'">')+
+      tile("Campaign manager",'<input type="text" class="ccinput" data-crm="manager" placeholder="Unassigned" value="'+esc(c.manager||"")+'">')+
+      '</div>';
+
+    var outs=outstanding(email,ctx,conv);
+    var outsHtml='<div class="ccrow2"><div class="ccnext"><span class="ccnextl">Next recommended action</span><span class="ccnextv">'+esc(nextAction(email,ctx,conv))+'</span></div>'+
+      '<div class="ccout"><span class="ccnextl">Outstanding</span>'+(outs.length?outs.map(function(o){return '<span class="outtag">'+esc(o)+'</span>';}).join(""):'<span class="ccmuted">All clear ✓</span>')+'</div></div>';
+
+    var actions='<div class="ccactions">'+
+      '<button class="qbtn" data-q="stage" title="Advance to the next pipeline stage">→ Move stage</button>'+
+      '<button class="qbtn" data-q="revision">✎ Request revision</button>'+
+      '<button class="qbtn" data-q="approve">✓ Mark approved</button>'+
+      '<button class="qbtn" data-q="followup">✉ Send follow-up</button>'+
+      '<button class="qbtn" data-q="task">➕ Create task</button>'+
+      '</div>';
+
+    var tks=tasksFor(email);
+    var tasksHtml='<div class="tasks"><div class="tasksh"><span>Tasks '+(tks.length?'<span class="tcount">'+tks.filter(function(t){return !t.done;}).length+'</span>':'')+'</span></div>'+
+      '<div class="tasklist">'+(tks.length?tks.map(function(t){return '<label class="taskrow'+(t.done?" done":"")+'"><input type="checkbox" data-task="'+esc(t.id)+'"'+(t.done?" checked":"")+'><span>'+esc(t.title)+(t.due?' <em>'+esc(t.due)+'</em>':'')+'</span><button class="taskdel" data-taskdel="'+esc(t.id)+'" title="Delete task">×</button></label>';}).join(""):'<div class="ccmuted small">No tasks yet.</div>')+'</div>'+
+      '<div class="taskadd"><input type="text" id="ccTaskInput" placeholder="Add a task…"><input type="date" id="ccTaskDue" title="Due date"><button class="btn" id="ccTaskAdd">Add</button></div></div>';
+
+    var notes='<label class="notesf"><span>Private notes · creators never see these</span><textarea data-crm="notes" placeholder="Context, next steps, what they said…">'+esc(c.notes||"")+'</textarea></label>';
+
+    return '<div class="cc">'+head+pipelineHtml(stage)+grid+outsHtml+actions+tasksHtml+notes+'</div>';
   }
 
-  if(listEl) listEl.addEventListener("click",function(e){
-    var act=e.target.closest("[data-act]");
-    if(act){ e.stopPropagation(); var id=act.getAttribute("data-id"), a=act.getAttribute("data-act");
-      if(a==="unarchive"){ ibxSet(id,""); renderList(); return; }
-      if(selId===id){ selId=null; viewEl.innerHTML=welcome(); }
-      if(a==="archive"){ ibxSet(id,"archived"); renderList(); showUndo("Archived",function(){ ibxSet(id,""); renderList(); }); return; }
-      if(a==="delete"){ ibxSet(id,"deleted"); renderList(); showUndo("Removed from inbox — your Gmail draft is kept",function(){ ibxSet(id,""); renderList(); }); return; }
+  function delivSet(campId,key,patch){ var dm=SimifyStore.get("deliverables")||{}; var k=campId+"::"+key; dm[k]=Object.assign({},dm[k]||{},patch); SimifyStore.set("deliverables",dm); }
+
+  function wireCommandCentre(email,conv,root){
+    root.querySelectorAll(".pstep").forEach(function(b){ b.addEventListener("click",function(){ var s=b.getAttribute("data-stage"); crmSet(email,{stage:s}); refreshDetail(conv); renderList(); }); });
+    var pinb=root.querySelector(".pinbtn"); if(pinb) pinb.addEventListener("click",function(){ var v=!crmFor(email).pin; crmSet(email,{pin:v}); pinb.classList.toggle("on",v); renderList(); });
+    root.querySelectorAll("[data-crm]").forEach(function(el){ if(el.tagName==="BUTTON")return; var ev=(el.tagName==="SELECT"||el.type==="date")?"change":(el.tagName==="TEXTAREA"?"input":"input"); el.addEventListener(ev,function(){ var p={}; p[el.getAttribute("data-crm")]=el.value; crmSet(email,p); if(el.getAttribute("data-crm")==="priority"){ renderList(); } }); });
+    var shipBtn=root.querySelector("[data-toggle-ship]"); if(shipBtn) shipBtn.addEventListener("click",function(){ var cur=shippedOf(email,stageOf(conv)); crmSet(email,{shipped:!cur}); refreshDetail(conv); });
+    root.querySelectorAll("[data-open-camp]").forEach(function(a){ a.addEventListener("click",function(e){ e.preventDefault(); if(window.simOpenCampaign) window.simOpenCampaign(a.getAttribute("data-open-camp")); }); });
+    // tasks
+    root.querySelectorAll("[data-task]").forEach(function(cb){ cb.addEventListener("change",function(){ taskToggle(cb.getAttribute("data-task")); refreshDetail(conv); }); });
+    root.querySelectorAll("[data-taskdel]").forEach(function(b){ b.addEventListener("click",function(e){ e.preventDefault(); taskDel(b.getAttribute("data-taskdel")); refreshDetail(conv); }); });
+    var addBtn=root.querySelector("#ccTaskAdd"), addIn=root.querySelector("#ccTaskInput"), addDue=root.querySelector("#ccTaskDue");
+    function doAdd(){ var v=(addIn.value||"").trim(); if(!v){ addIn.focus(); return; } taskAdd(email,conv.id,v,addDue.value||""); refreshDetail(conv); }
+    if(addBtn) addBtn.addEventListener("click",doAdd);
+    if(addIn) addIn.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); doAdd(); } });
+    // quick actions
+    root.querySelectorAll("[data-q]").forEach(function(b){ b.addEventListener("click",function(){ quickAction(b.getAttribute("data-q"),email,conv,root); }); });
+  }
+  function quickAction(q,email,conv,root){
+    var ctx=resolveCtx(email), stage=stageOf(conv);
+    if(q==="stage"){ var i=STAGES.indexOf(stage); if(i<STAGES.length-1){ crmSet(email,{stage:STAGES[i+1]}); toast("Stage → "+STAGES[i+1]); refreshDetail(conv); renderList(); } else toast("Already at the final stage"); return; }
+    if(q==="revision"){ if(ctx.campaign&&ctx.key){ delivSet(ctx.campaign.id,ctx.key,{status:"Changes requested"}); } crmSet(email,{stage:"Content pending"}); toast("Marked: revision requested"); openReply(conv,tpl("revision",email,ctx)); refreshDetail(conv); renderList(); return; }
+    if(q==="approve"){ if(ctx.campaign&&ctx.key){ delivSet(ctx.campaign.id,ctx.key,{status:"Approved",reviewedAt:today()}); } crmSet(email,{stage:"Review"}); toast("Marked: content approved ✓"); refreshDetail(conv); renderList(); return; }
+    if(q==="followup"){ openReply(conv,tpl("followup",email,ctx)); return; }
+    if(q==="task"){ var t=root.querySelector("#ccTaskInput"); if(t){ t.scrollIntoView({block:"center"}); t.focus(); } return; }
+  }
+
+  // ---- templates + variables (Phase 4) ----
+  function signoff(){ return "Bella<br>Partnerships Manager | Simify"; }
+  function resolveVars(text,email,ctx){ var cr=ctx.cr, name=(cr&&cr.name)?String(cr.name).split(/[\s(]/)[0]:"there"; var camp=ctx.campaign?ctx.campaign.name:(crmFor(email).campaign||"our campaign"); var link=(ctx.affil&&ctx.affil.code)?("simify.com/"+ctx.affil.code):"your affiliate link"; return String(text).replace(/\{\{\s*creator\s*\}\}/gi,name).replace(/\{\{\s*campaign\s*\}\}/gi,camp).replace(/\{\{\s*affiliate_link\s*\}\}/gi,link).replace(/\{\{\s*signoff\s*\}\}/gi,signoff()); }
+  var TEMPLATES=[
+    {id:"followup",name:"Follow-up",body:"Hey {{creator}},<br><br>Just following up on my note below — would love to have you on board for {{campaign}}. Any questions I can answer?<br><br>{{signoff}}"},
+    {id:"revision",name:"Revision request",body:"Hey {{creator}},<br><br>Thanks so much for the draft! A couple of small tweaks before we go live — [ ] .<br><br>Once that's sorted we're good to publish. Thank you!<br><br>{{signoff}}"},
+    {id:"thanks",name:"Thank you + code",body:"Hey {{creator}},<br><br>This looks fantastic — thank you! Your affiliate link is {{affiliate_link}} (15% commission on every sale). Shout if you'd like assets for future videos.<br><br>{{signoff}}"}
+  ];
+  function tpl(id,email,ctx){ var t=TEMPLATES.filter(function(x){return x.id===id;})[0]; return t?resolveVars(t.body,email,ctx):""; }
+
+  // ---- thread messages (newest first) ----
+  var KE=[[/approv/i,"Approved","ok"],[/\b(ship|shipped|dispatch|tracking|posted)\b/i,"Shipping","info"],[/\b(live|published|went up|uploaded|it's up)\b/i,"Went live","ok"],[/\b(declin|not interested|no thanks|pass on)\b/i,"Declined","warn"],[/\b(interested|keen|happy to|sounds good|let's do|count me in)\b/i,"Positive","ok"],[/\b(invoice|payment|commission|paid)\b/i,"Money","info"]];
+  function keyEvents(m){ var out=[]; var body=(m.text||m.snippet||"").slice(0,4000); if((m.attachments||[]).length) out.push(['\u{1F4CE} '+m.attachments.length,"info"]); for(var i=0;i<KE.length&&out.length<3;i++){ if(KE[i][0].test(body)) out.push([KE[i][1],KE[i][2]]); } return out; }
+  function msgCard(m,i,open){
+    var out=m.outbound, who=out?"You":(parseName(m.from)||parseAddr(m.from)||"Creator");
+    var badges=keyEvents(m).map(function(b){return '<span class="msgbadge '+b[1]+'">'+esc(b[0])+'</span>';}).join("");
+    var body=m.html||('<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px">'+esc(m.text||m.snippet||"").replace(/\n/g,"<br>")+'</div>');
+    var atts=(m.attachments||[]).length?'<div class="msgatts">'+m.attachments.map(function(a){return '<span class="att">\u{1F4CE} '+esc(a.filename)+'</span>';}).join("")+'</div>':'';
+    return '<div class="msg'+(open?" open":"")+(m.unread?" unread":"")+'" data-msg="'+i+'">'+
+      '<div class="msghead" data-toggle="'+i+'"><span class="mav sm '+(out?"out":"in")+'">'+esc(initial(who))+'</span>'+
+      '<span class="msgwho">'+esc(who)+'<span class="msgdir">'+(out?"sent":"received")+'</span></span>'+
+      '<span class="msgbadges">'+badges+'</span><span class="msgwhen">'+esc(fmtWhen(parseInt(m.internalDate||"0",10)))+'</span></div>'+
+      '<div class="msgbody">'+body+atts+'</div></div>';
+  }
+  function messagesHtml(thread,email){
+    var msgs=(thread.messages||[]).slice().sort(function(a,b){return parseInt(a.internalDate||"0",10)-parseInt(b.internalDate||"0",10);});
+    var rev=msgs.slice().reverse();
+    var jump=msgs.length>2?'<div class="msgtools"><span class="ccnextl">'+msgs.length+' messages</span><button class="linkbtn" id="msgExpand">Expand all</button></div>':'';
+    var cards=rev.map(function(m,idx){ return msgCard(m,msgs.length-1-idx,idx===0); }).join("");
+    return '<div class="msgs" data-thread="'+esc(thread.id||"")+'">'+jump+cards+'</div>';
+  }
+
+  // ---- reply composer ----
+  function replyHtml(conv,prefill){
+    return '<div class="reply" id="replyBox">'+
+      '<div class="replyh"><span>Reply</span><div class="tplwrap"><button class="linkbtn" id="tplBtn">Templates ▾</button><div class="tplmenu" id="tplMenu" hidden>'+TEMPLATES.map(function(t){return '<button data-tpl="'+t.id+'">'+esc(t.name)+'</button>';}).join("")+'</div></div></div>'+
+      '<div class="edmeta2"><div class="edrow"><label>To</label><input id="edTo" type="email" value="'+esc(conv.email||"")+'"></div>'+
+      '<div class="edrow"><label>Subject</label><input id="edSubject" type="text" value="'+esc(conv.reSubject||("Re: "+(conv.subject||"")))+'"></div></div>'+
+      '<div class="edbodywrap"><div id="edBody" class="edbody" contenteditable="true" data-placeholder="Write your reply…">'+(prefill||"")+'</div></div>'+
+      '<div class="edacts"><button class="btn pri" id="edSend">Send</button><button class="btn" id="edSave">Save draft</button>'+
+      '<span class="edstatus" id="edStatus"></span></div></div>';
+  }
+  var _saveT=null;
+  function wireReply(conv){
+    var toI=document.getElementById("edTo"), subI=document.getElementById("edSubject"), bodyI=document.getElementById("edBody"), stat=document.getElementById("edStatus");
+    var replyId=null;
+    var tplBtn=document.getElementById("tplBtn"), tplMenu=document.getElementById("tplMenu");
+    if(tplBtn) tplBtn.addEventListener("click",function(){ tplMenu.hidden=!tplMenu.hidden; });
+    if(tplMenu) tplMenu.querySelectorAll("[data-tpl]").forEach(function(b){ b.addEventListener("click",function(){ var ctx=resolveCtx(conv.email); bodyI.innerHTML=tpl(b.getAttribute("data-tpl"),conv.email,ctx); tplMenu.hidden=true; queueSave(); }); });
+    function payload(){ return {id:replyId,to:(toI.value||"").trim(),subject:(subI.value||"").trim(),html:bodyI.innerHTML,threadId:conv.id,inReplyTo:conv.lastMsgId||"",references:conv.refs||""}; }
+    function ensureSaved(){ var p=payload(); if(p.to.indexOf("@")<1) return Promise.resolve({ok:false,error:"no recipient"});
+      if(replyId) return fetch("/api/draft-update",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}).then(function(r){return r.json();});
+      return fetch("/api/draft-compose",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}).then(function(r){return r.json();}).then(function(j){ if(j&&j.ok&&j.id) replyId=j.id; return j; });
     }
-    var srow=e.target.closest("[data-sent]"); if(srow){ openSent(parseInt(srow.getAttribute("data-sent"),10)); return; }
-    var row=e.target.closest(".cvrow"); if(row) openDraft(row.getAttribute("data-id"));
-  });
-  if(statsEl) statsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); renderList(); } });
-  if(chipsEl) chipsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); renderList(); } });
-  if(searchEl) searchEl.addEventListener("input",function(){ searchTerm=searchEl.value.trim().toLowerCase(); renderList(); });
-  // ---- Compose a brand-new email (saved to Gmail drafts via /api/draft-new) ----
-  function composeHtml(){
-    return '<div class="thread"><div class="crhead"><div class="mav big">✎</div>'+
-      '<div class="crhinfo"><div class="crhname">New email</div><div class="crhmeta">Write a fresh email — saved to your Gmail drafts, nothing sends without your click</div></div></div>'+
+    function queueSave(){ clearTimeout(_saveT); stat.textContent="Saving…"; _saveT=setTimeout(function(){ ensureSaved().then(function(j){ stat.textContent=(j&&j.ok)?"Draft saved ✓":""; setTimeout(function(){if(stat.textContent.indexOf("saved")>=0)stat.textContent="";},1800); }).catch(function(){ stat.textContent=""; }); },1200); }
+    bodyI.addEventListener("input",queueSave); subI.addEventListener("input",queueSave);
+    document.getElementById("edSave").addEventListener("click",function(){ clearTimeout(_saveT); stat.textContent="Saving…"; ensureSaved().then(function(j){ if(j&&j.ok){ stat.textContent="Draft saved ✓ · in Gmail"; setTimeout(function(){stat.textContent="";},2200);} else { stat.textContent=""; toast("Save failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Backend not connected (works on the live site)"); }); });
+    document.getElementById("edSend").addEventListener("click",function(){ var to=(toI.value||"").trim(); if(to.indexOf("@")<1){ toast("Add a valid recipient first"); return; } if(!confirm("Send this reply to "+to+" now?\n\nIt will be sent from your Gmail.")) return; clearTimeout(_saveT); stat.textContent="Sending…"; ensureSaved().then(function(j){ if(!(j&&j.ok&&replyId)) throw new Error("save"); return fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:replyId})}).then(function(r){return r.json();}); }).then(function(j){ if(j&&j.ok){ var cr=window.simCreatorByEmail?window.simCreatorByEmail(to):null; sentAdd({id:replyId,to:to,subject:(subI.value||"").trim(),html:bodyI.innerHTML,sentAt:today(),name:(cr&&cr.name)||""}); toast("Sent to "+to); if(window.simMarkOutreached) window.simMarkOutreached(to); openThread(conv,true); } else { stat.textContent=""; toast("Send failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Send failed (works on the live site)"); }); });
+  }
+  function openReply(conv,prefill){ var box=document.getElementById("replyBox"); if(box){ var b=document.getElementById("edBody"); if(prefill&&b){ b.innerHTML=prefill; } box.scrollIntoView({behavior:"smooth",block:"center"}); if(b)b.focus(); return; } }
+
+  // ---- open a thread / draft (both get the command centre) ----
+  function refreshDetail(conv){ var root=viewEl.querySelector(".cc"); if(!root) return; var wrap=document.createElement("div"); wrap.innerHTML=commandCentreHtml(conv.email,conv); var neu=wrap.firstChild; root.parentNode.replaceChild(neu,root); wireCommandCentre(conv.email,conv,neu); }
+  function openThread(conv,silent){
+    composing=false; threadOpen=conv; selKey=conv.key; if(conv.unread){ conv.unread=false; } renderList();
+    if(!silent) viewEl.innerHTML='<div class="cc-shell">'+commandCentreHtml(conv.email,conv)+'</div><div class="mloading">Loading conversation…</div>';
+    fetch("/api/thread?id="+encodeURIComponent(conv.id)).then(function(r){return r.json();}).then(function(t){
+      if(!t||t.error||!t.messages){ viewEl.innerHTML='<div class="cc-shell">'+commandCentreHtml(conv.email,conv)+'</div><div class="mloading">Couldn’t load this conversation.</div>'; wireCommandCentre(conv.email,conv,viewEl.querySelector(".cc")); return; }
+      var msgs=t.messages.slice().sort(function(a,b){return parseInt(a.internalDate||"0",10)-parseInt(b.internalDate||"0",10);});
+      var last=msgs[msgs.length-1]||{}; conv.lastMsgId=last.messageId||""; conv.refs=(msgs.map(function(m){return m.messageId;}).filter(Boolean).join(" ")); conv.reSubject=(function(s){s=String(s||"");return /^re:/i.test(s)?s:("Re: "+s);})(msgs[0]&&msgs[0].subject||conv.subject);
+      viewEl.innerHTML='<div class="thread">'+commandCentreHtml(conv.email,conv)+messagesHtml(t,conv.email)+'<div class="replywrap">'+replyHtml(conv,"")+'</div></div>';
+      wireCommandCentre(conv.email,conv,viewEl.querySelector(".cc"));
+      wireThread(conv);
+    }).catch(function(){ viewEl.innerHTML='<div class="cc-shell">'+commandCentreHtml(conv.email,conv)+'</div><div class="mloading">Backend not connected (full threads load on the live site).</div>'; var cc=viewEl.querySelector(".cc"); if(cc)wireCommandCentre(conv.email,conv,cc); });
+  }
+  function wireThread(conv){
+    viewEl.querySelectorAll(".msghead[data-toggle]").forEach(function(h){ h.addEventListener("click",function(){ h.parentNode.classList.toggle("open"); }); });
+    var ex=document.getElementById("msgExpand"); if(ex) ex.addEventListener("click",function(){ var all=viewEl.querySelectorAll(".msg"); var anyClosed=[].some.call(all,function(m){return !m.classList.contains("open");}); all.forEach(function(m){ m.classList.toggle("open",anyClosed); }); ex.textContent=anyClosed?"Collapse all":"Expand all"; });
+    wireReply(conv);
+  }
+  function openDraft(conv){
+    composing=false; threadOpen=conv; selKey=conv.key; renderList();
+    viewEl.innerHTML='<div class="cc-shell">'+commandCentreHtml(conv.email,conv)+'</div><div class="mloading">Loading draft…</div>';
+    fetch("/api/draft-get?id="+encodeURIComponent(conv.id)).then(function(r){return r.json();}).then(function(g){
+      if(!g||g.error){ viewEl.innerHTML='<div class="thread">'+commandCentreHtml(conv.email,conv)+'<div class="mloading">Couldn’t load this draft.</div></div>'; wireCommandCentre(conv.email,conv,viewEl.querySelector(".cc")); return; }
+      var bodyHtml=g.html||('<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px">'+esc(g.text||"").replace(/\n/g,"<br>")+'</div>');
+      var editor='<div class="editor"><div class="edmeta2"><div class="edrow"><label>To</label><input id="edTo" type="email" value="'+esc(g.to||conv.email)+'"></div>'+
+        '<div class="edrow"><label>Subject</label><input id="edSubject" type="text" value="'+esc(g.subject||"")+'"></div></div>'+
+        '<div class="edbodywrap"><div id="edBody" class="edbody" contenteditable="true">'+bodyHtml+'</div></div>'+
+        '<div class="edacts"><button class="btn pri" id="edSend">Send</button><button class="btn" id="edSave">Save draft</button>'+
+        '<a class="btn ghost" href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Open in Gmail</a>'+
+        '<span class="edstatus" id="edStatus"></span></div></div>';
+      viewEl.innerHTML='<div class="thread">'+commandCentreHtml(conv.email,conv)+'<div class="draftlabel">Unsent draft</div>'+editor+'</div>';
+      wireCommandCentre(conv.email,conv,viewEl.querySelector(".cc"));
+      wireEditor(conv.id,conv);
+    }).catch(function(){ viewEl.innerHTML='<div class="thread">'+commandCentreHtml(conv.email,conv)+'<div class="mloading">Backend not connected (editing works on the live site).</div></div>'; var cc=viewEl.querySelector(".cc"); if(cc)wireCommandCentre(conv.email,conv,cc); });
+  }
+  function wireEditor(id,conv){
+    var toI=document.getElementById("edTo"), subI=document.getElementById("edSubject"), bodyI=document.getElementById("edBody"), stat=document.getElementById("edStatus");
+    function payload(){ return {id:id,to:(toI.value||"").trim(),subject:(subI.value||"").trim(),html:bodyI.innerHTML}; }
+    function save(){ stat.textContent="Saving…"; return fetch("/api/draft-update",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload())}).then(function(r){return r.json();}); }
+    var qt=null; function queueSave(){ clearTimeout(qt); stat.textContent="Saving…"; qt=setTimeout(function(){ save().then(function(j){ stat.textContent=(j&&j.ok)?"Saved ✓":""; setTimeout(function(){if(stat.textContent.indexOf("Saved")>=0)stat.textContent="";},1600); }).catch(function(){stat.textContent="";}); },1200); }
+    bodyI.addEventListener("input",queueSave); subI.addEventListener("input",queueSave); toI.addEventListener("input",queueSave);
+    document.getElementById("edSave").addEventListener("click",function(){ clearTimeout(qt); save().then(function(j){ if(j&&j.ok){ stat.textContent="Saved ✓"; if(conv){conv.subject=j.subject;} renderList(); setTimeout(function(){stat.textContent="";},1600);} else { stat.textContent=""; toast("Save failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Backend not connected"); }); });
+    document.getElementById("edSend").addEventListener("click",function(){ var to=(toI.value||"").trim(); if(to.indexOf("@")<1){ toast("Add a valid recipient first"); return; } if(!confirm("Send this email to "+to+" now?\n\nIt will be sent from your Gmail.")) return; clearTimeout(qt); save().then(function(){ stat.textContent="Sending…"; return fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:id})}).then(function(r){return r.json();}); }).then(function(j){ if(j&&j.ok){ var cr=window.simCreatorByEmail?window.simCreatorByEmail(to):null; sentAdd({id:id,to:to,subject:(subI.value||"").trim(),html:bodyI.innerHTML,sentAt:today(),name:(cr&&cr.name)||""}); CONVOS=CONVOS.filter(function(x){return x.id!==id;}); selKey=null; threadOpen=null; renderList(); viewEl.innerHTML=welcome(); toast("Sent to "+to+" — see the Sent tab"); if(window.simMarkOutreached) window.simMarkOutreached(to); } else { stat.textContent=""; toast("Send failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Send failed"); }); });
+  }
+
+  // ---- compose a brand-new email (signature added server-side via /api/draft-compose) ----
+  function openCompose(){
+    composing=true; threadOpen=null; selKey=null; renderList();
+    viewEl.innerHTML='<div class="thread"><div class="crhead"><div class="mav big">✎</div>'+
+      '<div class="crhinfo"><div class="crhname">New email</div><div class="crhmeta">Signature is added automatically — nothing sends without your click</div></div></div>'+
       '<div class="editor"><div class="edmeta2"><div class="edrow"><label>To</label><input id="edTo" type="email" placeholder="creator@example.com"></div>'+
       '<div class="edrow"><label>Subject</label><input id="edSubject" type="text" placeholder="Subject"></div></div>'+
       '<div class="edbodywrap"><div id="edBody" class="edbody" contenteditable="true" data-placeholder="Write your message…"></div></div>'+
       '<div class="edacts"><button class="btn pri" id="edSend">Send</button><button class="btn" id="edSave">Save draft</button><span class="edstatus" id="edStatus"></span></div></div>';
-  }
-  function openCompose(){ composing=true; selId=null; renderList(); viewEl.innerHTML=composeHtml(); wireCompose(); var t=document.getElementById("edTo"); if(t)t.focus(); }
-  function wireCompose(){
     var toI=document.getElementById("edTo"), subI=document.getElementById("edSubject"), bodyI=document.getElementById("edBody"), stat=document.getElementById("edStatus");
     var newId=null;
-    function ensureSaved(){
-      var p={to:toI.value.trim(),subject:subI.value.trim(),html:bodyI.innerHTML};
+    function ensureSaved(){ var p={to:(toI.value||"").trim(),subject:(subI.value||"").trim(),html:bodyI.innerHTML};
       if(newId){ p.id=newId; return fetch("/api/draft-update",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}).then(function(r){return r.json();}); }
-      return fetch("/api/draft-new",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}).then(function(r){return r.json();}).then(function(j){ if(j&&j.ok&&j.id) newId=j.id; return j; });
+      if(p.to.indexOf("@")<1) return Promise.resolve({ok:false,error:"add a recipient to save"});
+      return fetch("/api/draft-compose",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)}).then(function(r){return r.json();}).then(function(j){ if(j&&j.ok&&j.id) newId=j.id; return j; });
     }
-    document.getElementById("edSave").addEventListener("click",function(){ stat.textContent="Saving…"; ensureSaved().then(function(j){ if(j&&j.ok){ stat.textContent="Saved ✓ · in your Gmail drafts"; setTimeout(function(){stat.textContent="";},2200); } else { stat.textContent=""; toast("Save failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Backend not connected (works on the live site)"); }); });
-    document.getElementById("edSend").addEventListener("click",function(){ var to=toI.value.trim(); if(to.indexOf("@")<1){ toast("Add a valid recipient first"); return; } if(!confirm("Send this email to "+to+" now?\n\nIt will be sent from your Gmail.")) return; stat.textContent="Sending…"; ensureSaved().then(function(j){ if(!(j&&j.ok&&newId)) throw new Error("save"); return fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:newId})}).then(function(r){return r.json();}); }).then(function(j){ if(j&&j.ok){ var cr=window.simCreatorByEmail?window.simCreatorByEmail(to):null; sentAdd({id:newId,to:to,subject:subI.value.trim(),html:bodyI.innerHTML,sentAt:today(),name:(cr&&cr.name)||""}); toast("Sent to "+to+" — see the Sent tab"); if(window.simMarkOutreached) window.simMarkOutreached(to); composing=false; viewEl.innerHTML=welcome(); load(); } else { stat.textContent=""; toast("Send failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Send failed (works on the live site)"); }); });
+    document.getElementById("edSave").addEventListener("click",function(){ stat.textContent="Saving…"; ensureSaved().then(function(j){ if(j&&j.ok){ stat.textContent="Saved ✓ · in your Gmail drafts"; setTimeout(function(){stat.textContent="";},2200);} else { stat.textContent=""; toast((j&&j.error)||"Save failed"); } }).catch(function(){ stat.textContent=""; toast("Backend not connected (works on the live site)"); }); });
+    document.getElementById("edSend").addEventListener("click",function(){ var to=(toI.value||"").trim(); if(to.indexOf("@")<1){ toast("Add a valid recipient first"); return; } if(!confirm("Send this email to "+to+" now?\n\nIt will be sent from your Gmail.")) return; stat.textContent="Sending…"; ensureSaved().then(function(j){ if(!(j&&j.ok&&newId)) throw new Error("save"); return fetch("/api/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:newId})}).then(function(r){return r.json();}); }).then(function(j){ if(j&&j.ok){ var cr=window.simCreatorByEmail?window.simCreatorByEmail(to):null; sentAdd({id:newId,to:to,subject:(subI.value||"").trim(),html:bodyI.innerHTML,sentAt:today(),name:(cr&&cr.name)||""}); toast("Sent to "+to+" — see the Sent tab"); if(window.simMarkOutreached) window.simMarkOutreached(to); composing=false; viewEl.innerHTML=welcome(); load(); } else { stat.textContent=""; toast("Send failed: "+((j&&j.error)||"error")); } }).catch(function(){ stat.textContent=""; toast("Send failed (works on the live site)"); }); });
+    if(toI) toI.focus();
   }
   var composeBtn=document.getElementById("ibCompose"); if(composeBtn) composeBtn.addEventListener("click",openCompose);
 
-  function load(){
-    stEl.textContent="Loading your drafts\u2026"; listEl.innerHTML=""; viewEl.innerHTML="";
-    fetch("/api/drafts").then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});}).then(function(res){
-      if(res.ok&&res.j&&res.j.drafts){ DRAFTS=res.j.drafts; selId=null; enrich(); renderList(); }
-      else { stEl.textContent=""; renderStats(); renderChips(); listEl.innerHTML=notConfigured(); if(!composing)viewEl.innerHTML=welcome(); }
-    }).catch(function(){ stEl.textContent=""; renderStats(); renderChips(); listEl.innerHTML=notConfigured(); if(!composing)viewEl.innerHTML=welcome(); });
+  // ---- list events ----
+  if(listEl) listEl.addEventListener("click",function(e){
+    var act=e.target.closest("[data-act]");
+    if(act){ e.stopPropagation(); var id=act.getAttribute("data-id"), a=act.getAttribute("data-act");
+      if(a==="unarchive"){ ibxSet(id,""); renderList(); return; }
+      var cur=CONVOS.filter(function(x){return x.id===id;})[0]; if(cur&&cur.key===selKey){ selKey=null; threadOpen=null; viewEl.innerHTML=welcome(); }
+      if(a==="archive"){ ibxSet(id,"archived"); renderList(); showUndo("Archived",function(){ ibxSet(id,""); renderList(); }); return; }
+      if(a==="delete"){ ibxSet(id,"deleted"); renderList(); showUndo("Removed from inbox — Gmail is untouched",function(){ ibxSet(id,""); renderList(); }); return; }
+    }
+    var srow=e.target.closest("[data-sent]"); if(srow){ openSent(parseInt(srow.getAttribute("data-sent"),10)); return; }
+    var row=e.target.closest(".cvrow"); if(row){ var k=row.getAttribute("data-key"); var c=CONVOS.filter(function(x){return x.key===k;})[0]; if(c){ (c.type==="draft"?openDraft:openThread)(c); } }
+  });
+  if(statsEl) statsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); renderList(); } });
+  if(chipsEl) chipsEl.addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(b){ activeFilter=b.getAttribute("data-f"); renderList(); } });
+  if(searchEl) searchEl.addEventListener("input",function(){ searchTerm=searchEl.value.trim().toLowerCase(); renderList(); });
+
+  // ---- load + sync ----
+  function buildConvos(threads,drafts){
+    var out=[];
+    (threads||[]).forEach(function(t){ out.push({type:"thread",id:t.id,key:"t:"+t.id,subject:t.subject,snippet:t.snippet,fromH:t.from,toH:t.to,ts:t.internalDate,unread:!!t.unread,msgCount:t.msgCount||1,labels:t.labels||[]}); });
+    (drafts||[]).forEach(function(d){ out.push({type:"draft",id:d.id,key:"d:"+d.id,subject:d.subject,snippet:d.snippet,fromH:BELLA,toH:d.to,email:parseAddr(d.to)||d.to,ts:0,unread:false,msgCount:1}); });
+    return out;
   }
+  function load(){
+    stEl.textContent="Syncing your mailbox…"; syncErr=false;
+    var pThreads=fetch("/api/threads").then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});}).catch(function(){return {ok:false,j:null};});
+    var pDrafts=fetch("/api/drafts").then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});}).catch(function(){return {ok:false,j:null};});
+    Promise.all([pThreads,pDrafts]).then(function(res){
+      var tr=res[0], dr=res[1];
+      var threads=(tr.ok&&tr.j&&tr.j.threads)?tr.j.threads:[];
+      var drafts=(dr.ok&&dr.j&&dr.j.drafts)?dr.j.drafts:[];
+      if(!tr.ok||!(tr.j&&tr.j.threads)) syncErr=true;
+      histId=(tr.j&&tr.j.historyId)||histId;
+      CONVOS=buildConvos(threads,drafts); enrich(); selKey=null; threadOpen=null;
+      renderList();
+      startPoll();
+    });
+  }
+  function applyHistoryReload(){ // re-pull threads only, preserve selection
+    fetch("/api/threads").then(function(r){return r.ok?r.json():null;}).then(function(j){
+      if(!j||!j.threads) return; histId=j.historyId||histId;
+      var drafts=CONVOS.filter(function(c){return c.type==="draft";}).map(function(c){return {id:c.id,to:c.toH,subject:c.subject,snippet:c.snippet};});
+      CONVOS=buildConvos(j.threads,drafts); enrich(); renderList();
+    }).catch(function(){});
+  }
+  function poll(){
+    if(!histId){ return; }
+    fetch("/api/history?startHistoryId="+encodeURIComponent(histId)).then(function(r){return r.ok?r.json():null;}).then(function(j){
+      if(!j) return;
+      if(j.expired){ applyHistoryReload(); return; }
+      if(j.threadIds&&j.threadIds.length){ applyHistoryReload(); }
+      else if(j.historyId){ histId=j.historyId; }
+    }).catch(function(){});
+  }
+  function startPoll(){ if(pollTimer) clearInterval(pollTimer); pollTimer=setInterval(function(){ var v=document.getElementById("view-approvals"); if(v&&v.classList.contains("active")) poll(); },45000); }
+  document.addEventListener("visibilitychange",function(){ if(!document.hidden){ var v=document.getElementById("view-approvals"); if(v&&v.classList.contains("active")) poll(); } });
+
   var navBtn=document.querySelector('.nav[data-view="approvals"]');
-  if(navBtn) navBtn.addEventListener("click",load); // reload each open so newly-flagged drafts appear
+  if(navBtn) navBtn.addEventListener("click",load); // reload each open so new mail appears
 })();
 </script>
 <script>

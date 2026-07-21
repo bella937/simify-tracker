@@ -39,8 +39,11 @@ export async function onRequestGet({ request, env }) {
     }
     const list = await listResp.json();
 
-    // Fetch each thread's metadata concurrently (subject/from/to/date/labels + msg count).
-    const threads = await Promise.all((list.threads || []).map(async (t) => {
+    // Fetch each thread's metadata in small concurrent batches (subject/from/to/date/
+    // labels + msg count). Batching keeps us under Gmail's per-second quota so the first
+    // load doesn't return half-empty rows on large mailboxes.
+    const ids = list.threads || [];
+    const fetchOne = async (t) => {
       try {
         const m = await (await fetch(
           GMAIL + "/threads/" + t.id +
@@ -68,7 +71,13 @@ export async function onRequestGet({ request, env }) {
       } catch (e) {
         return { id: t.id, subject: "(unreadable)", snippet: "", labels: [], unread: false, msgCount: 0, internalDate: "0" };
       }
-    }));
+    };
+    const threads = [];
+    const BATCH = 6;
+    for (let b = 0; b < ids.length; b += BATCH) {
+      const part = await Promise.all(ids.slice(b, b + BATCH).map(fetchOne));
+      threads.push(...part);
+    }
 
     // Current mailbox historyId lets the frontend poll cheaply via /api/history.
     let historyId = "";

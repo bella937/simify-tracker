@@ -8,13 +8,15 @@ OUT=os.path.join(ROOT,"docs","data","prospects.json")
 CRE=os.path.join(ROOT,"docs","data","creators.json")
 API="https://www.googleapis.com/youtube/v3"
 MIN_SUBS,MAX_SUBS,MONTHS=1000,40000,8.0
-NICHES=["solo female van life","solo female travel vlog","wild camping solo female",
-        "solo female hiking vlog","van life couple","sailing couple liveaboard",
-        "digital nomad woman","aesthetic slow travel vlog"]
-REGIONS=["GB","US","AU","CA"]
+NICHES=["solo female backpacking","budget solo female travel","campervan life couple","off grid living woman","couple road trip vlog","solo female adventure vlog","slow living travel woman","solo female hiker vlog"]
+REGIONS=["NZ","GB","US","AU","CA"]
 def key():
-    for line in open(os.path.join(ROOT,"workers",".env")):
-        if line.strip().startswith("YOUTUBE_API_KEY"): return line.split("=",1)[1].strip().strip('"').strip("'")
+    k=os.environ.get("YOUTUBE_API_KEY")
+    if k: return k.strip()
+    envp=os.path.join(ROOT,"workers",".env")
+    if os.path.exists(envp):
+        for line in open(envp):
+            if line.strip().startswith("YOUTUBE_API_KEY"): return line.split("=",1)[1].strip().strip('"').strip("'")
     sys.exit("no key")
 K=key()
 def api(path,**p):

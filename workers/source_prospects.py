@@ -8,8 +8,24 @@ OUT=os.path.join(ROOT,"docs","data","prospects.json")
 CRE=os.path.join(ROOT,"docs","data","creators.json")
 API="https://www.googleapis.com/youtube/v3"
 MIN_SUBS,MAX_SUBS,MONTHS=1000,40000,8.0
-NICHES=["solo female backpacking","budget solo female travel","campervan life couple","off grid living woman","couple road trip vlog","solo female adventure vlog","slow living travel woman","solo female hiker vlog"]
-REGIONS=["NZ","GB","US","AU","CA"]
+# On-pattern query pool (nano-micro, female-led / couple, slow + solo travel).
+# Each ISO week we rotate an 8-query window through the pool + rotate the region
+# order, so the scheduled job works the whole space over time instead of
+# re-hitting the same searches (dedup still prevents re-adding known channels).
+NICHE_POOL=[
+    "solo female van life","solo female van life uk","wild camping solo female","solo female hiking vlog",
+    "solo female backpacking","budget solo female travel","solo female adventure vlog","solo female motorhome",
+    "campervan life couple","couple van life travel","sailing couple liveaboard","liveaboard sailing life",
+    "couple road trip vlog","overlanding couple travel","couple slow travel vlog","van build couple",
+    "slow living travel vlog","aesthetic slow travel","slow travel europe vlog","off grid living woman",
+    "tiny living van woman","female solo camping","solo female train travel europe","cosy lifestyle travel vlog",
+]
+REGION_POOL=["GB","US","AU","CA","NZ"]
+WEEK=datetime.date.today().isocalendar()[1]
+_W=8; _start=(WEEK*_W)%len(NICHE_POOL)
+NICHES=[NICHE_POOL[(_start+i)%len(NICHE_POOL)] for i in range(_W)]
+_r=WEEK%len(REGION_POOL); REGIONS=REGION_POOL[_r:]+REGION_POOL[:_r]
+print(f"ISO week {WEEK}: niches {NICHES} | regions {REGIONS}")
 def key():
     k=os.environ.get("YOUTUBE_API_KEY")
     if k: return k.strip()

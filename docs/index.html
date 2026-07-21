@@ -897,6 +897,11 @@
       </section>
       <section class="view" id="view-creators">
         <div class="phead"><div><h1>Creators</h1><div class="sub">Your sourced roster, grouped by status</div></div></div>
+        <div class="crsub" role="tablist">
+          <button class="crsubtab on" id="crTabRoster" role="tab" aria-selected="true">Roster</button>
+          <button class="crsubtab" id="crTabDiscovery" role="tab" aria-selected="false">✨ Discovery <span id="crDiscCount" class="crsubn"></span></button>
+        </div>
+        <div id="crRoster">
         <div class="crtools">
           <span class="crcount" id="crCount"></span>
           <span class="goalpill" id="goalPill" title="Drafts you've created today"></span>
@@ -931,6 +936,11 @@
             </tr></thead>
             <tbody id="crBody"></tbody>
           </table>
+        </div>
+        </div>
+        <div id="crDiscovery" hidden>
+          <div class="dischead"><div class="sub" style="max-width:80ch">Candidates matching your winning pattern &mdash; watch each channel's latest video right here, then <b>Add</b> or <b>Skip</b>. Anyone who hasn't posted in 8+ months is filtered out automatically.</div><span id="discStatus" class="crcount"></span></div>
+          <div id="discList"></div>
         </div>
       </section>
 
@@ -2986,6 +2996,94 @@ window.SimifyStore=(function(){
   input.addEventListener("input",refresh);
   res.addEventListener("click",function(e){ var it=e.target.closest("[data-i]"); if(it) activate(parseInt(it.getAttribute("data-i"),10)); });
   bar.addEventListener("click",function(e){ if(e.target===bar) close(); });
+})();
+</script>
+<style>
+  .crsub{display:flex;gap:8px;margin:0 0 16px}
+  .crsubtab{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:9px;padding:8px 15px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+  .crsubtab.on{border-color:var(--human);color:var(--human);background:color-mix(in srgb,var(--human) 12%,transparent)}
+  .crsubn{font-family:var(--fm);font-size:11px;background:var(--bg);border-radius:999px;padding:1px 7px;color:var(--ink)}
+  .dischead{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+  .disccard{display:grid;grid-template-columns:340px 1fr;gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:16px}
+  @media(max-width:800px){.disccard{grid-template-columns:1fr}}
+  .discvid{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
+  .discvid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .discmeta{display:flex;flex-direction:column;gap:8px;min-width:0}
+  .discname{font-size:18px;font-weight:750;color:var(--ink);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .discname a{font-family:var(--fm);font-size:13px;font-weight:600}
+  .discrow{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--fm);font-size:12.5px;color:var(--muted);align-items:center}
+  .discrow b{color:var(--ink);font-weight:700}
+  .discfresh{font-family:var(--fm);font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px}
+  .discfresh.ok{color:var(--auto);background:color-mix(in srgb,var(--auto) 14%,transparent)}
+  .discfresh.unk{color:var(--muted);background:color-mix(in srgb,var(--muted) 14%,transparent)}
+  .discniche{font-size:14px;color:var(--ink)}
+  .discwhy{font-size:14px;color:var(--ink);opacity:.82;line-height:1.5}
+  .discacts{display:flex;gap:9px;margin-top:auto;padding-top:6px}
+  .discbtn{border:1px solid var(--line);border-radius:9px;padding:9px 18px;font-size:14px;font-weight:700;cursor:pointer}
+  .discbtn.add{background:var(--auto);border-color:var(--auto);color:#fff}
+  .discbtn.skip{background:var(--surface);color:var(--muted)}
+  .discbtn.skip:hover{color:var(--bad);border-color:var(--bad)}
+  .discempty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:40px;text-align:center;color:var(--muted);line-height:1.7}
+</style>
+<script>
+/* ============================================================================
+   Discovery — a sub-tab in Creators. Curated candidates matching the winning
+   pattern, each with the channel's latest video embedded inline (no leaving
+   the app), an 8-month freshness filter, and one-click Add/Skip. Decisions
+   persist in SimifyStore (ui.discovery). Reads docs/data/prospects.json.
+   ============================================================================ */
+(function(){
+  var listEl=document.getElementById("discList"), statusEl=document.getElementById("discStatus"),
+      tabR=document.getElementById("crTabRoster"), tabD=document.getElementById("crTabDiscovery"),
+      roster=document.getElementById("crRoster"), disc=document.getElementById("crDiscovery"),
+      countEl=document.getElementById("crDiscCount");
+  if(!listEl||!tabD||!tabR) return;
+  var DATA=null, loaded=false;
+  function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function ui(){ return SimifyStore.get("ui")||{}; }
+  function decisions(){ return ui().discovery||{}; }
+  function setDecision(h,v){ var u=ui(); u.discovery=u.discovery||{}; u.discovery[h]=v; SimifyStore.set("ui",u); }
+  function monthsSince(iso){ if(!iso) return null; try{ var d=new Date(iso+"T00:00:00"); if(isNaN(d)) return null; return (Date.now()-d.getTime())/(1000*60*60*24*30.44); }catch(e){ return null; } }
+  function pool(){ var d=decisions(); return (DATA&&DATA.prospects?DATA.prospects:[]).filter(function(p){ if(d[p.handle]) return false; var m=monthsSince(p.lastUpload); if(m!==null && m>8) return false; return true; }); }
+  function staleCount(){ return (DATA&&DATA.prospects?DATA.prospects:[]).filter(function(p){ var m=monthsSince(p.lastUpload); return m!==null&&m>8; }).length; }
+  function updateCount(){ if(countEl) countEl.textContent=DATA?pool().length:""; }
+  function fresh(p){ var m=monthsSince(p.lastUpload); if(m===null) return '<span class="discfresh unk">recency unverified</span>'; if(m<=8) return '<span class="discfresh ok">active · last '+esc(p.lastUpload)+'</span>'; return '<span class="discfresh unk">inactive</span>'; }
+  function card(p){
+    var links=(p.links||[]).map(function(l){ return '<a href="https://'+esc(l)+'" target="_blank" rel="noopener">'+esc(String(l).split("/")[0])+'</a>'; }).join(" · ");
+    return '<div class="disccard" data-h="'+esc(p.handle)+'">'+
+      '<div class="discvid"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/'+esc(p.videoId)+'?rel=0" title="'+esc(p.name)+'" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe></div>'+
+      '<div class="discmeta">'+
+        '<div class="discname">'+esc(p.name)+' <a href="https://www.youtube.com/'+esc(p.handle)+'" target="_blank" rel="noopener">'+esc(p.handle)+' ↗</a></div>'+
+        '<div class="discrow"><span><b>'+Number(p.subs||0).toLocaleString()+'</b> subs</span><span>📍 '+esc(p.market)+'</span>'+fresh(p)+'</div>'+
+        '<div class="discniche">'+esc(p.niche)+'</div>'+
+        (p.why?'<div class="discwhy">'+esc(p.why)+'</div>':'')+
+        (links?'<div class="discrow">'+links+'</div>':'')+
+        '<div class="discacts"><button class="discbtn add" data-act="add">✓ Add to roster</button><button class="discbtn skip" data-act="skip">Skip</button></div>'+
+      '</div></div>';
+  }
+  function render(){
+    updateCount();
+    if(!DATA){ listEl.innerHTML='<div class="discempty">Loading candidates…</div>'; statusEl.textContent=""; return; }
+    var p=pool(), stale=staleCount();
+    statusEl.textContent=p.length+" to review"+(stale?" · "+stale+" hidden (8mo+ inactive)":"");
+    if(!p.length){ listEl.innerHTML='<div class="discempty"><b>All caught up ✓</b><br>No pending candidates. New sourced batches land here.</div>'; return; }
+    listEl.innerHTML=p.map(card).join("");
+  }
+  listEl.addEventListener("click",function(e){
+    var btn=e.target.closest("[data-act]"); if(!btn) return;
+    var cardEl=btn.closest("[data-h]"); if(!cardEl) return; var h=cardEl.getAttribute("data-h");
+    var p=(DATA.prospects||[]).filter(function(x){return x.handle===h;})[0]; if(!p) return;
+    if(btn.getAttribute("data-act")==="add"){
+      if(window.simAddCreator) window.simAddCreator({name:p.name,handle:p.handle,market:p.market,niche:p.niche,subs:p.subs,email:""});
+      setDecision(h,"added"); toastD(p.name+" added to your roster");
+    } else { setDecision(h,"skipped"); }
+    render();
+  });
+  function toastD(m){ var t=document.getElementById("toast"),ts=document.getElementById("toastMsg"); if(t&&ts){ ts.textContent=m; t.classList.add("show"); setTimeout(function(){t.classList.remove("show");},2200);} }
+  function ensureData(cb){ if(loaded){ cb&&cb(); return; } fetch("data/prospects.json").then(function(r){return r.ok?r.json():null;}).then(function(j){ DATA=j||{prospects:[]}; loaded=true; cb&&cb(); }).catch(function(){ DATA={prospects:[]}; loaded=true; cb&&cb(); }); }
+  tabD.addEventListener("click",function(){ tabR.classList.remove("on"); tabR.setAttribute("aria-selected","false"); tabD.classList.add("on"); tabD.setAttribute("aria-selected","true"); roster.hidden=true; disc.hidden=false; render(); ensureData(render); });
+  tabR.addEventListener("click",function(){ tabD.classList.remove("on"); tabD.setAttribute("aria-selected","false"); tabR.classList.add("on"); tabR.setAttribute("aria-selected","true"); disc.hidden=true; roster.hidden=false; });
+  ensureData(updateCount); // show the count on the tab up front
 })();
 </script>
 </body>

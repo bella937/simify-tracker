@@ -21,10 +21,14 @@ import youtube_discovery_agent as yda
 # creators who make snackable short-form (the point of gifting = content for paid
 # ads). Vlog-flavoured queries skew toward gen-z/millennial faces-on-camera
 # creators rather than faceless/stock travel channels.
+# Retuned to Bella's winning pattern (2026-07): nano-micro, FEMALE-LED /
+# personal, face-forward slow-travel creators. Persona-tight queries bias the
+# YouTube search away from big faceless / male gear-review / aviation channels.
 NICHES = [
-    "travel vlog", "lifestyle vlog", "solo female travel", "couple travel vlog",
-    "van life", "sailing", "digital nomad", "backpacking",
-    "budget travel", "road trip", "adventure travel", "aviation",
+    "solo female travel vlog", "solo female van life", "van life couple",
+    "wild camping solo", "solo hiking vlog", "sailing couple liveaboard",
+    "digital nomad woman", "slow travel vlog", "aesthetic travel vlog",
+    "couple travel vlog", "adventure travel woman", "solo female road trip",
 ]
 
 # Rotate the search market daily instead of AU-only. English-primary markets:
@@ -39,7 +43,7 @@ TARGET_NEW_LEADS = 50
 MAX_NICHES_PER_RUN = 4  # safety cap on YouTube API quota use per day
 COUNT_PER_NICHE = 40
 MIN_SUBS = 1_000        # nano floor
-MAX_SUBS = 150_000      # up to the "Small (100-150K)" tier in the reference sheet
+MAX_SUBS = 40_000       # nano-micro sweet spot (Bella's examples top out ~33K); keeps big/off-pattern channels out
 
 
 def niches_for(target_date: date) -> list[str]:

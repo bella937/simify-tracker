@@ -3021,6 +3021,7 @@ window.SimifyStore=(function(){
   .discacts{display:flex;gap:9px;margin-top:auto;padding-top:6px}
   .discbtn{border:1px solid var(--line);border-radius:9px;padding:9px 18px;font-size:14px;font-weight:700;cursor:pointer}
   .discbtn.add{background:var(--auto);border-color:var(--auto);color:#fff}
+  .discbtn.draft{background:var(--human);border-color:var(--human);color:#2A1705}
   .discbtn.skip{background:var(--surface);color:var(--muted)}
   .discbtn.skip:hover{color:var(--bad);border-color:var(--bad)}
   .discempty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:40px;text-align:center;color:var(--muted);line-height:1.7}
@@ -3059,7 +3060,7 @@ window.SimifyStore=(function(){
         (p.why?'<div class="discwhy">'+esc(p.why)+'</div>':'')+
         (p.email?'<div class="discrow disccontact"><a href="mailto:'+esc(p.email)+'">✉ '+esc(p.email)+'</a></div>':(p.site?'<div class="discrow disccontact"><a href="'+esc(p.site)+'" target="_blank" rel="noopener">🔗 '+esc(String(p.site).replace(/^https?:\/\/(www\.)?/,''))+'</a></div>':'<div class="discrow disccontact muted">no public email — check About tab</div>'))+
         (links?'<div class="discrow">'+links+'</div>':'')+
-        '<div class="discacts"><button class="discbtn add" data-act="add">✓ Add to roster</button><button class="discbtn skip" data-act="skip">Skip</button></div>'+
+        '<div class="discacts">'+(p.email?'<button class="discbtn draft" data-act="draft">✉ Draft email</button>':'')+'<button class="discbtn add" data-act="add">✓ Add to roster</button><button class="discbtn skip" data-act="skip">Skip</button></div>'+
       '</div></div>';
   }
   function render(){
@@ -3070,10 +3071,25 @@ window.SimifyStore=(function(){
     if(!p.length){ listEl.innerHTML='<div class="discempty"><b>All caught up ✓</b><br>No pending candidates. New sourced batches land here.</div>'; return; }
     listEl.innerHTML=p.map(card).join("");
   }
+  function draftFromDiscovery(p){
+    if(!p.email){ toastD("No public email yet — add "+p.name+" to the roster, then add an email there to draft."); return; }
+    if(window.simAddCreator) window.simAddCreator({name:p.name,handle:p.handle,market:p.market,niche:p.niche,subs:p.subs,email:p.email});
+    toastD("Drafting email to "+p.name+"…");
+    fetch("/api/draft",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({creators:[{to:p.email,name:p.name,niche:p.niche}]})})
+      .then(function(r){return r.json();})
+      .then(function(j){
+        if(j&&j.ok&&j.created){ if(window.simMarkOutreached) window.simMarkOutreached(p.email); toastD(p.name+" — draft created in the Inbox + marked Outreached ✓"); }
+        else if(j&&j.error==="not_configured"){ toastD("Inbox isn't connected — draft not created. "+p.name+" was added to the roster."); }
+        else { toastD("Couldn't create the draft for "+p.name+". They're in the roster — draft with the ✉ there."); }
+      })
+      .catch(function(){ toastD("Draft failed (network). "+p.name+" is in the roster — draft from there."); });
+    setDecision(p.handle,"added"); render();
+  }
   listEl.addEventListener("click",function(e){
     var btn=e.target.closest("[data-act]"); if(!btn) return;
     var cardEl=btn.closest("[data-h]"); if(!cardEl) return; var h=cardEl.getAttribute("data-h");
     var p=(DATA.prospects||[]).filter(function(x){return x.handle===h;})[0]; if(!p) return;
+    if(btn.getAttribute("data-act")==="draft"){ draftFromDiscovery(p); return; }
     if(btn.getAttribute("data-act")==="add"){
       if(window.simAddCreator) window.simAddCreator({name:p.name,handle:p.handle,market:p.market,niche:p.niche,subs:p.subs,email:p.email||""});
       setDecision(h,"added"); toastD(p.name+" added to your roster");

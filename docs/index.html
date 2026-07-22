@@ -729,6 +729,10 @@
   tr.grp{cursor:default;}
   tr.grp.collapsed td{opacity:.8;}
   tr.grp.unsorted .pillst.dim{background:#fdf1dc;color:#7a5b12;border:1px solid #f0a02a44;}
+  #crBody tr.grp.addednow td{background:var(--auto-tint);border-top:2px solid var(--auto);}
+  .pillst.anew{background:var(--auto);color:#fff;}
+  .anclear{margin-left:12px;font-family:var(--fm);font-size:11px;color:var(--auto-ink);background:none;border:1px solid var(--auto);border-radius:6px;padding:2px 9px;cursor:pointer;}
+  .anclear:hover{background:var(--auto);color:#fff;}
   tr.prow td{background:#fffdf9;vertical-align:middle;}
   input.padd,select.padd{width:100%;border:1px solid var(--line);border-radius:7px;padding:6px 8px;font:inherit;font-size:13px;background:#fff;color:var(--ink);box-sizing:border-box;}
   input.padd:focus,select.padd:focus{outline:none;border-color:var(--brand,#f0a02a);}
@@ -928,6 +932,7 @@
           </select>
           <button class="linkbtn2" id="crFilterClear" hidden>Clear filter</button>
           <button class="btn2" id="crAddRow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 5v14M5 12h14"/></svg>Add creator</button>
+          <button class="btn2" id="crAddYt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12a4 4 0 0 1 4-4h4a4 4 0 0 1 0 8h-1"/><path d="M21.5 12a4 4 0 0 1-4 4h-4a4 4 0 0 1 0-8h1"/></svg>Add from YouTube links</button>
         </div>
         <div class="xlswrap">
           <table class="xls">
@@ -1233,6 +1238,18 @@
   </div>
 </div>
 
+<div class="modal" id="ytModal" hidden>
+  <div class="modalcard" style="max-width:600px">
+    <div class="modalhead"><h3>Add creators from YouTube links</h3><button class="modalx" id="ytClose" aria-label="Close">&times;</button></div>
+    <div class="modalbody">
+      <p class="impdek">Paste YouTube channel links &mdash; <b>one per line</b>. Any form works: <code>youtube.com/@handle</code>, <code>/channel/UC&hellip;</code>, a custom URL, or even a video link. We auto-fill <b>name, handle, subscribers &amp; market</b>. YouTube hides creator emails, so those come back blank &mdash; add them in the roster (click the email cell). Duplicates already on your roster are skipped. Up to 40 at a time.</p>
+      <textarea id="ytText" class="imparea" placeholder="https://www.youtube.com/@outdoorselle&#10;https://www.youtube.com/@lostwithmaple&#10;youtube.com/channel/UCxxxxxxxxxxxxxxxxxxxxxx"></textarea>
+      <div id="ytPreview" class="imppreview"></div>
+    </div>
+    <div class="modalfoot"><button class="btn2" id="ytCancel">Cancel</button><button class="btn pri" id="ytDo" disabled>Fetch &amp; add</button></div>
+  </div>
+</div>
+
 <style>
   .kbar{position:fixed;inset:0;z-index:9999;background:rgba(20,25,18,.42);display:flex;align-items:flex-start;justify-content:center;padding:12vh 16px 16px}
   .kbar[hidden]{display:none}
@@ -1355,6 +1372,11 @@ window.SimifyStore=(function(){
   var COLLAPSED=(function(){ var u=SimifyStore.get("ui")||{}; return u.crCollapsed||{}; })();  // collapsed section state
   function saveCollapsed(){ var u=SimifyStore.get("ui")||{}; u.crCollapsed=COLLAPSED; SimifyStore.set("ui",u); }
   var PENDING=[];                             // in-progress "Unsorted" add-rows (not yet in roster)
+  // ---- "Added now" — creators just bulk-added from YouTube links, pinned to the top ----
+  var ADDEDNOW=(function(){ var u=SimifyStore.get("ui")||{}; return Array.isArray(u.addedNow)?u.addedNow.slice():[]; })();
+  function saveAddedNow(){ var u=SimifyStore.get("ui")||{}; u.addedNow=ADDEDNOW; SimifyStore.set("ui",u); }
+  function isAddedNow(c){ return ADDEDNOW.indexOf(keyOf(c))>-1; }
+  function clearAddedNow(){ ADDEDNOW=[]; saveAddedNow(); render(); }
 
   // ---- Triage state (per-creator, saved in this browser only) ----------------
   var STATE=SimifyStore.get("triage");
@@ -1425,12 +1447,39 @@ window.SimifyStore=(function(){
     el.innerHTML=html; el.style.display=html?"flex":"none";
   }
 
+  function creatorRow(c){
+    var s=stateFor(c), k=encodeURIComponent(keyOf(c));
+    return '<tr data-k="'+k+'">'+
+      '<td class="cnm">'+esc(c.name)+"</td>"+
+      '<td class="hd">'+ytLink(c.handle)+"</td>"+
+      '<td class="em" data-edit="1">'+emailCell(c)+"</td>"+
+      "<td>"+esc(c.market)+"</td>"+
+      '<td class="r">'+(typeof c.subs==="number"?c.subs.toLocaleString():esc(c.subs))+"</td>"+
+      "<td>"+esc(c.niche)+"</td>"+
+      '<td class="tags" data-tagcell="1">'+tagsCell(c)+"</td>"+
+      '<td class="act">'+
+        '<button class="tick'+(isOutreached(c)?" on":"")+'" data-act="proceed" title="'+(isOutreached(c)?"Outreached — click to undo":"Mark as outreached")+'">&check;</button>'+
+        '<button class="cross'+(s.flag==="skip"?" on":"")+'" data-act="skip" title="Skip — no outreach">&times;</button>'+
+        (isOutreached(c)?'':'<button class="draftone" data-act="draftone" title="Draft email now (creates a Gmail draft in the Inbox)">&#9993;</button>')+
+        '<button class="del" data-act="delete" title="Remove from roster">&#128465;</button>'+
+      "</td>"+
+    "</tr>";
+  }
   function render(){
     var list=filtered();
     var removed=DATA.filter(function(c){return stateFor(c).deleted;}).length;
     countEl.innerHTML="Showing "+list.length+" of "+DATA.length+" creators"+(removed?' · <a href="#" id="undoDel">'+removed+" removed (undo)</a>":"");
     renderGoal(); updateDraftBtn();
     var html="";
+    // "Added now" — freshly uploaded from YouTube links, pinned above everything.
+    if(ADDEDNOW.length){
+      var an=list.filter(isAddedNow);
+      if(an.length){
+        var _ca=!!COLLAPSED["__addednow"];
+        html+='<tr class="grp addednow'+(_ca?" collapsed":"")+'" data-grp="__addednow"><td colspan="'+COLS+'"><button class="grpcaret" data-grptoggle="__addednow" aria-label="Collapse or expand Added now" title="Collapse/expand">'+(_ca?"▸":"▾")+'</button><span class="pillst anew">Added now</span><span class="gcount">'+an.length+" just added — details auto-filled from YouTube. Add emails, flag ✓ to outreach.</span><button class=\"anclear\" data-addednowclear=\"1\" title=\"Dismiss this grouping — creators stay in the roster under their status\">Clear</button></td></tr>";
+        if(!_ca) an.forEach(function(c){ html+=creatorRow(c); });
+      }
+    }
     if(PENDING.length){
       html+='<tr class="grp unsorted"><td colspan="'+COLS+'"><span class="pillst dim">Unsorted</span><span class="gcount">'+PENDING.length+" new — fill in the details and press ✓ to move to New leads</span></td></tr>";
       PENDING.forEach(function(p){
@@ -1448,29 +1497,12 @@ window.SimifyStore=(function(){
     }
     if(!list.length){ body.innerHTML=html+'<tr><td class="empty2" colspan="'+COLS+'">'+(PENDING.length?"Fill in the row above, then press ✓.":"No creators match your filters.")+'</td></tr>'; renderTagBar(); return; }
     ORDER.forEach(function(status){
-      var g=list.filter(function(c){return effStatus(c)[1]===status;});
+      var g=list.filter(function(c){return effStatus(c)[1]===status && !isAddedNow(c);});
       if(!g.length)return;
       var _col=!!COLLAPSED[status];
       html+='<tr class="grp'+(_col?" collapsed":"")+'" data-grp="'+esc(status)+'"><td colspan="'+COLS+'"><button class="grpcaret" data-grptoggle="'+esc(status)+'" aria-label="Collapse or expand '+esc(status)+'" title="Collapse/expand">'+(_col?"▸":"▾")+'</button><span class="pillst '+effStatus(g[0])[0]+'">'+status+'</span><span class="gcount">'+g.length+" creator"+(g.length>1?"s":"")+"</span></td></tr>";
       if(_col) return;
-      g.forEach(function(c){
-        var s=stateFor(c), k=encodeURIComponent(keyOf(c));
-        html+='<tr data-k="'+k+'">'+
-          '<td class="cnm">'+esc(c.name)+"</td>"+
-          '<td class="hd">'+ytLink(c.handle)+"</td>"+
-          '<td class="em" data-edit="1">'+emailCell(c)+"</td>"+
-          "<td>"+esc(c.market)+"</td>"+
-          '<td class="r">'+(typeof c.subs==="number"?c.subs.toLocaleString():esc(c.subs))+"</td>"+
-          "<td>"+esc(c.niche)+"</td>"+
-          '<td class="tags" data-tagcell="1">'+tagsCell(c)+"</td>"+
-          '<td class="act">'+
-            '<button class="tick'+(isOutreached(c)?" on":"")+'" data-act="proceed" title="'+(isOutreached(c)?"Outreached — click to undo":"Mark as outreached")+'">&check;</button>'+
-            '<button class="cross'+(s.flag==="skip"?" on":"")+'" data-act="skip" title="Skip — no outreach">&times;</button>'+
-            (isOutreached(c)?'':'<button class="draftone" data-act="draftone" title="Draft email now (creates a Gmail draft in the Inbox)">&#9993;</button>')+
-            '<button class="del" data-act="delete" title="Remove from roster">&#128465;</button>'+
-          "</td>"+
-        "</tr>";
-      });
+      g.forEach(function(c){ html+=creatorRow(c); });
     });
     body.innerHTML=html;
     renderTagBar();
@@ -1508,6 +1540,7 @@ window.SimifyStore=(function(){
   // action buttons + email editing (event delegation)
   body.addEventListener("click",function(e){
     var undo=e.target.closest("#undoDel"); if(undo){ e.preventDefault(); DATA.forEach(function(c){ if(stateFor(c).deleted) setStateFor(c,{deleted:false}); }); render(); return; }
+    var anc=e.target.closest("[data-addednowclear]"); if(anc){ clearAddedNow(); return; }
     var gt=e.target.closest("[data-grptoggle]"); if(gt){ var _s=gt.getAttribute("data-grptoggle"); COLLAPSED[_s]=!COLLAPSED[_s]; saveCollapsed(); render(); return; }
     var pact=e.target.closest("[data-pact]"); if(pact){ var _pr=pact.closest("tr[data-pk]"); if(_pr){ var _pk=_pr.getAttribute("data-pk"); if(pact.getAttribute("data-pact")==="discard"){ PENDING=PENDING.filter(function(x){return x.tempId!==_pk;}); render(); } else { confirmPending(_pk); } } return; }
     var tr=e.target.closest("tr[data-k]"); if(!tr) return; var c=findByKey(tr.getAttribute("data-k")); if(!c) return;
@@ -1607,8 +1640,19 @@ window.SimifyStore=(function(){
     render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline();
     return list.length;
   };
+  // Bulk add from YouTube links — same as simAddCreators, but marks each new creator
+  // "Added now" so they surface in the pinned section at the top of the roster.
+  window.simAddCreatorsNow=function(list){
+    if(!list||!list.length) return 0;
+    var added=SimifyStore.get("creatorsAdded")||[];
+    list.forEach(function(c){ var id=genId(); added.push({id:id,name:c.name||"New creator",handle:c.handle||"@new",email:c.email||"",market:c.market||"AU",subs:c.subs||0,niche:c.niche||"General",deliv:c.deliv||"1x Short",st:["dim","New lead"],rb:["new","new"],_added:true}); if(ADDEDNOW.indexOf(id)<0)ADDEDNOW.push(id); });
+    SimifyStore.set("creatorsAdded",added); saveAddedNow();
+    DATA=DATA.filter(function(c){return !c._added;}); mergeAdded();
+    render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline();
+    return list.length;
+  };
   // Re-read persisted state + re-render (used on cross-tab sync).
-  window.simRerender=function(){ STATE=SimifyStore.get("triage"); DATA=DATA.filter(function(c){return !c._added;}); mergeAdded(); render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline(); };
+  window.simRerender=function(){ STATE=SimifyStore.get("triage"); var _u=SimifyStore.get("ui")||{}; ADDEDNOW=Array.isArray(_u.addedNow)?_u.addedNow.slice():[]; DATA=DATA.filter(function(c){return !c._added;}); mergeAdded(); render(); if(typeof renderOverview==="function")renderOverview(); if(typeof renderPipeline==="function")renderPipeline(); };
   SimifyStore.onExternalChange(function(){ if(window.simRerender) window.simRerender(); });
   // Called by the Inbox when a draft is sent — flags the matching creator Outreached.
   window.simMarkOutreached=function(email){
@@ -2946,6 +2990,65 @@ window.SimifyStore=(function(){
     var n=window.simAddCreators?window.simAddCreators(parsed.newRows):0;
     close(); if(window.simGo) window.simGo("creators");
     toast("Imported "+n+" creator"+(n===1?"":"s")+(parsed.dups?" · "+parsed.dups+" duplicate"+(parsed.dups>1?"s":"")+" skipped":""));
+  });
+})();
+</script>
+<script>
+/* ============================================================================
+   Add from YouTube links — paste channel links, resolve name/handle/subs via
+   /api/resolve-channels (YouTube Data API), drop them into the "Added now"
+   section at the top of the roster. Email is left blank (YouTube hides it).
+   ============================================================================ */
+(function(){
+  var modal=document.getElementById("ytModal"), openBtn=document.getElementById("crAddYt");
+  if(!modal||!openBtn) return;
+  var txt=document.getElementById("ytText"), prev=document.getElementById("ytPreview"), doBtn=document.getElementById("ytDo");
+  var busy=false;
+  function esc(x){ return String(x==null?"":x).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function toast(m){ var t=document.getElementById("toast"),ts=document.getElementById("toastMsg"); if(t&&ts){ts.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2800);} }
+  function links(){ return (txt.value||"").split(/[\n\r]+/).map(function(s){return s.trim();}).filter(Boolean); }
+
+  function open(){ txt.value=""; prev.innerHTML=""; doBtn.disabled=true; doBtn.textContent="Fetch & add"; busy=false; modal.hidden=false; txt.focus(); }
+  function close(){ modal.hidden=true; }
+  openBtn.addEventListener("click",open);
+  document.getElementById("ytClose").addEventListener("click",close);
+  document.getElementById("ytCancel").addEventListener("click",close);
+  modal.addEventListener("click",function(e){ if(e.target===modal) close(); });
+  txt.addEventListener("input",function(){ if(!busy) doBtn.disabled=links().length===0; });
+
+  doBtn.addEventListener("click",function(){
+    if(busy) return;
+    var urls=links(); if(!urls.length) return;
+    busy=true; doBtn.disabled=true; doBtn.textContent="Fetching…"; prev.innerHTML='<span class="pill2">Looking up '+urls.length+' link'+(urls.length>1?"s":"")+' on YouTube…</span>';
+    fetch("/api/resolve-channels",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({urls:urls})})
+      .then(function(r){return r.json();})
+      .then(function(j){
+        if(!j||!j.ok){ throw new Error((j&&j.error)||"backend"); }
+        // Dedupe resolved channels against the current roster (by handle / name).
+        var existing=window.simAllCreators?window.simAllCreators():[], have={h:{},n:{}};
+        existing.forEach(function(c){ var h=String(c.handle||"").replace(/^@/,"").toLowerCase(); if(h)have.h[h]=1; var n=String(c.name||"").trim().toLowerCase(); if(n)have.n[n]=1; });
+        var rows=[], dups=0, fails=[], seen={h:{},n:{}};
+        (j.results||[]).forEach(function(res){
+          if(!res.ok){ fails.push(res.input); return; }
+          var h=String(res.handle||"").replace(/^@/,"").toLowerCase(), n=String(res.name||"").trim().toLowerCase();
+          if((h&&(have.h[h]||seen.h[h]))||(n&&(have.n[n]||seen.n[n]))){ dups++; return; }
+          if(h)seen.h[h]=1; if(n)seen.n[n]=1;
+          rows.push({name:res.name||res.handle||"New creator",handle:res.handle||"",email:res.email||"",market:res.market||"AU",subs:res.subs||0,niche:"General"});
+        });
+        var n=rows.length?(window.simAddCreatorsNow?window.simAddCreatorsNow(rows):0):0;
+        // Build a summary the user can read before closing.
+        var html='<span class="pill2 new">'+n+' added</span>'+(dups?'<span class="pill2 dup">'+dups+' already on roster</span>':"")+(fails.length?'<span class="pill2 bad">'+fails.length+" couldn't be resolved</span>":"")+(j.truncated?'<span class="pill2 bad">only first '+j.max+' used</span>':"");
+        if(n) html+='<div class="sample">'+rows.slice(0,6).map(function(c){ return esc(c.name)+' &middot; '+esc(c.handle||"—")+' &middot; '+(c.subs?c.subs.toLocaleString()+" subs":"—")+(c.email?"":' &middot; <i>add email</i>'); }).join("<br>")+(rows.length>6?'<br>+ '+(rows.length-6)+' more…':'')+'</div>';
+        if(fails.length) html+='<div class="sample">Couldn\'t resolve: '+fails.slice(0,8).map(esc).join("<br>")+(fails.length>8?'<br>+ '+(fails.length-8)+' more':'')+'</div>';
+        prev.innerHTML=html;
+        doBtn.textContent=n?"Added ✓":"Done"; doBtn.disabled=true; busy=false;
+        if(n){ toast(n+" creator"+(n===1?"":"s")+' added — see "Added now" at the top'); if(window.simGo) window.simGo("creators"); }
+        else if(!fails.length && !dups){ toast("No channels found in those links"); }
+      })
+      .catch(function(){
+        prev.innerHTML='<span class="pill2 bad">Backend not connected. This works on the live site once the YOUTUBE_API_KEY secret is set.</span>';
+        doBtn.textContent="Fetch & add"; doBtn.disabled=false; busy=false;
+      });
   });
 })();
 </script>

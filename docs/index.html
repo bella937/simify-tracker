@@ -1953,10 +1953,18 @@ window.SimifyStore=(function(){
     if(!list.length){ listEl.innerHTML='<div class="mempty">No conversations match.</div>'; return; }
     listEl.innerHTML=list.map(rowHtml).join("");
   }
+  function sentMatches(s){
+    if(!searchTerm) return true;
+    var hay=((s.name||"")+" "+(s.to||"")+" "+(s.subject||"")+" "+String(s.html||s.text||"").replace(/<[^>]+>/g," ")).toLowerCase();
+    return hay.indexOf(searchTerm)>-1;
+  }
   function renderSent(){
     if(!SENT.length){ stEl.textContent=""; listEl.innerHTML='<div class="mempty">No sent emails logged yet.</div>'; if(!composing&&!threadOpen)viewEl.innerHTML=welcome(); return; }
-    stEl.textContent=SENT.length+" sent";
-    listEl.innerHTML=SENT.map(function(s,i){ var nm=s.name||s.to;
+    // keep the original SENT index so openSent(i) still resolves after filtering
+    var items=SENT.map(function(s,i){return {s:s,i:i};}).filter(function(o){return sentMatches(o.s);});
+    stEl.textContent=(searchTerm?items.length+" of "+SENT.length:SENT.length)+" sent";
+    if(!items.length){ listEl.innerHTML='<div class="mempty">No sent emails match.</div>'; return; }
+    listEl.innerHTML=items.map(function(o){ var s=o.s, i=o.i, nm=s.name||s.to;
       return '<div class="cvrow'+(("sent:"+i)===selKey?" active":"")+'" data-sent="'+i+'">'+
         '<div class="mav">'+esc(initial(nm))+'</div>'+
         '<div class="cvmain"><div class="cvl1"><span class="cvname">'+esc(nm)+'</span></div>'+

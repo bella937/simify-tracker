@@ -1375,7 +1375,9 @@ window.SimifyStore=(function(){
   // ---- "Added now" — creators just bulk-added from YouTube links, pinned to the top ----
   var ADDEDNOW=(function(){ var u=SimifyStore.get("ui")||{}; return Array.isArray(u.addedNow)?u.addedNow.slice():[]; })();
   function saveAddedNow(){ var u=SimifyStore.get("ui")||{}; u.addedNow=ADDEDNOW; SimifyStore.set("ui",u); }
-  function isAddedNow(c){ return ADDEDNOW.indexOf(keyOf(c))>-1; }
+  // In "Added now" only while still an unactioned new lead — once you tick ✓ (outreached),
+  // draft ✉, or skip ✗, it graduates out into its proper status section.
+  function isAddedNow(c){ if(ADDEDNOW.indexOf(keyOf(c))<0) return false; var s=stateFor(c); return !(isOutreached(c)||s.flag); }
   function clearAddedNow(){ ADDEDNOW=[]; saveAddedNow(); render(); }
 
   // ---- Triage state (per-creator, saved in this browser only) ----------------

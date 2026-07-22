@@ -67,7 +67,7 @@ def body_text(first, niche):
             "\U0001F381 We'll gift you a $100 USD eSIM voucher\n"
             "\U0001F4B8 Earn 15% commission on every sale through your unique discount code (Some of our top creators are earning $3k+ in commission)\n"
             "\U0001F680 We'll also feature your content in our paid campaigns, putting real budget behind your videos to grow your reach\n"
-            "\U0001F4F9 All we ask is a Simify mention in a Short or video integration. Here's examples of creators who've partnered with us: https://youtu.be/dL3Aph1jJ_Y?t=325 and https://www.youtube.com/shorts/83F3LIw8M-Q\n\n"
+            "\U0001F4F9 All we ask is a Simify mention in a YT Short or YT video integration. Here's examples of creators who've partnered with us: https://youtu.be/dL3Aph1jJ_Y?t=325 and https://www.youtube.com/shorts/83F3LIw8M-Q\n\n"
             "Let me know if you're interested and I'll send over all the details!\n\n"
             "Bella\nPartnerships Manager | Simify\nbella@simify.com")
 
@@ -87,9 +87,9 @@ def body_html(first, niche, signature=""):
         "and I wanted to see if you're interested in joining our <b>YouTube partnerships programme</b>. "
         "Here's how it works:<br><br>"
         "\U0001F381 We'll gift you a <b>$100 USD eSIM voucher</b><br>"
-        "\U0001F4B8 Earn <b>15% commission</b> on every sale through your unique discount code (Some of our top creators are earning $3k+ in commission)<br>"
+        "\U0001F4B8 Earn <b>15% commission</b> on every sale through your unique discount code (Some of our top creators are earning <b>$3k+ in commission</b>)<br>"
         "\U0001F680 We'll also feature your content in our paid campaigns, putting real budget behind your videos to grow your reach<br>"
-        "\U0001F4F9 All we ask is a Simify mention in a Short or video integration. Here's examples of creators who've partnered with us: "
+        "\U0001F4F9 All we ask is a Simify mention in a YT Short or YT video integration. Here's examples of creators who've partnered with us: "
         '<a href="https://youtu.be/dL3Aph1jJ_Y?t=325">https://youtu.be/dL3Aph1jJ_Y?t=325</a> and '
         '<a href="https://www.youtube.com/shorts/83F3LIw8M-Q">https://www.youtube.com/shorts/83F3LIw8M-Q</a><br><br>'
         "Let me know if you're interested and I'll send over all the details!<br><br>"

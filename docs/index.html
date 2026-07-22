@@ -3033,7 +3033,7 @@ window.SimifyStore=(function(){
           var h=String(res.handle||"").replace(/^@/,"").toLowerCase(), n=String(res.name||"").trim().toLowerCase();
           if((h&&(have.h[h]||seen.h[h]))||(n&&(have.n[n]||seen.n[n]))){ dups++; return; }
           if(h)seen.h[h]=1; if(n)seen.n[n]=1;
-          rows.push({name:res.name||res.handle||"New creator",handle:res.handle||"",email:res.email||"",market:res.market||"AU",subs:res.subs||0,niche:"General"});
+          rows.push({name:res.name||res.handle||"New creator",handle:res.handle||"",email:res.email||"",market:res.market||"AU",subs:res.subs||0,niche:res.niche||"General"});
         });
         var n=rows.length?(window.simAddCreatorsNow?window.simAddCreatorsNow(rows):0):0;
         // Build a summary the user can read before closing.

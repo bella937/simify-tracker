@@ -89,6 +89,39 @@ function marketFromCountry(cc) {
   return m[String(cc || "").toUpperCase()] || "";
 }
 
+// Infer a niche from the channel's title/description keywords, then fall back to
+// YouTube's topic categories. Keywords are ordered most-specific first and tuned
+// to the travel niches the roster already uses (van life, sailing, family, etc.).
+const NICHE_RULES = [
+  ["van life", /\bvan ?life\b|#vanlife|van build|van conversion|living in a van/],
+  ["Sailing", /\bsailing\b|\bsailboat\b|liveaboard|\byacht\b|life on a boat|boat life/],
+  ["solo travel", /\bsolo (female )?travel|travell?ing solo|solo adventures?/],
+  ["family travel", /\bfamily travel|travell?ing (with|as a) family|family of \d|world ?schooling|travel(l)?ing with kids/],
+  ["digital nomad", /\bdigital nomad|remote work|work(ing)? (from |while )?(anywhere|abroad|the road)/],
+  ["road trip", /\broad ?trip|overland(ing)?|\brv life|caravan/],
+  ["backpacking", /\bbackpack(ing|er)|hostel|gap year/],
+  ["budget travel", /\bbudget travel|travel (on a budget|cheap)|cheap flights|travel hacks?/],
+  ["hiking", /\bhiking\b|\bhike\b|thru-?hike|wild camping|\btrekking\b|\bbushcraft\b/],
+  ["luxury travel", /\bluxury (travel|hotel|resort)|first class|business class/],
+  ["couple travel", /\bcouple('|)s? (who |that )?travel|travell?ing couple/],
+  ["lifestyle vlog", /\blifestyle\b|daily vlog|\bvlog(s|ging)?\b|romanticize/],
+  ["travel", /\btravel|wanderlust|explore the world|around the world|\btrip\b|destination/],
+];
+function labelFromTopic(url) {
+  const seg = String(url || "").split("/").pop() || "";
+  const raw = decodeURIComponent(seg).replace(/_/g, " ").replace(/\s*\([^)]*\)\s*/g, "").trim();
+  const skip = { society: 1, knowledge: 1, "": 1 };
+  return skip[raw.toLowerCase()] ? "" : raw;
+}
+function inferNiche(sn, topic) {
+  const hay = (String(sn.title || "") + " " + String(sn.description || "")).toLowerCase();
+  for (const [label, re] of NICHE_RULES) { if (re.test(hay)) return label; }
+  const cats = (topic && topic.topicCategories) || [];
+  for (const c of cats) { const l = labelFromTopic(c); if (l && !/entertainment|lifestyle/i.test(l)) return l; }
+  for (const c of cats) { const l = labelFromTopic(c); if (l) return l; }
+  return "General";
+}
+
 export async function onRequestPost({ request, env }) {
   try {
     if (!env.YOUTUBE_API_KEY) return Response.json({ error: "not_configured" }, { status: 503 });
@@ -116,7 +149,7 @@ export async function onRequestPost({ request, env }) {
     const byId = {};
     for (let i = 0; i < ids.length; i += 50) {
       const chunk = ids.slice(i, i + 50);
-      const j = await apiGet("/channels", { part: "snippet,statistics,brandingSettings", id: chunk.join(",") }, key);
+      const j = await apiGet("/channels", { part: "snippet,statistics,brandingSettings,topicDetails", id: chunk.join(",") }, key);
       (j && j.items ? j.items : []).forEach((it) => { byId[it.id] = it; });
     }
 
@@ -141,6 +174,7 @@ export async function onRequestPost({ request, env }) {
         thumb: pickThumb(sn),
         market: marketFromCountry(sn.country || (it.brandingSettings && it.brandingSettings.channel && it.brandingSettings.channel.country)),
         email: em ? em[0] : "",
+        niche: inferNiche(sn, it.topicDetails),
       };
     });
 
